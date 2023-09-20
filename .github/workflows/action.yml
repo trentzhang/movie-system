@@ -13,6 +13,9 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
+            cd /root/Github/movie-system
+            git pull
+
             lsof -i :3000,3001 | grep LISTEN | awk '{print $2}'|xargs  -n 1 kill
 
             # Change to the backend directory and start the server in a detached tmux session

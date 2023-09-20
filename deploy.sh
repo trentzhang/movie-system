@@ -1,4 +1,8 @@
 #!/bin/bash
+
+cd /root/Github/movie-system
+git pull
+
 # Kill the process using port 3000,3001
 lsof -i :3000,3001 | grep LISTEN | awk '{print $2}'|xargs  -n 1 kill
 
