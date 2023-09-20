@@ -1,10 +1,10 @@
 import { backendUrl } from "../settings";
 import ListCard from "../List/ListCard";
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { Card, ListGroup } from "react-bootstrap";
+// import PropTypes from "prop-types";
+// import { Card, ListGroup } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
 async function getListsInfo(isOwnedList, email) {
   const userInfo = await (
@@ -39,7 +39,7 @@ const MyList = ({ isOwnedList = true }) => {
     getListsInfo(isOwnedList, email).then((data) => {
       setLists(data.filter((x) => x !== undefined));
     });
-  }, []);
+  }, [email, isOwnedList]);
   //   console.log(myLists);
   return (
     <div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Tab, Row, Col, Nav, Button, Stack, Tabs, Form } from "react-bootstrap";
-import { MDBCol, MDBContainer, MDBRow, MDBCard } from "mdb-react-ui-kit";
-
+import { Row, Col, Button, Form } from "react-bootstrap";
+import { MDBCard } from "mdb-react-ui-kit";
+import { backendUrl } from "../settings";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router";
 
@@ -48,7 +48,7 @@ const NewListForm = () => {
         description: description,
       }),
     };
-    fetch("${backendUrl}/user/lists", request)
+    fetch(`${backendUrl}/user/lists`, request)
       .then((res) => res.json())
       .then((res) => setNewListID(res.data.id))
       .then(() => navigate("/list/" + newListID))

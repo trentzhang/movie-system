@@ -1,9 +1,10 @@
 import { Form, Row, Col, Button, Modal } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import RegisterForm from "./RegisterForm.js";
-import { auth } from "./Firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "./Firebase";
+// import { signInWithEmailAndPassword } from "firebase/auth";
+import { backendUrl } from "../settings";
 
 import { useCookies } from "react-cookie";
 var x = 0;
@@ -11,10 +12,7 @@ var x = 0;
 const Login = ({ setLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "accessToken",
-    "email",
-  ]);
+  const [setCookie] = useCookies(["accessToken", "email"]);
 
   const onClickSignIn = (e) => {
     e.preventDefault();
@@ -32,7 +30,7 @@ const Login = ({ setLogin }) => {
         password: password,
       }),
     };
-    fetch("${backendUrl}/auth/user/login", request)
+    fetch(`${backendUrl}/auth/user/login`, request)
       .catch((e) => {
         console.log(e);
         alert("Oops! Something Went Wrong, Please Try Again!");

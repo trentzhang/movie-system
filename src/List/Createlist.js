@@ -22,7 +22,7 @@ function Createlist() {
         description: description,
       }),
     };
-    fetch("${backendUrl}/create_list", request);
+    fetch(`${backendUrl}/create_list", request);
   };
   return (
     <>

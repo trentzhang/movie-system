@@ -3,11 +3,12 @@ import { Modal, Stack, Container, Card, Nav, Navbar } from "react-bootstrap";
 
 import MovieCard from "./MovieCard";
 import { useParams } from "react-router";
-import LikeButton from "../MovieDetailPage/LikeButton/LikeButton.js";
+// import LikeButton from "../MovieDetailPage/LikeButton/LikeButton.js";
 import Header from "../Header/Header";
 import { useCookies } from "react-cookie";
+import { backendUrl } from "../settings";
 
-export default () => {
+const ListPage = () => {
   const [show, setShow] = useState(false);
   const [content, setContent] = useState([]);
   const [lname, setLname] = useState("");
@@ -19,7 +20,7 @@ export default () => {
 
   useEffect(() => {
     console.log(cookies);
-    fetch("${backendUrl}/user/lists/" + list_id, {
+    fetch(`${backendUrl}/user/lists/` + list_id, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -42,7 +43,7 @@ export default () => {
         console.log(e);
         alert("Oops! Something Went Wrong, Please Try Again!");
       });
-  }, []);
+  }, [cookies, list_id]);
 
   return (
     <Stack gap={3}>
@@ -98,3 +99,5 @@ export default () => {
     </Stack>
   );
 };
+
+export default ListPage;

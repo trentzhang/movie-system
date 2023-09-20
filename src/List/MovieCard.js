@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Container, Card, Image, Button } from "react-bootstrap";
+import { Row, Col, Container, Card, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { coverURL } from "../Misc/functions";
 import "./MovieCard.scss";

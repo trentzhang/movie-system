@@ -74,7 +74,7 @@ const TaggedSearchBar = () => {
 
     console.log(request.body);
 
-    fetch("${backendUrl}/search_movie", request)
+    fetch(`${backendUrl}/search_movie", request)
       .then((data) => {
         console.log("parsed json", data);
         return data.json();

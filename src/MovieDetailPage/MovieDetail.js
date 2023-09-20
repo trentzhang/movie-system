@@ -10,7 +10,6 @@ import {
   Image,
   Row,
   Col,
-  Popover,
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
@@ -19,12 +18,12 @@ import { Link } from "react-router-dom";
 import RatingsComponent from "./LikeButton/LikeButton";
 import ListCard from "../List/ListCard";
 import "./MovieDetail.sass";
-import { coverURL } from "../Misc/functions";
+// import { coverURL } from "../Misc/functions";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import CommentSection from "./CommentSection";
-import { set } from "firebase/database";
+// import { set } from "firebase/database";
 
 const MovieDetail = () => {
   const navigate = useNavigate();
@@ -87,7 +86,7 @@ const MovieDetail = () => {
         setLiked(res.isLikedByUser);
         setInList(res.isAddedToList);
       });
-  }, [liked, inList]);
+  }, [liked, inList, cookies.accessToken, cookies.email, movie_Id]);
 
   //   useEffect(() => {
   //     console.log(1111);

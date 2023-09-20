@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { backendUrl } from "../settings";
-import { Card, ListGroup, Stack, Modal, Button, Form } from "react-bootstrap";
+import { Card, ListGroup, Stack, Modal, Button } from "react-bootstrap";
 import { useParams } from "react-router";
 const CommentSection = ({ movieData }) => {
   // console.log(value.user);

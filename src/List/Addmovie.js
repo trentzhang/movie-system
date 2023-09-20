@@ -31,7 +31,7 @@ function Addmovie() {
       headers: { "Content-type": "text/plain" },
       body: JSON.stringify({ list_id: list_id, movie_id: movie_id }),
     };
-    fetch("${backendUrl}/add_movie_to_list", request)
+    fetch(`${backendUrl}/add_movie_to_list", request)
       .then((response) => response.json())
       .then((response) => {
         // this.setState({ favlist: response.rec })

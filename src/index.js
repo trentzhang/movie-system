@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import MovieDetail from "./MovieDetailPage/MovieDetail.js";
@@ -12,7 +12,7 @@ import {
   Routes,
   Route,
   // hashHistory,
-  Link,
+  //   Link,
   Navigate,
 } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Container, Stack, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import { backendUrl } from "../settings";
 import "./Home.css";
 import Header from "../Header/Header";
 import "holderjs";
@@ -9,14 +9,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import ListCard from "../List/ListCard";
 import { useCookies } from "react-cookie";
 import { coverURL } from "../Misc/functions";
-import { useNavigate } from "react-router";
 
 const MovieCard = ({ info }) => {
   const login = JSON.parse(window.localStorage.getItem("login"));
-  
-  if (!login){
+
+  if (!login) {
     // console.log("mc"+login);
-    return(
+    return (
       <Card className="movie_card">
         <Card.Body>
           <Link className="movie_card_link" to={"/home/"}>
@@ -24,20 +23,20 @@ const MovieCard = ({ info }) => {
             <Card.Img src={coverURL(info.cover)} />
           </Link>
         </Card.Body>
-      </Card>)
-
-  }
-  else{
-    console.log("mc"+login);
-  return(
-  <Card className="movie_card">
-    <Card.Body>
-      <Link className="movie_card_link" to={"/movie/".concat(info.id)}>
-        <Card.Title>{info.title}</Card.Title>
-        <Card.Img src={coverURL(info.cover)} />
-      </Link>
-    </Card.Body>
-  </Card>)
+      </Card>
+    );
+  } else {
+    console.log("mc" + login);
+    return (
+      <Card className="movie_card">
+        <Card.Body>
+          <Link className="movie_card_link" to={"/movie/".concat(info.id)}>
+            <Card.Title>{info.title}</Card.Title>
+            <Card.Img src={coverURL(info.cover)} />
+          </Link>
+        </Card.Body>
+      </Card>
+    );
   }
 };
 
@@ -53,7 +52,7 @@ const MovieCardGroup = ({ movies }) =>
 
 const ListCard = (movieList) => {
   //   console.log(movieList);
-  const login = JSON.parse(window.localStorage.getItem("login"))
+  const login = JSON.parse(window.localStorage.getItem("login"));
   const [cookies] = useCookies();
   const [disable, setDisable] = useState(false);
   const handleFav = () => {
@@ -64,10 +63,14 @@ const ListCard = (movieList) => {
         method: "PUT",
         // mode: "cors",
         // credentials: "include",
-        headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin":"*", 'cookies':`email=${cookies.email};accessToken=${cookies.accessToken}`},
+        headers: {
+          "Content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
+        },
       };
       fetch(
-        "${backendUrl}/user/liked/lists/" + movieList.info.id,
+        `${backendUrl}/user/liked/lists/${movieList.info.id}`,
         request
       ).then((data) => {
         window.location.reload(false);
@@ -79,89 +82,90 @@ const ListCard = (movieList) => {
       alert("Please login first!");
     }
   };
-  if (movieList.info.movies.length === 0){
-    return(<Card style={{ width: "15rem" }}>
-    <Card.Body>
-      <script src="holder.js"></script>
-      <Card.Title style={{ height: "2.2rem", textAlign: "left" }}>
-        <Link
-          style={{ textDecoration: "none", color: "black" }}
-          to={login?"/list/".concat(movieList.info.id):"/home/"}
-        >
-          {movieList.info.name}
-        </Link>
-        <Button
-          style={{ position: "relative", float: "right" }}
-          variant="outline-primary"
-          width="80"
-          disabled={disable}
-          onClick={handleFav}
-        >
-          +
-        </Button>
-      </Card.Title>
+  if (movieList.info.movies.length === 0) {
+    return (
+      <Card style={{ width: "15rem" }}>
+        <Card.Body>
+          <script src="holder.js"></script>
+          <Card.Title style={{ height: "2.2rem", textAlign: "left" }}>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={login ? "/list/".concat(movieList.info.id) : "/home/"}
+            >
+              {movieList.info.name}
+            </Link>
+            <Button
+              style={{ position: "relative", float: "right" }}
+              variant="outline-primary"
+              width="80"
+              disabled={disable}
+              onClick={handleFav}
+            >
+              +
+            </Button>
+          </Card.Title>
 
-      <div>
-        Likes:{movieList.info.liked}
-        <br></br>
-        Description:{movieList.info.description}
-      </div>
-      <Link to={login?"/list/".concat(movieList.info.id):"/home/"}>
-        
-      </Link>
-      <hr />
-      <div>Created by {movieList.info.owner_info.username} </div>
-    </Card.Body>
-  </Card>)
-  }
-  else{
-  return (
-    <Card style={{ width: "15rem" }}>
-      <Card.Body>
-        <script src="holder.js"></script>
-        <Card.Title style={{ height: "2.2rem", textAlign: "left" }}>
+          <div>
+            Likes:{movieList.info.liked}
+            <br></br>
+            Description:{movieList.info.description}
+          </div>
           <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to={login?"/list/".concat(movieList.info.id):"/home/"}
-          >
-            {movieList.info.name}
-          </Link>
-          <Button
-            style={{ position: "relative", float: "right" }}
-            variant="outline-primary"
-            width="80"
-            disabled={disable}
-            onClick={handleFav}
-          >
-            +
-          </Button>
-        </Card.Title>
+            to={login ? "/list/".concat(movieList.info.id) : "/home/"}
+          ></Link>
+          <hr />
+          <div>Created by {movieList.info.owner_info.username} </div>
+        </Card.Body>
+      </Card>
+    );
+  } else {
+    return (
+      <Card style={{ width: "15rem" }}>
+        <Card.Body>
+          <script src="holder.js"></script>
+          <Card.Title style={{ height: "2.2rem", textAlign: "left" }}>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={login ? "/list/".concat(movieList.info.id) : "/home/"}
+            >
+              {movieList.info.name}
+            </Link>
+            <Button
+              style={{ position: "relative", float: "right" }}
+              variant="outline-primary"
+              width="80"
+              disabled={disable}
+              onClick={handleFav}
+            >
+              +
+            </Button>
+          </Card.Title>
 
-        <div>
-          Likes:{movieList.info.liked}
-          <br></br>
-          Description:{movieList.info.description}
-        </div>
-        <Link to={login?"/list/".concat(movieList.info.id):"/home/"}>
-          <stack>
-            <Card.Img
-              variant="top"
-              width="200"
-              heigh="300"
-              src={movieList.info.movies[0].cover}
-            />
-          </stack>
-        </Link>
-        <hr />
-        <div>Created by {movieList.info.owner_info.username} </div>
-      </Card.Body>
-    </Card>
-  );
-}
+          <div>
+            Likes:{movieList.info.liked}
+            <br></br>
+            Description:{movieList.info.description}
+          </div>
+          <Link to={login ? "/list/".concat(movieList.info.id) : "/home/"}>
+            <stack>
+              <Card.Img
+                variant="top"
+                width="200"
+                heigh="300"
+                src={movieList.info.movies[0].cover}
+              />
+            </stack>
+          </Link>
+          <hr />
+          <div>Created by {movieList.info.owner_info.username} </div>
+        </Card.Body>
+      </Card>
+    );
+  }
 };
 const ListCardY = (movieList) => {
   //   console.log(movieList);
-  const [disable, setDisable] = useState(false);
+  //   const [disable, setDisable] = useState(false);
 
   //   console.log("list to save", movieList);
   console.log("ml is:", movieList.info);
@@ -212,30 +216,34 @@ const ListCardGroupY = ({ lists }) => (
     ))}
   </Stack>
 );
-const handleUnlogin = ()=>{
+const handleUnlogin = () => {
   // e.preventDefault();
   alert("Please Sign Up or Log In First!");
-  
 };
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [lists, setLists] = useState([]);
   const [ymovies, setyMovies] = useState([]);
   const [ylists, setyLists] = useState([]);
-  const [cookies, setCookies] = useCookies();
+  const cookies = useCookies();
   const login = JSON.parse(window.localStorage.getItem("login"));
   console.log("login_status:", login);
   console.log("lcookie:", cookies);
   // const [cookies] = useCookies();
 
-  const request = {
-    method: "GET",
-    mode: "cors",
-    credentials: "same-origin",
-    headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin":"*", 'cookies':`email=${cookies.email};accessToken=${cookies.accessToken}`},
-  };
   useEffect(() => {
-    fetch("${backendUrl}/homepage/", request)
+    const request = {
+      method: "GET",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
+      },
+    };
+
+    fetch(`${backendUrl}/homepage/`, request)
       .then((response) => response.json())
       .then((response) => {
         console.log(response.data.recommendedLists);
@@ -248,20 +256,20 @@ const Home = () => {
         }
       })
       .catch((err) => console.log(err));
-  }, [login]);
+  }, [login, cookies.email, cookies.accessToken]);
+
   window.addEventListener("storage", () => {
     // When local storage changes, dump the list to
     // the console.
     console.log(JSON.parse(window.localStorage.getItem("login")));
   });
-  //   console.log(login);
+  console.log(login);
   if (!login) {
     return (
       <Stack gap={3}>
         <Header />
 
-        <Container
-          onClick={handleUnlogin} >
+        <Container onClick={handleUnlogin}>
           <Stack gap={3}>
             <h2>Recommended Movies</h2>
             <Stack direction="horizontal" gap={3}>

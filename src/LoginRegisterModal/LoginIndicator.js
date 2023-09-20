@@ -3,10 +3,11 @@ import { Button, Stack, Navbar } from "react-bootstrap";
 
 import LoginModal from "./LoginModal.js";
 import { useCookies } from "react-cookie";
+import { backendUrl } from "../settings";
 
 const LoginIndicator = () => {
   const [login, setLogin] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, removeCookie] = useCookies();
 
   useEffect(() => {
     const tmp = window.localStorage.getItem("login");
@@ -26,7 +27,7 @@ const LoginIndicator = () => {
       mode: "cors",
       credentials: "omit",
     };
-    fetch("${backendUrl}/auth/user/logout", request);
+    fetch(`${backendUrl}/auth/user/logout`, request);
     //   clean cookies
     removeCookie("email");
     removeCookie("accessToken");

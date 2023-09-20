@@ -1,6 +1,6 @@
 import { backendUrl } from "../settings";
 import React, { useEffect, useState } from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBCard } from "mdb-react-ui-kit";
+import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 
 import Header from "../Header/Header";
 import { useParams, useNavigate } from "react-router";
@@ -9,7 +9,7 @@ import Avater from "./Avater";
 import { useCookies } from "react-cookie";
 
 import MovieListTabs from "./MovieListTabs";
-import CreateNewList from "./CreateNewList";
+// import CreateNewList from "./CreateNewList";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ export default function ProfilePage() {
         alert("Oops! We Couldn't Find This Guy, Please Try Again!");
         navigate(-1);
       });
-  }, []);
+  }, [cookies.accessToken, cookies.email, email, navigate]);
 
   return (
     <section style={{ backgroundColor: "#eee" }}>

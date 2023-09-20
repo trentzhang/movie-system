@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { auth, db } from "../LoginRegisterModal/Firebase";
 import { ref, set, get, child } from "firebase/database";
 import { updatePassword } from "firebase/auth";

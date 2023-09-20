@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { coverURL } from "../Misc/functions";
 import { auth } from "../LoginRegisterModal/Firebase";
 import { useCookies } from "react-cookie";
-
+import { backendUrl } from "../settings";
 const ListCard = ({ movieList }) => {
   console.log(movieList);
   const [disable, setDisable] = useState(false);
@@ -27,7 +27,7 @@ const ListCard = ({ movieList }) => {
           user_id: auth.currentUser.email,
         }),
       };
-      fetch("${backendUrl}/add_fav_list", request)
+      fetch(`${backendUrl}/add_fav_list`, request)
         .then((data) => {
           console.log("parsed json", data);
           return data.json();

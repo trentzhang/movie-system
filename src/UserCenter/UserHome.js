@@ -1,11 +1,11 @@
 // this file will contains the personal info of user, including user's own list, user's fav list
-import { Tab, Row, Col, Nav, Button, Stack, Tabs } from "react-bootstrap";
+import { Tab, Row, Col, Nav, Stack } from "react-bootstrap";
 import Header from "../Header/Header.js";
 import React from "react";
 import Updateinfo from "./UpdateinfoTab.js";
-import Mydisplay from "./Mylistdisplay.js";
+// import Mydisplay from "./Mylistdisplay.js";
 // import Favlistdisplay from "./Favlistdisplay.js";
-import MyOwnListsTab from "./MyOwnListsTab.js";
+// import MyOwnListsTab from "./MyOwnListsTab.js";
 class UserHome extends React.Component {
   render() {
     return (

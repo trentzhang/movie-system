@@ -14,7 +14,7 @@ class FilterableProductTable extends React.Component {
     this.setState({
       filterText: keywords,
     });
-    fetch("${backendUrl}/search_movie/" + keywords)
+    fetch(`${backendUrl}/search_movie/" + keywords)
       .then((data) => {
         console.log("parsed json", data);
         return data.json();

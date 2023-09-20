@@ -56,7 +56,7 @@ class MovieDetail extends React.Component {
   }
   componentDidMount(e) {
     console.log(this.props);
-    fetch("${backendUrl}/movies/" + this.props.params.movie_Id, {
+    fetch(`${backendUrl}/movies/" + this.props.params.movie_Id, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -93,7 +93,7 @@ class MovieDetail extends React.Component {
     //             headers: { "Content-type": "application/json" },
     //             body: JSON.stringify({ peopleid: item[0] }),
     //           };
-    //           fetch("${backendUrl}/get_all_people", request)
+    //           fetch(`${backendUrl}/get_all_people", request)
     //             .then((res) => res.json())
     //             .then((res) => {
     //               // this.setState({ movie_id: res.movie_id })
@@ -111,7 +111,7 @@ class MovieDetail extends React.Component {
     //             headers: { "Content-type": "application/json" },
     //             body: JSON.stringify({ peopleid: item[0] }),
     //           };
-    //           fetch("${backendUrl}/get_all_people", request)
+    //           fetch(`${backendUrl}/get_all_people", request)
     //             .then((res) => res.json())
     //             .then((res) => {
     //               // this.setState({ movie_id: res.movie_id })
@@ -128,7 +128,7 @@ class MovieDetail extends React.Component {
     //   .then(() => {
     //     if (JSON.parse(window.localStorage.getItem("login")).email) {
     //       console.log("hgfdg", request);
-    //       fetch("${backendUrl}/randomly_generate_list", {
+    //       fetch(`${backendUrl}/randomly_generate_list", {
     //         method: "POST",
     //         body: JSON.stringify({
     //           user_id: JSON.parse(window.localStorage.getItem("login")).email,
@@ -145,7 +145,7 @@ class MovieDetail extends React.Component {
     //         });
     //     } else {
     //       console.log("hgfdg", request);
-    //       fetch("${backendUrl}/randomly_generate_list", {
+    //       fetch(`${backendUrl}/randomly_generate_list", {
     //         method: "POST",
     //         body: JSON.stringify({ user_id: "" }),
     //       })
@@ -162,7 +162,7 @@ class MovieDetail extends React.Component {
     //   });
 
     //   change to post get_all_list
-    fetch("${backendUrl}/lists/get_all_lists", {
+    fetch(`${backendUrl}/lists/get_all_lists", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -190,7 +190,7 @@ class MovieDetail extends React.Component {
       //     }),
       //   };
       //   //   console.log(request);
-      //   fetch("${backendUrl}/rating_post", request)
+      //   fetch(`${backendUrl}/rating_post", request)
       //     .then((data) => {
       //       console.log("parsed json", data);
       //       return data.json();

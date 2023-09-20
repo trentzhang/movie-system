@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { auth, db } from "./Firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ref, set } from "firebase/database";
+// import { auth, db } from "./Firebase";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { ref, set } from "firebase/database";
+import { backendUrl } from "../settings";
 
 // import { useHistory } from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
@@ -31,7 +32,7 @@ const SignUp = ({ setShowRegisterModal }) => {
         birthday: birthday,
       }),
     };
-    fetch("${backendUrl}/auth/user/signup", request)
+    fetch(`${backendUrl}/auth/user/signup`, request)
       .then((res) => res.json())
       .then((res) => {
         // setShowSuccess(true);

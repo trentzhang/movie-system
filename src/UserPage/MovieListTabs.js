@@ -1,9 +1,9 @@
-import { Tab, Row, Col, Nav, Button, Stack, Tabs, Form } from "react-bootstrap";
-import { MDBCol, MDBContainer, MDBRow, MDBCard } from "mdb-react-ui-kit";
+import { Tab, Row, Col, Button, Tabs, Form } from "react-bootstrap";
+import { MDBCol, MDBCard } from "mdb-react-ui-kit";
 import MovieCard from "../List/MovieCard";
 import React, { useState } from "react";
 import { useNavigate } from "react-dom";
-
+import { backendUrl } from "../settings";
 import ListCard from "../List/ListCard";
 
 const MovieListTabs = ({ userData }) => {
@@ -38,7 +38,7 @@ const MovieListTabs = ({ userData }) => {
 
 export default MovieListTabs;
 
-const NewListForm = () => {
+export const NewListForm = () => {
   const [listName, setName] = useState("");
   const [description, setDesc] = useState("");
   const [newListID, setNewListID] = useState(null);
@@ -57,7 +57,7 @@ const NewListForm = () => {
         description: description,
       }),
     };
-    fetch("${backendUrl}/user/lists", request)
+    fetch(`${backendUrl}/user/lists`, request)
       .then((res) => res.json())
       .then((res) => setNewListID(res.data.id))
       .then(() => navigate("/list/" + newListID))

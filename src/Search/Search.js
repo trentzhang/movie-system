@@ -10,6 +10,7 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { backendUrl } from "../settings";
 
 import "./Search.css";
 import Header from "../Header/Header";
@@ -37,7 +38,7 @@ function ResultCardMovie(item) {
       },
     };
 
-    fetch("${backendUrl}/user/lists/movies/" + mv_id, request);
+    fetch(`${backendUrl}/user/lists/movies/` + mv_id, request);
   };
 
   if (item.valueProps.cover === "none") {
@@ -122,12 +123,12 @@ const Search = () => {
     "Sci_Fi",
   ];
 
-  const mapToObj = (m) => {
-    return Array.from(m).reduce((obj, [key, value]) => {
-      obj[key] = value;
-      return obj;
-    }, {});
-  };
+  //   const mapToObj = (m) => {
+  //     return Array.from(m).reduce((obj, [key, value]) => {
+  //       obj[key] = value;
+  //       return obj;
+  //     }, {});
+  //   };
 
   // console.log("start0");
 
@@ -147,7 +148,7 @@ const Search = () => {
 
     // console.log(request.body);
 
-    fetch("${backendUrl}/user/search_movie", request)
+    fetch(`${backendUrl}/user/search_movie`, request)
       .then((response) => {
         // console.log("parsed json", response);
         return response.json();
@@ -167,7 +168,7 @@ const Search = () => {
           // console.log("parsing failed", ex);
         }
       );
-  }, [banners, keyword]);
+  }, []);
 
   useEffect(() => {
     window.localStorage.setItem("searchJSON", searchJSON);

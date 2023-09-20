@@ -46,7 +46,7 @@ const ListCard = (item) => {
           user_id: JSON.parse(window.localStorage.getItem("login")).email,
         }),
       };
-      fetch("${backendUrl}/add_fav_list", request)
+      fetch(`${backendUrl}/add_fav_list", request)
         .then((data) => {
           console.log("parsed json", data);
           return data.json();
@@ -141,7 +141,7 @@ class MovieDetail extends React.Component {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ movie_id: this.state.movie_id }),
     };
-    fetch("${backendUrl}/movies/movie_id", request)
+    fetch(`${backendUrl}/movies/movie_id", request)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
@@ -178,7 +178,7 @@ class MovieDetail extends React.Component {
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({ peopleid: item[0] }),
               };
-              fetch("${backendUrl}/get_all_people", request)
+              fetch(`${backendUrl}/get_all_people", request)
                 .then((response) => response.json())
                 .then((response) => {
                   // this.setState({ movie_id: response.rec.movie_id })
@@ -196,7 +196,7 @@ class MovieDetail extends React.Component {
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({ peopleid: item[0] }),
               };
-              fetch("${backendUrl}/get_all_people", request)
+              fetch(`${backendUrl}/get_all_people", request)
                 .then((response) => response.json())
                 .then((response) => {
                   // this.setState({ movie_id: response.rec.movie_id })
@@ -213,7 +213,7 @@ class MovieDetail extends React.Component {
       .then(() => {
         if (JSON.parse(window.localStorage.getItem("login")).email) {
           console.log("hgfdg", request);
-          fetch("${backendUrl}/randomly_generate_list", {
+          fetch(`${backendUrl}/randomly_generate_list", {
             method: "POST",
             body: JSON.stringify({
               user_id: JSON.parse(window.localStorage.getItem("login")).email,
@@ -230,7 +230,7 @@ class MovieDetail extends React.Component {
             });
         } else {
           console.log("hgfdg", request);
-          fetch("${backendUrl}/randomly_generate_list", {
+          fetch(`${backendUrl}/randomly_generate_list", {
             method: "POST",
             body: JSON.stringify({ user_id: "" }),
           })
@@ -264,7 +264,7 @@ class MovieDetail extends React.Component {
         }),
       };
       console.log(request);
-      fetch("${backendUrl}/rating_post", request)
+      fetch(`${backendUrl}/rating_post", request)
         .then((data) => {
           console.log("parsed json", data);
           return data.json();

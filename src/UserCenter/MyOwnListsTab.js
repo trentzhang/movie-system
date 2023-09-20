@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Tab, Row, Col, Nav, Button, Stack, Tabs, Form } from "react-bootstrap";
+import { Tab, Row, Col, Button, Tabs, Form } from "react-bootstrap";
 import Mydisplay from "./Mylistdisplay.js";
 import { useNavigate } from "react-router-dom";
-
+import { backendUrl } from "../settings";
 const MyOwnListsTab = () => {
   const [listName, setName] = useState("");
   const [description, setDesc] = useState("");
   const [newListID, setNewListID] = useState(null);
 
-  const creator = JSON.parse(window.localStorage.getItem("login")).email;
+  //   const creator = JSON.parse(window.localStorage.getItem("login")).email;
 
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const MyOwnListsTab = () => {
         description: description,
       }),
     };
-    fetch("${backendUrl}/user/lists", request)
+    fetch(`${backendUrl}/user/lists`, request)
       .then((res) => res.json())
       .then((res) => setNewListID(res.data.id))
       .then((res) => navigate("/list/" + newListID))
