@@ -12,7 +12,6 @@ function MovieCard({ item, index }) {
     <Container className="movie-card">
       <Card>
         <Col className="movie-card-index-col">{index + 1}</Col>
-
         <Card.Body>
           <Row>
             <Col xs="5" className="Movie-img-info-Row">

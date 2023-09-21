@@ -1,27 +1,26 @@
-.movie_card{
-    width: 16rem;
-    min-height: 18rem;
+.movie_card {
+  width: 16rem;
+  min-height: 18rem;
 }
 
-.movie_card_link{
-    text-decoration: none;
-    color: black;
-
+.movie_card_link {
+  text-decoration: none;
+  color: black;
 }
 
-.list_card{
-    width: 16rem; 
-    min-height: 18rem;
+.list_card {
+  width: 16rem;
+  min-height: 18rem;
 }
 
-.card_title{ 
-    height: 2.2rem; 
+.card_title {
+  height: 2.2rem;
 }
 
-.card_link{ 
-    text-decoration: none;
-    color:black;
+.card_link {
+  text-decoration: none;
+  color: black;
 }
-.float_right{
-    float: "right";
+.float_right {
+  float: "right";
 }

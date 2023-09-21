@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 export const MovieCard = ({ info }) => {
   return (
-    <Card className="movie_card">
+    <Card className="text-center">
       <Card.Body>
-        <Link className="movie_card_link" to={`/movie/${info.id}`}>
+        <Link to={`/movie/${info.id}`}>
           <Card.Title>{info.title}</Card.Title>
-          <Card.Img src={coverURL(info.cover)} />
+          {/* <Card.Img src={coverURL(info.cover)} /> */}
         </Link>
       </Card.Body>
     </Card>

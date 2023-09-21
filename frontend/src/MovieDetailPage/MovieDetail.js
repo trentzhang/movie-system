@@ -167,8 +167,8 @@ const MovieDetail = () => {
   return (
     <Stack gap={3}>
       <Header />
-      <Container className="mb-2">
-        <Card>
+      <Container className="mb-2 ">
+        <Card className="text-bg-dark">
           <script src="holder.js"></script>
           <Card.Body>
             <Button

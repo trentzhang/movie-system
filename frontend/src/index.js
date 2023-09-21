@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 
 ReactDOM.render(
-  <div style={{ backgroundColor: "lightgrey" }}>
+  <div className="text-bg-dark">
     <Router>
       <Routes>
         <Route path="/home" element={<Home />}></Route>

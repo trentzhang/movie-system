@@ -1,55 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Container, Stack } from "react-bootstrap";
+import { Carousel, Container, Stack } from "react-bootstrap";
 import { backendUrl } from "../settings";
-import "./Home.css";
-import Header from "../Header/Header";
-import "holderjs";
+// import "./Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "holderjs";
 import { useCookies } from "react-cookie";
+import Header from "../Header/Header";
 
-import { MovieCard } from "../Components/Cards/MovieCard";
 import { ListCard } from "../Components/Cards/ListCard";
+import { MovieCardGroup } from "./body/MovieCardGroup";
 
-const MovieCardGroup = ({ movies }) =>
-  movies.map((m) => {
-    return (
-      <Stack
-        direction="horizontal"
-        className="align-items-stretch"
-        gap={3}
-        key={m.id}
-      >
-        <MovieCard info={m} />
-      </Stack>
-    );
-  });
+// const ListCardGroup = ({ lists }) => (
+//   <Stack direction="horizontal" className="align-items-stretch" gap={3}>
+//     {lists.map((l) => (
+//       <ListCard info={l} key={l.id} />
+//     ))}
+//   </Stack>
+// );
 
-const ListCardGroup = ({ lists }) =>
-  lists.map((l) => {
-    return (
-      <Stack
-        direction="horizontal"
-        className="align-items-stretch"
-        gap={3}
-        key={l.id}
-      >
-        <ListCard info={l} />
-      </Stack>
-    );
-  });
+const ListCardGroup = ({ lists }) => (
+  <Carousel>
+    {lists.map((l) => {
+      return (
+        <Carousel.Item>
+          <ListCard info={l} />
+        </Carousel.Item>
+      );
+    })}
+  </Carousel>
+);
 
-const handleUnlogin = () => {
-  // e.preventDefault();
-  //   alert("Please Sign Up or Log In First!");
-};
+// const handleUnlogin = () => {
+//   e.preventDefault();
+//     alert("Please Sign Up or Log In First!");
+// };
 const Home = () => {
   const [moviesSortedByRating, setMoviesSortedByRating] = useState([]);
   const [moviesRandom, setMoviesRandom] = useState([]);
   const [lists, setLists] = useState([]);
   const cookies = useCookies();
   const login = JSON.parse(window.localStorage.getItem("login"));
-  //   console.log("login_status:", login);
-  //   console.log("lcookie:", cookies);
   // const [cookies] = useCookies();
 
   useEffect(() => {
@@ -92,7 +82,7 @@ const Home = () => {
     return (
       <Stack gap={3}>
         <Header />
-        <Container onClick={handleUnlogin}>
+        <Container>
           <Stack gap={3}>
             <h2>Top Rated Movies</h2>
             <Stack direction="horizontal" gap={3}>
@@ -111,31 +101,31 @@ const Home = () => {
       </Stack>
     );
   } else {
-    return (
-      <Stack gap={3}>
-        <Header />
-        <Container>
-          <Stack gap={3}>
-            <h2>Your Movies</h2>
-            <Stack direction="horizontal" gap={3}>
-              {/* <MovieCardGroup movies={movies} /> */}
-            </Stack>
-            <h2>Recommended Movies</h2>
-            <Stack direction="horizontal" gap={3}>
-              {/* <MovieCardGroup movies={movies} /> */}
-            </Stack>
-            <h2>Your Lists</h2>
-            <Stack direction="horizontal" gap={3}>
-              {/* <ListCardGroup lists={lists} /> */}
-            </Stack>
-            <h2>Recommended Lists</h2>
-            <Stack direction="horizontal" gap={3}>
-              {/* <ListCardGroup lists={lists} /> */}
-            </Stack>
-          </Stack>
-        </Container>
-      </Stack>
-    );
+    // return (
+    //   <Stack gap={3}>
+    //     <Header />
+    //     <Container>
+    //       <Stack gap={3}>
+    //         <h2>Your Movies</h2>
+    //         <Stack direction="horizontal" gap={3}>
+    //           {/* <MovieCardGroup movies={movies} /> */}
+    //         </Stack>
+    //         <h2>Recommended Movies</h2>
+    //         <Stack direction="horizontal" gap={3}>
+    //           {/* <MovieCardGroup movies={movies} /> */}
+    //         </Stack>
+    //         <h2>Your Lists</h2>
+    //         <Stack direction="horizontal" gap={3}>
+    //           {/* <ListCardGroup lists={lists} /> */}
+    //         </Stack>
+    //         <h2>Recommended Lists</h2>
+    //         <Stack direction="horizontal" gap={3}>
+    //           {/* <ListCardGroup lists={lists} /> */}
+    //         </Stack>
+    //       </Stack>
+    //     </Container>
+    //   </Stack>
+    // );
   }
 };
 export default Home;
