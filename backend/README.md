@@ -116,8 +116,10 @@
 ##### Example cURL
 
 > ```javascript
->  curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/
+>
 > ```
+
+<!-- curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/ -->
 
 ## </details>
 
@@ -141,7 +143,62 @@
 ##### Example cURL
 
 > ```javascript
->  curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/
+>
+> ```
+
+## </details>
+
+<details>
+ <summary><code>GET</code> <code><b>/lists/:id</b></code> <code>(gets movie/list json data for homepage)</code></summary>
+
+##### Parameters
+
+> | name | type     | data type | description |
+> | ---- | -------- | --------- | ----------- |
+> | ID   | required | string    | ID for list |
+
+##### Responses
+
+> | http code | content-type       | response                                     |
+> | --------- | ------------------ | -------------------------------------------- |
+> | `200`     | `application/json` | `{ message: "OK", data: movie information }` |
+> | `400`     | `application/json` | `{ message: "list id doesn't exist."}`       |
+> | `500`     | `application/json` | `{"code":"400","message":"Bad Request"}`     |
+
+##### Example cURL
+
+> ```javascript
+>
+> ```
+
+## </details>
+
+---
+
+#### Creating new/overwriting existing stubs & proxy configs
+
+<details>
+ <summary><code>POST</code> <code><b>/search_movie</b></code> <code>(overwrites all in-memory stub and/or proxy-config)</code></summary>
+
+##### Parameters
+
+> | name       | type         | data type | description   |
+> | ---------- | ------------ | --------- | ------------- |
+> | keyword    | not required | String    | N/A           |
+> | type       | not required | String    | N/A           |
+> | language   | not required | String    | N/A           |
+> | searchType | not required | String    | Movie or List |
+
+##### Responses
+
+> | http code | content-type       | response                                     |
+> | --------- | ------------------ | -------------------------------------------- |
+> | `200`     | `application/json` | `{ message: "OK", data: movie information }` |
+
+##### Example cURL
+
+> ```javascript
+>
 > ```
 
 ## </details>
@@ -170,7 +227,7 @@
 ##### Example cURL
 
 > ```javascript
->  curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/
+>
 > ```
 
 ## </details>
@@ -199,36 +256,7 @@
 ##### Example cURL
 
 > ```javascript
->  curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/
-> ```
-
-## </details>
-
----
-
-#### Creating new/overwriting existing stubs & proxy configs
-
-<details>
- <summary><code>POST</code> <code><b>/</b></code> <code>(overwrites all in-memory stub and/or proxy-config)</code></summary>
-
-##### Parameters
-
-> | name | type     | data type             | description |
-> | ---- | -------- | --------------------- | ----------- |
-> | None | required | object (JSON or YAML) | N/A         |
-
-##### Responses
-
-> | http code | content-type               | response                                 |
-> | --------- | -------------------------- | ---------------------------------------- |
-> | `201`     | `text/plain;charset=UTF-8` | `Configuration created successfully`     |
-> | `400`     | `application/json`         | `{"code":"400","message":"Bad Request"}` |
-> | `405`     | `text/html;charset=utf-8`  | None                                     |
-
-##### Example cURL
-
-> ```javascript
->  curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/
+>
 > ```
 
 </details>
