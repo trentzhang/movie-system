@@ -16,7 +16,7 @@ import "./Search.css";
 import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-
+// import { checkbox } from "./body/checkboxes";
 function ResultCardMovie(item) {
   const login = JSON.parse(window.localStorage.getItem("login"));
   const [cookies] = useCookies();
@@ -146,8 +146,6 @@ const Search = () => {
       body: window.localStorage.getItem("searchJSON"),
     };
 
-    // console.log(request.body);
-
     fetch(`${backendUrl}/user/search_movie`, request)
       .then((response) => {
         // console.log("parsed json", response);
@@ -175,15 +173,12 @@ const Search = () => {
   }, [searchJSON]);
 
   const updateSearchJSON = useCallback(() => {
-    // console.log("updating searchJSON");
-    // console.log("-language:", language);
-    // console.log("-type:", type);
     setSearchJSON(
       JSON.stringify({
         language: language,
         type: type,
         keyword: keyword,
-        isMovie: "Movie",
+        searchType: "Movie",
       })
     );
   }, [keyword, language, type]);
@@ -193,8 +188,6 @@ const Search = () => {
   }, [language, type, keyword, updateSearchJSON]);
 
   const handleChangeLanguage = (languageName) => {
-    // console.log("ready to update searchJSON:", searchJSON);
-    // console.log("language:", language);
     if (language === languageName) {
       setLanguage("");
     } else {
@@ -215,14 +208,13 @@ const Search = () => {
   return (
     <Stack gap={3}>
       <Header />
-
       <Container>
         <Card className="mb-2 text-dark">
           <Card.Body>
             <Form className="d-flex mb-2">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 style={{ display: "none" }}
               ></input>
               <FormControl
@@ -237,8 +229,7 @@ const Search = () => {
                 value={keyword}
               />
               <Button variant="outline-success" onClick={handleSearch}>
-                {" "}
-                Search{" "}
+                Search
               </Button>
             </Form>
             Language:
@@ -277,6 +268,7 @@ const Search = () => {
             {banners.map((item, index) => {
               return (
                 <ResultCardMovie
+                  //   key={index}
                   valueProps={item}
                   user_id={
                     JSON.parse(window.localStorage.getItem("login")).email

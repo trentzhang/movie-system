@@ -91,3 +91,27 @@ export async function getMovieByIdAPI(req, res) {
     });
   }
 }
+
+export async function searchMoviesAPI(req, res) {
+  async function searchLists(keyword) {
+    const lists = await searchListsByNameKeyword(keyword);
+    for (var i = 0; i < lists.length; i++) {
+      const users = await getUserByEmail(lists[i].creator);
+      const user = users[0];
+      delete user.token;
+      lists[i].owner_info = user;
+    }
+    return lists;
+  }
+  const keyword = req.body.keyword;
+  const type = req.body.type;
+  const language = req.body.language;
+  const searchType = req.body.searchType;
+  if (searchType === "Movie") {
+    const movies = await searchMovies(keyword, type, language);
+    return res.status(200).send({ message: "OK", data: movies });
+  } else {
+    const lists = await searchLists(keyword);
+    return res.status(200).send({ message: "OK", data: lists });
+  }
+}

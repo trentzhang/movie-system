@@ -1,8 +1,8 @@
 // app.js
 import express from "express";
-import { homepage } from "./functions/homepage.mjs";
+import { homePageAPI } from "./functions/homepage.mjs";
 import cors from "cors";
-import { getMovieByIdAPI } from "./functions/movie.mjs";
+import { getMovieByIdAPI, searchMoviesAPI } from "./functions/movie.mjs";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get("/homepage", homepage);
+app.get("/homepage", homePageAPI);
 app.get("/movies/:movie_id", getMovieByIdAPI);
 app.get("/lists/:list_id");
 app.get("/:email");
@@ -25,7 +25,7 @@ app.delete("/lists/movies/:movie_id");
 app.post("/lists");
 app.post("/movies/:movie_id/rating");
 app.post("/movies/:movie_id/comments");
-app.post("/search_movie");
+app.post("/search_movie", searchMoviesAPI);
 
 // Start the server
 app.listen(port, () => {

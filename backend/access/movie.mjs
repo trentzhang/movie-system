@@ -76,15 +76,23 @@ export async function rateMoviesById(email, movieId, rating) {
 }
 
 export async function searchMovies(keyword, type, language) {
-  const params = [];
-  var query =
-    "SELECT * FROM movie WHERE title like ? and type like ? and language like ? limit 20;";
-  params.push("%" + keyword + "%");
+  let query = "SELECT * FROM movie WHERE 1=1";
 
-  params.push("%" + type + "%");
-  params.push("%" + language + "%");
+  if (keyword) {
+    query += ` AND title LIKE '%${keyword}%'`;
+  }
 
-  return await executeSqlQuery(query, params);
+  if (type) {
+    query += ` AND type LIKE '%${type}%'`;
+  }
+
+  if (language) {
+    query += ` AND language LIKE '%${language}%'`;
+  }
+
+  query += " LIMIT 20;";
+
+  return await executeSqlQuery(query);
 }
 
 export async function updateMovieRatingById(movieId, rating, num) {

@@ -14,6 +14,7 @@ export async function executeSqlQuery(statement, args) {
       console.log(statement, args);
       pool.query(statement, args, (error, result) => {
         if (error) {
+          console.log("error :>> ", error);
           return reject(error);
         }
         return resolve(result);

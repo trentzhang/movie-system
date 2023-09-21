@@ -15,7 +15,7 @@ import {
 import { getUserByEmail } from "../access/user.mjs";
 import { parseCookies } from "../utils/cookiesUtil.mjs";
 
-export async function homepage(req, res) {
+export async function homePageAPI(req, res) {
   try {
     const homepage = await getHomepage();
     return res.status(200).send({ message: "OK", data: homepage });
@@ -58,4 +58,4 @@ async function getHomepage(limit = 5) {
   };
 }
 
-export default homepage; // Export the async function
+export default homePageAPI; // Export the async function
