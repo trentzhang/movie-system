@@ -4,6 +4,7 @@ import { homePageAPI } from "./functions/homepage.mjs";
 import cors from "cors";
 import { getMovieByIdAPI, searchMoviesAPI } from "./functions/movie.mjs";
 import { getListByIdAPI } from "./functions/list.mjs";
+import { getUserInfoByEmailAPI } from "./functions/user.mjs";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/homepage", homePageAPI);
 app.get("/movies/:movie_id", getMovieByIdAPI);
 app.get("/lists/:list_id", getListByIdAPI);
-app.get("/:email");
+app.get("/user/:email", getUserInfoByEmailAPI);
 app.put("/liked/movies/:movie_id");
 app.put("/liked/lists/:list_id");
 app.put("/lists/movies/:movie_id");
