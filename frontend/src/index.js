@@ -17,17 +17,19 @@ import {
 } from "react-router-dom";
 
 ReactDOM.render(
-  <Router>
-    <Routes>
-      <Route path="/home" element={<Home />}></Route>
-      <Route path="/movie/:movie_Id" element={<MovieDetail />}></Route>
-      <Route path="/userhome" element={<UserHome />}></Route>
-      <Route path="/advanced_search" element={<Search />}></Route>
-      <Route path="/list/:list_id" element={<ListPage />}></Route>
-      <Route path="/user/:email" element={<UserPage />}></Route>
-      <Route exact path="/" element={<Navigate to="/home" />}></Route>
-    </Routes>
-  </Router>,
+  <div style={{ backgroundColor: "lightgrey" }}>
+    <Router>
+      <Routes>
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/movie/:movie_Id" element={<MovieDetail />}></Route>
+        <Route path="/userhome" element={<UserHome />}></Route>
+        <Route path="/advanced_search" element={<Search />}></Route>
+        <Route path="/list/:list_id" element={<ListPage />}></Route>
+        <Route path="/user/:email" element={<UserPage />}></Route>
+        <Route exact path="/" element={<Navigate to="/home" />}></Route>
+      </Routes>
+    </Router>
+  </div>,
 
   document.getElementById("root")
 );
