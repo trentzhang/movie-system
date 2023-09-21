@@ -62,10 +62,10 @@ const CommentSection = ({ movieData }) => {
         </Modal>
       </Card>
       {movieData.comments
-        ? movieData.comments.map((value, _) => (
+        ? movieData.comments.map((value, index) => (
             <Card
               bg={variant.toLowerCase()}
-              key={variant}
+              key={index}
               text={variant.toLowerCase() === "light" ? "dark" : "white"}
               style={{ width: "18rem", minWidth: "10rem", fontSize: "15px" }}
               className="mb-2"

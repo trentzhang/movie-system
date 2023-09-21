@@ -82,8 +82,7 @@ const MovieDetail = () => {
               .then((res) => res.data)
           )
         );
-        console.log("res :>> ", res);
-        console.log("lists :>> ", lists);
+
         setMovieData({ ...res, lists: lists });
         setLiked(res.isLikedByUser);
         setInList(res.isAddedToList);
@@ -173,9 +172,9 @@ const MovieDetail = () => {
           <script src="holder.js"></script>
           <Card.Body>
             <Button
-              variant="secondary"
-              className="back-button"
+              className="back-button btn-secondary"
               onClick={() => navigate(-1)}
+              key={"back-button"}
             >
               Back
             </Button>
@@ -235,6 +234,7 @@ const MovieDetail = () => {
                     size="lg"
                     disabled={inList}
                     onClick={handleAddToList}
+                    key={"add-to-list-button"}
                   >
                     +
                   </Button>
@@ -258,7 +258,7 @@ const MovieDetail = () => {
             <b>They also liked this movie:</b>
             <Card.Text>
               {movieData.liked_users
-                ? movieData.liked_users.map((value, _) => {
+                ? movieData.liked_users.map((value, index) => {
                     const renderTooltip = (props) => (
                       <Tooltip id="button-tooltip" {...props}>
                         {value.username} {value.email}
@@ -269,11 +269,12 @@ const MovieDetail = () => {
                         placement="right"
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
+                        key={index}
                       >
                         <Link to={"/user/".concat(value.email)}>
                           <img
                             src={genderDefaultAvater(value.gender)}
-                            class="rounded-circle my-avater-img"
+                            className="rounded-circle my-avater-img"
                             alt="Avatar"
                           />
                         </Link>
@@ -286,14 +287,7 @@ const MovieDetail = () => {
           <Card.Body>
             <b>Lists you may interested</b>
             <ListCardGroup Lists={movieData.lists}></ListCardGroup>
-            <Stack direction="horizontal" gap={3}>
-              {/* {movieData.lists
-                ? movieData.lists.map((item, _) => {
-                    console.log(item);
-                    return <ListCard movieList={item} user_id="" />;
-                  })
-                : null} */}
-            </Stack>
+            <Stack direction="horizontal" gap={3}></Stack>
           </Card.Body>
           <Card.Body>
             <b>User review</b>

@@ -40,7 +40,7 @@ export async function getMovieByIdAPI(req, res) {
     // TODO implement login and show different movie details
     // const email = cookies.email;
     const movieId = req.params.movie_id;
-    console.log(movieId);
+    // console.log(movieId);
     const movies = await getMoviesById(movieId);
 
     if (!movies[0]) {
