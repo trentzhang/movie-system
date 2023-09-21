@@ -217,7 +217,7 @@ const Search = () => {
       <Header />
 
       <Container>
-        <Card className="mb-2">
+        <Card className="mb-2 text-dark">
           <Card.Body>
             <Form className="d-flex mb-2">
               <input
