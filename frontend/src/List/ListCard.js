@@ -15,7 +15,7 @@ const ListCard = ({ movieList }) => {
       setDisable(true);
       const request = {
         method: "PUT",
-        mode: "cors",
+
         credentials: "omit",
         headers: {
           "Content-type": "application/json",

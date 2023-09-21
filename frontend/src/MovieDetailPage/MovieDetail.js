@@ -97,7 +97,7 @@ const MovieDetail = () => {
   const handleAddToList = () => {
     const request = {
       method: "PUT",
-      mode: "cors",
+
       credentials: "omit",
       headers: {
         "Content-type": "application/json",
@@ -111,7 +111,7 @@ const MovieDetail = () => {
   const handleDelFromList = () => {
     const request = {
       method: "DELETE",
-      mode: "cors",
+
       credentials: "omit",
       headers: {
         "Content-type": "application/json",
@@ -130,7 +130,7 @@ const MovieDetail = () => {
         // console.log("put api, add like to database ");
         const request = {
           method: "PUT",
-          mode: "cors",
+
           credentials: "omit",
           headers: {
             "Content-type": "application/json",
@@ -148,7 +148,7 @@ const MovieDetail = () => {
         // console.log("delete api, delete like to database ");
         const request = {
           method: "DELETE",
-          mode: "cors",
+
           credentials: "omit",
           headers: {
             "Content-type": "application/json",

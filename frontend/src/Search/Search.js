@@ -29,7 +29,7 @@ function ResultCardMovie(item) {
   const handleAddToList = (mv_id) => {
     const request = {
       method: "PUT",
-      mode: "cors",
+
       credentials: "same-origin",
       headers: {
         "Content-type": "application/json",
@@ -46,56 +46,45 @@ function ResultCardMovie(item) {
       "//st.depositphotos.com/1987177/3470/v/450/depositphotos_34700099-stock-illustration-no-photo-available-or-missing.jpg";
   }
   return (
-    <Container className="mb-2">
-      <Card>
-        <script src="holder.js"></script>
-        <Card.Body onClick={handleNotLogin}>
-          <Row>
-            <Col xs="2">
-              <Link
-                className="movie_link"
-                onClick={handleNotLogin}
-                to={
-                  login ? "/movie/" + item.valueProps.id : "/advanced_search/"
-                }
-              >
-                <Image
-                  src={item.valueProps.cover}
-                  height="150"
-                  width="100"
-                  className="mx-auto"
-                />
-              </Link>
-            </Col>
-            <Col xs="9">
-              <Link
-                className="movie_link"
-                onClick={handleNotLogin}
-                to={
-                  login ? "/movie/" + item.valueProps.id : "/advanced_search/"
-                }
-              >
-                <h3>{item.valueProps.title}</h3>
-              </Link>
-              <div>Runtime: {item.valueProps.runtime} min</div>
-              <div>Type: {item.valueProps.type}</div>
-            </Col>
-            <Col className="m-auto">
-              <Button
-                variant="outline-primary"
-                className="float_right"
-                onClick={() => {
-                  handleNotLogin();
-                  handleAddToList(item.valueProps.id);
-                }}
-              >
-                +
-              </Button>
-            </Col>
-          </Row>
-        </Card.Body>
-      </Card>
-    </Container>
+    <Card className="mb-2 text-bg-dark">
+      <script src="holder.js"></script>
+      <Card.Body>
+        <Row>
+          <Col xs="2">
+            <Link className="movie_link" to={"/movie/" + item.valueProps.id}>
+              <Image
+                src={item.valueProps.cover}
+                height="150"
+                width="100"
+                className="mx-auto"
+              />
+            </Link>
+          </Col>
+          <Col xs="9">
+            <Link
+              className="movie_link"
+              to={login ? "/movie/" + item.valueProps.id : "/advanced_search/"}
+            >
+              <h3>{item.valueProps.title}</h3>
+            </Link>
+            <div>Runtime: {item.valueProps.runtime} min</div>
+            <div>Type: {item.valueProps.type}</div>
+          </Col>
+          <Col className="m-auto">
+            <Button
+              variant="outline-primary"
+              className="float_right"
+              onClick={() => {
+                handleNotLogin();
+                handleAddToList(item.valueProps.id);
+              }}
+            >
+              +
+            </Button>
+          </Col>
+        </Row>
+      </Card.Body>
+    </Card>
   );
 }
 
@@ -137,7 +126,7 @@ const Search = () => {
   const handleSearch = useCallback(() => {
     const request = {
       method: "POST",
-      mode: "cors",
+
       credentials: "same-origin",
       headers: {
         "Content-type": "application/json",
@@ -146,25 +135,20 @@ const Search = () => {
       body: window.localStorage.getItem("searchJSON"),
     };
 
-    fetch(`${backendUrl}/user/search_movie`, request)
+    fetch(`${backendUrl}/search_movie`, request)
       .then((response) => {
-        // console.log("parsed json", response);
         return response.json();
       })
       .then(
         (response) => {
-          // console.log(response.data);
           if (!response.data) {
             console.log("no results");
             setBanners(["No results!"]);
           } else {
             setBanners(response.data);
           }
-          // console.log("banner", banners);
         },
-        (ex) => {
-          // console.log("parsing failed", ex);
-        }
+        (ex) => {}
       );
   }, []);
 
@@ -209,7 +193,7 @@ const Search = () => {
     <Stack gap={3}>
       <Header />
       <Container>
-        <Card className="mb-2 text-dark">
+        <Card className="mb-2 text-bg-dark">
           <Card.Body>
             <Form className="d-flex mb-2">
               <input
@@ -228,11 +212,12 @@ const Search = () => {
                 }}
                 value={keyword}
               />
-              <Button variant="outline-success" onClick={handleSearch}>
+              <Button variant="light" onClick={handleSearch}>
                 Search
               </Button>
             </Form>
             Language:
+            {/* TODO allow multiple genre or language selection */}
             <Container>
               {Array.from(lan_list).map((l) => {
                 return (
@@ -262,8 +247,8 @@ const Search = () => {
             </Container>
           </Card.Body>
         </Card>
-
-        <Card>
+        {/* Results Card */}
+        <Card className="mb-2 text-bg-dark">
           <Card.Body>
             {banners.map((item, index) => {
               return (

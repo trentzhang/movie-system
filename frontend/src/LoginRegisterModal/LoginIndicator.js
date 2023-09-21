@@ -24,7 +24,7 @@ const LoginIndicator = () => {
   const onLogOut = () => {
     const request = {
       method: "POST",
-      mode: "cors",
+
       credentials: "omit",
     };
     fetch(`${backendUrl}/auth/user/logout`, request);

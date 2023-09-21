@@ -34,7 +34,7 @@ const NewListForm = () => {
     e.preventDefault();
     const request = {
       method: "POST",
-      mode: "cors",
+
       credentials: "omit",
 
       headers: {

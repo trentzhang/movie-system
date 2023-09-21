@@ -45,7 +45,7 @@ const Home = () => {
   useEffect(() => {
     const request = {
       method: "GET",
-      mode: "cors",
+
       credentials: "same-origin",
       headers: {
         "Content-type": "application/json",

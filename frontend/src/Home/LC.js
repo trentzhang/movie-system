@@ -19,11 +19,14 @@ const ListCard = (movieList) => {
       setDisable(true);
       const request = {
         method: "PUT",
-        mode: "cors",
+
         credentials: "omit",
         // headers: { "Content-type": "text/plain" },
-        headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin":"*", 'cookies':`email=${cookies.email};accessToken=${cookies.accessToken}`},
-
+        headers: {
+          "Content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
+        },
       };
       fetch(
         "http://34.125.130.128:4000/user/liked/lists/" + movieList.info.id,

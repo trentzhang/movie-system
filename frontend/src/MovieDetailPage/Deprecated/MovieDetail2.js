@@ -88,7 +88,7 @@ class MovieDetail extends React.Component {
     //         if (item[1] === "director") {
     //           const request = {
     //             method: "POST",
-    //             mode: "cors",
+    //             
     //             credentials: "omit",
     //             headers: { "Content-type": "application/json" },
     //             body: JSON.stringify({ peopleid: item[0] }),
@@ -106,7 +106,7 @@ class MovieDetail extends React.Component {
     //         } else if (item[1] === "writer") {
     //           const request = {
     //             method: "POST",
-    //             mode: "cors",
+    //             
     //             credentials: "omit",
     //             headers: { "Content-type": "application/json" },
     //             body: JSON.stringify({ peopleid: item[0] }),
@@ -180,7 +180,7 @@ class MovieDetail extends React.Component {
     if (JSON.parse(window.localStorage.getItem("login"))) {
       //   const request = {
       //     method: "POST",
-      //     mode: "cors",
+      //     
       //     credentials: "omit",
       //     headers: { "Content-type": "application/json" },
       //     body: JSON.stringify({

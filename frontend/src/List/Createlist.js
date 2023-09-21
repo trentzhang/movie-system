@@ -13,7 +13,7 @@ function Createlist() {
   const createlist = () => {
     const request = {
       method: "POST",
-      mode: "cors",
+      
       credentials: "omit",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

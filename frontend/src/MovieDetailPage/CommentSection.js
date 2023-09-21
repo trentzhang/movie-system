@@ -21,7 +21,7 @@ const CommentSection = ({ movieData }) => {
     setShow(false);
     const request = {
       method: "POST",
-      mode: "cors",
+
       credentials: "omit",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ review: review }),

@@ -8,7 +8,7 @@ function App() {
   const handleSearch = (event) => {
     const request = {
       method: "POST",
-      mode: "cors",
+      
       credentials: "omit",
       headers: { "Content-type": "text/plain" },
       body: JSON.stringify(inputList),

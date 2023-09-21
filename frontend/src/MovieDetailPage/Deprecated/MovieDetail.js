@@ -38,7 +38,7 @@ const ListCard = (item) => {
       setDisable(true);
       const request = {
         method: "POST",
-        mode: "cors",
+        
         credentials: "omit",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -136,7 +136,7 @@ class MovieDetail extends React.Component {
   componentDidMount(e) {
     const request = {
       method: "POST",
-      mode: "cors",
+      
       credentials: "omit",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ movie_id: this.state.movie_id }),
@@ -173,7 +173,7 @@ class MovieDetail extends React.Component {
             if (item[1] === "director") {
               const request = {
                 method: "POST",
-                mode: "cors",
+                
                 credentials: "omit",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({ peopleid: item[0] }),
@@ -191,7 +191,7 @@ class MovieDetail extends React.Component {
             } else if (item[1] === "writer") {
               const request = {
                 method: "POST",
-                mode: "cors",
+                
                 credentials: "omit",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({ peopleid: item[0] }),
@@ -254,7 +254,7 @@ class MovieDetail extends React.Component {
     if (JSON.parse(window.localStorage.getItem("login")).email) {
       const request = {
         method: "POST",
-        mode: "cors",
+        
         credentials: "omit",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({

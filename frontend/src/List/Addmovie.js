@@ -26,7 +26,7 @@ function Addmovie() {
     e.preventDefault();
     const request = {
       method: "POST",
-      mode: "cors",
+      
       credentials: "omit",
       headers: { "Content-type": "text/plain" },
       body: JSON.stringify({ list_id: list_id, movie_id: movie_id }),
