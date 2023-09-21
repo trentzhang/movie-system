@@ -23,8 +23,8 @@ export async function getUserByEmail(email) {
   return await executeSqlQuery(query, [email]);
 }
 
-export async function getOtherUsersWhoLikedMovieByMovieId(movieId, email) {
+export async function getUsersWhoLikedMovieByMovieId(movieId) {
   const query =
-    "SELECT * FROM user WHERE email IN (SELECT user_email from user_liked_movie where movie_id = ? and user_email != ?);";
-  return await executeSqlQuery(query, [movieId, email]);
+    "SELECT * FROM user WHERE email IN (SELECT user_email from user_liked_movie where movie_id = ?);";
+  return await executeSqlQuery(query, [movieId]);
 }
