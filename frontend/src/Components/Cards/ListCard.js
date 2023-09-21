@@ -15,8 +15,6 @@ export const ListCard = (movieList) => {
       setDisable(true);
       const request = {
         method: "PUT",
-        // mode: "cors",
-        // credentials: "include",
         headers: {
           "Content-type": "application/json",
           "Access-Control-Allow-Origin": "*",

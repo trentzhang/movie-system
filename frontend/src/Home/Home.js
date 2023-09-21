@@ -12,28 +12,39 @@ import { ListCard } from "../Components/Cards/ListCard";
 
 const MovieCardGroup = ({ movies }) =>
   movies.map((m) => {
-    console.log("m:", m);
     return (
-      <Stack direction="horizontal" className="align-items-stretch" gap={3}>
+      <Stack
+        direction="horizontal"
+        className="align-items-stretch"
+        gap={3}
+        key={m.id}
+      >
         <MovieCard info={m} />
       </Stack>
     );
   });
 
-const ListCardGroup = ({ lists }) => (
-  <Stack direction="horizontal" className="align-items-stretch" gap={3}>
-    {lists.map((l) => (
-      <ListCard info={l} />
-    ))}
-  </Stack>
-);
+const ListCardGroup = ({ lists }) =>
+  lists.map((l) => {
+    return (
+      <Stack
+        direction="horizontal"
+        className="align-items-stretch"
+        gap={3}
+        key={l.id}
+      >
+        <ListCard info={l} />
+      </Stack>
+    );
+  });
 
 const handleUnlogin = () => {
   // e.preventDefault();
   //   alert("Please Sign Up or Log In First!");
 };
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  const [moviesSortedByRating, setMoviesSortedByRating] = useState([]);
+  const [moviesRandom, setMoviesRandom] = useState([]);
   const [lists, setLists] = useState([]);
   const cookies = useCookies();
   const login = JSON.parse(window.localStorage.getItem("login"));
@@ -59,12 +70,13 @@ const Home = () => {
         // console.log(response.data);
 
         if (!login) {
-          console.log(response.data);
-          setMovies(response.data.movies);
+          //   console.log(response.data);
+          setMoviesRandom(response.data.moviesRandom);
+          setMoviesSortedByRating(response.data.moviesSortedByRating);
           setLists(response.data.lists);
         } else {
-          setMovies(response.data.recommendedMovies);
-          setLists(response.data.recommendedLists);
+          //   setMovies(response.data.recommendedMovies);
+          //   setLists(response.data.recommendedLists);
         }
       })
       .catch((err) => console.log(err));
@@ -82,9 +94,13 @@ const Home = () => {
         <Header />
         <Container onClick={handleUnlogin}>
           <Stack gap={3}>
-            <h2>Movies</h2>
+            <h2>Top Rated Movies</h2>
             <Stack direction="horizontal" gap={3}>
-              <MovieCardGroup movies={movies} />
+              <MovieCardGroup movies={moviesSortedByRating} />
+            </Stack>
+            <h2>Random Movies</h2>
+            <Stack direction="horizontal" gap={3}>
+              <MovieCardGroup movies={moviesRandom} />
             </Stack>
             <h2>Lists</h2>
             <Stack direction="horizontal" gap={3}>
@@ -102,19 +118,19 @@ const Home = () => {
           <Stack gap={3}>
             <h2>Your Movies</h2>
             <Stack direction="horizontal" gap={3}>
-              <MovieCardGroup movies={movies} />
+              {/* <MovieCardGroup movies={movies} /> */}
             </Stack>
             <h2>Recommended Movies</h2>
             <Stack direction="horizontal" gap={3}>
-              <MovieCardGroup movies={movies} />
+              {/* <MovieCardGroup movies={movies} /> */}
             </Stack>
             <h2>Your Lists</h2>
             <Stack direction="horizontal" gap={3}>
-              <ListCardGroup lists={lists} />
+              {/* <ListCardGroup lists={lists} /> */}
             </Stack>
             <h2>Recommended Lists</h2>
             <Stack direction="horizontal" gap={3}>
-              <ListCardGroup lists={lists} />
+              {/* <ListCardGroup lists={lists} /> */}
             </Stack>
           </Stack>
         </Container>

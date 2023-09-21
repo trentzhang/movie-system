@@ -4,6 +4,7 @@ import {
   getMoviesByListId,
   getMoviesByUserLiked,
   getMoviesSortedByRating,
+  getMoviesRandom,
 } from "../access/movie.mjs";
 import {
   getRecommendedListSortedByRating,
@@ -47,10 +48,12 @@ export async function homepage(req, res) {
 // }\
 
 async function getHomepage(limit = 5) {
-  const Movies = await getMoviesSortedByRating(limit);
+  const MoviesSortedByRating = await getMoviesSortedByRating(limit);
+  const MoviesRandom = await getMoviesRandom(limit);
   const Lists = await getListSortedByRating(limit);
   return {
-    movies: Movies,
+    moviesRandom: MoviesRandom,
+    moviesSortedByRating: MoviesSortedByRating,
     lists: Lists,
   };
 }
