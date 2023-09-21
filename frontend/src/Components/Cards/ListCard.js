@@ -15,8 +15,6 @@ export const ListCard = (movieList) => {
       setDisable(true);
       const request = {
         method: "PUT",
-        // mode: "cors",
-        // credentials: "include",
         headers: {
           "Content-type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -64,17 +62,17 @@ export const ListCard = (movieList) => {
           Description:{movieList.info.description}
         </div>
         <Link to={login ? "/list/".concat(movieList.info.id) : "/home/"}>
-          <stack>
-            {
-              // TODO cover for list
-              /* <Card.Img
+          {/* <stack> */}
+          {
+            // TODO cover for list
+            /* <Card.Img
               variant="top"
               width="200"
               heigh="300"
               src={movieList.info.movies[0].cover}
             /> */
-            }
-          </stack>
+          }
+          {/* </stack> */}
         </Link>
         <hr />
         <div>Created by {movieList.info.creator} </div>

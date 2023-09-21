@@ -52,7 +52,7 @@ const MovieDetail = () => {
   const [cookies] = useCookies();
 
   useEffect(() => {
-    fetch(`${backendUrl}/user/movies/${movie_Id}`, {
+    fetch(`${backendUrl}/movies/${movie_Id}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -67,7 +67,7 @@ const MovieDetail = () => {
         alert("Oops! We Couldn't Find This Movie, Please Try Again!");
       })
       .then(async (res) => {
-        console.log(res);
+        // console.log(res);
         const lists = await Promise.all(
           res.related_lists.map((list) =>
             fetch(`${backendUrl}/user/lists/${list.id}`, {
@@ -167,8 +167,8 @@ const MovieDetail = () => {
   return (
     <Stack gap={3}>
       <Header />
-      <Container className="mb-2">
-        <Card>
+      <Container className="mb-2 ">
+        <Card className="text-bg-dark">
           <script src="holder.js"></script>
           <Card.Body>
             <Button
@@ -227,6 +227,8 @@ const MovieDetail = () => {
                   <RatingsComponent liked={liked} clickFunc={changeLike} />
                 </div>
                 <div>
+                  Add/remove to list:
+                  {/* TODO change style of add remove to list button */}
                   <Button
                     variant="outline-primary"
                     size="lg"

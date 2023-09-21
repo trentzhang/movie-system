@@ -121,6 +121,31 @@
 
 ## </details>
 
+<details>
+ <summary><code>GET</code> <code><b>/movies/:id</b></code> <code>(gets movie/list json data for homepage)</code></summary>
+
+##### Parameters
+
+> | name | type     | data type | description  |
+> | ---- | -------- | --------- | ------------ |
+> | ID   | required | string    | ID for movie |
+
+##### Responses
+
+> | http code | content-type       | response                                     |
+> | --------- | ------------------ | -------------------------------------------- |
+> | `200`     | `application/json` | `{ message: "OK", data: movie information }` |
+> | `400`     | `application/json` | `{ message: "movie id doesn't exist."}`      |
+> | `500`     | `application/json` | `{"code":"400","message":"Bad Request"}`     |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X POST -H "Content-Type: application/json" --data @post.json http://localhost:8889/
+> ```
+
+## </details>
+
 ---
 
 #### Creating new/overwriting existing stubs & proxy configs
