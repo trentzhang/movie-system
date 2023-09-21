@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, CardGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { backendUrl } from "../../settings";
+import CardHeader from "react-bootstrap/esm/CardHeader";
 
 export const ListCard = (movieList) => {
   //   console.log(movieList);
@@ -35,47 +36,45 @@ export const ListCard = (movieList) => {
     }
   };
   return (
-    <Card style={{ width: "15rem" }}>
+    <Card className="text-center mx-2 text-bg-dark border-light">
+      <CardHeader>
+        <Button
+          //   variant="outline-primary"
+          disabled={disable}
+          onClick={handleFav}
+        >
+          +
+        </Button>
+      </CardHeader>
       <Card.Body>
-        <script src="holder.js"></script>
-        <Card.Title style={{ height: "2.2rem", textAlign: "left" }}>
-          <Link
-            style={{ textDecoration: "none", color: "black" }}
-            to={login ? "/list/".concat(movieList.info.id) : "/home/"}
-          >
-            {movieList.info.name}
-          </Link>
-          <Button
-            style={{ position: "relative", float: "right" }}
-            variant="outline-primary"
-            width="80"
-            disabled={disable}
-            onClick={handleFav}
-          >
-            +
-          </Button>
-        </Card.Title>
+        <Link
+          to={"/list/".concat(movieList.info.id)}
+          className="text-bg-dark text-decoration-none"
+        >
+          <script src="holder.js"></script>
+          <Card.Title>{movieList.info.name}</Card.Title>
 
-        <div>
-          Likes:{movieList.info.liked}
-          <br></br>
-          Description:{movieList.info.description}
-        </div>
-        <Link to={login ? "/list/".concat(movieList.info.id) : "/home/"}>
-          {/* <stack> */}
-          {
-            // TODO cover for list
-            /* <Card.Img
+          <div>
+            Likes:{movieList.info.liked}
+            <br></br>
+            Description:{movieList.info.description}
+          </div>
+          <Link to={login ? "/list/".concat(movieList.info.id) : "/home/"}>
+            {/* <stack> */}
+            {
+              // TODO cover for list
+              /* <Card.Img
               variant="top"
               width="200"
               heigh="300"
               src={movieList.info.movies[0].cover}
-            /> */
-          }
-          {/* </stack> */}
+              /> */
+            }
+            {/* </stack> */}
+          </Link>
+          <hr />
+          <div>Created by {movieList.info.creator} </div>
         </Link>
-        <hr />
-        <div>Created by {movieList.info.creator} </div>
       </Card.Body>
     </Card>
   );
