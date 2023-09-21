@@ -22,7 +22,7 @@ export const MovieCardGroup = ({ movies }) => (
     >
       {movies.map((m) => {
         return (
-          <SplideSlide>
+          <SplideSlide key={m.id}>
             <Card className="text-center mx-2 text-bg-dark transition-fade hover">
               <Card.Body>
                 <Link
