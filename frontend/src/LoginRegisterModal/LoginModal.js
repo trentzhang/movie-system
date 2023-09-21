@@ -7,10 +7,10 @@ const LoginModal = ({ setLogin }) => {
 
   return (
     <>
-      <Button className="me-2" href={"/advanced_search"}>
+      <Button className="me-2 btn-light" href={"/advanced_search"}>
         Search
       </Button>
-      <Button variant="primary" onClick={() => setShow(true)}>
+      <Button className="btn-secondary" onClick={() => setShow(true)}>
         Login
       </Button>
 

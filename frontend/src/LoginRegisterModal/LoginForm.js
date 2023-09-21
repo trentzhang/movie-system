@@ -106,11 +106,16 @@ const Login = ({ setLogin }) => {
         </Form.Group>
       </form>
       <Col sm={{ span: 10, offset: 2 }}>
-        <Button form="login" type="submit" onSubmit={onClickSignIn}>
+        <Button
+          className="btn-secondary"
+          form="login"
+          type="submit"
+          onSubmit={onClickSignIn}
+        >
           Sign in
         </Button>
         or
-        <Button type="submit" onClick={handleShow}>
+        <Button className="btn-secondary" type="submit" onClick={handleShow}>
           Create account
         </Button>
         <Modal show={show} onHide={handleClose}>
