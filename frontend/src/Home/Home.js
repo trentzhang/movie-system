@@ -7,13 +7,8 @@ import "holderjs";
 import { useCookies } from "react-cookie";
 import Header from "../Header/Header";
 
-import { ListCard } from "../Components/Cards/ListCard";
 import { MovieCardGroup } from "./body/MovieCardGroup";
-
-const ListCardGroup = ({ lists }) =>
-  lists.map((l) => {
-    return <ListCard info={l} />;
-  });
+import { ListCardGroup } from "./body/ListCardGroup";
 
 const Home = () => {
   const [moviesSortedByRating, setMoviesSortedByRating] = useState([]);
@@ -38,10 +33,7 @@ const Home = () => {
     fetch(`${backendUrl}/homepage/`, request)
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response.data);
-
         if (!login) {
-          //   console.log(response.data);
           setMoviesRandom(response.data.moviesRandom);
           setMoviesSortedByRating(response.data.moviesSortedByRating);
           setLists(response.data.lists);
@@ -58,7 +50,7 @@ const Home = () => {
     // the console.
     // console.log(JSON.parse(window.localStorage.getItem("login")));
   });
-  //   console.log(login);
+
   if (!login) {
     return (
       <Stack gap={3}>
@@ -74,9 +66,8 @@ const Home = () => {
               <MovieCardGroup movies={moviesRandom} />
             </Stack>
             <h2>Lists</h2>
-            <Stack direction="horizontal" gap={3}>
-              <ListCardGroup lists={lists} />
-            </Stack>
+
+            <ListCardGroup Lists={lists} />
           </Stack>
         </Container>
       </Stack>

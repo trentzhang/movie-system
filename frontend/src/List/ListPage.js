@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Stack, Container, Card, Nav, Navbar } from "react-bootstrap";
 
-import MovieCard from "./MovieCard";
 import { MovieCardGroup } from "../Home/body/MovieCardGroup";
 import { useParams } from "react-router";
 // import LikeButton from "../MovieDetailPage/LikeButton/LikeButton.js";

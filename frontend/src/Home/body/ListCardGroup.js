@@ -3,8 +3,9 @@ import "@splidejs/react-splide/dist/css/themes/splide-default.min.css";
 import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { coverURL } from "../../Misc/functions";
+import CardHeader from "react-bootstrap/esm/CardHeader";
 
-export const MovieCardGroup = ({ movies }) => (
+export const ListCardGroup = ({ Lists }) => (
   <Container>
     <Splide
       options={{
@@ -20,21 +21,22 @@ export const MovieCardGroup = ({ movies }) => (
         },
       }}
     >
-      {movies.map((m) => {
+      {Lists.map((m) => {
         return (
           <SplideSlide key={m.id}>
             <Card className="text-center mx-2 text-bg-dark transition-fade hover">
               <Card.Body>
                 <Link
-                  to={`/movie/${m.id}`}
+                  to={`/list/${m.id}`}
                   className="text-bg-dark text-decoration-none"
                 >
                   <Card.Title className="text-truncate fs-6">
-                    {m.title}
+                    {m.name}
                   </Card.Title>
                   <Card.Img src={coverURL(m.cover)} />
                 </Link>
               </Card.Body>
+              <CardHeader>Likes:{m.liked}</CardHeader>
             </Card>
           </SplideSlide>
         );
