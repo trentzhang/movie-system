@@ -8,7 +8,7 @@ const Header = () => {
     <Navbar bg="light" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/home" style={{ fontWeight: "bold" }}>
-          3 >> 4
+          Movies!
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="justify-content-end">
