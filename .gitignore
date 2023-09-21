@@ -5,3 +5,8 @@ frontend/build/*
 
 .vscode
 .DS_Store
+backend/output.log
+frontend/nohup.out
+frontend/output.log
+frontend/src/settings.js
+frontend/build/*
