@@ -4,7 +4,7 @@ import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { coverURL } from "../../Misc/functions";
 
-export const MovieCardGroup = ({ movies }) => {
+export function MovieCardGroup({ movies }) {
   const options = {
     type: "loop",
     perPage: 4,
@@ -42,4 +42,4 @@ export const MovieCardGroup = ({ movies }) => {
       </Splide>
     </Container>
   );
-};
+}

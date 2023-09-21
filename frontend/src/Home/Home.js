@@ -52,6 +52,7 @@ const Home = () => {
   });
 
   if (!login) {
+    console.log("lists :>> ", lists);
     return (
       <Stack gap={3}>
         <Header />

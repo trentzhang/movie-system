@@ -17,6 +17,7 @@ import {
 import { Link } from "react-router-dom";
 import RatingsComponent from "./LikeButton/LikeButton";
 import ListCard from "../List/ListCard";
+import { ListCardGroup } from "../Home/body/ListCardGroup";
 import "./MovieDetail.sass";
 // import { coverURL } from "../Misc/functions";
 import { useParams } from "react-router-dom";
@@ -67,7 +68,6 @@ const MovieDetail = () => {
         alert("Oops! We Couldn't Find This Movie, Please Try Again!");
       })
       .then(async (res) => {
-        // console.log(res);
         const lists = await Promise.all(
           res.related_lists.map((list) =>
             fetch(`${backendUrl}/lists/${list.id}`, {
@@ -82,6 +82,8 @@ const MovieDetail = () => {
               .then((res) => res.data)
           )
         );
+        console.log("res :>> ", res);
+        console.log("lists :>> ", lists);
         setMovieData({ ...res, lists: lists });
         setLiked(res.isLikedByUser);
         setInList(res.isAddedToList);
@@ -127,7 +129,6 @@ const MovieDetail = () => {
     if (JSON.parse(window.localStorage.getItem("login"))) {
       setLiked(!liked);
       if (!liked) {
-        // console.log("put api, add like to database ");
         const request = {
           method: "PUT",
 
@@ -194,10 +195,10 @@ const MovieDetail = () => {
                 <h2>{movieData.title}</h2>
                 <br />
                 {/* <div>
-                  <b>Director:</b> {director}
+                  <b>Director:</b> {movieData.director}
                 </div>
                 <div>
-                  <b>Writer:</b> {writer}
+                  <b>Writer:</b> {movieData.writer}
                 </div> */}
                 <div>
                   <b>Type:</b> {movieData.type}
@@ -284,13 +285,14 @@ const MovieDetail = () => {
           </Card.Body>
           <Card.Body>
             <b>Lists you may interested</b>
+            <ListCardGroup Lists={movieData.lists}></ListCardGroup>
             <Stack direction="horizontal" gap={3}>
-              {movieData.lists
+              {/* {movieData.lists
                 ? movieData.lists.map((item, _) => {
                     console.log(item);
                     return <ListCard movieList={item} user_id="" />;
                   })
-                : null}
+                : null} */}
             </Stack>
           </Card.Body>
           <Card.Body>
