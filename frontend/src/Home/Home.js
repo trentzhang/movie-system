@@ -92,10 +92,10 @@ const Home = () => {
             <Stack direction="horizontal" gap={3}>
               <MovieCardGroup movies={moviesRandom} />
             </Stack>
-            <h2>Lists</h2>
+            {/* <h2>Lists</h2>
             <Stack direction="horizontal" gap={3}>
               <ListCardGroup lists={lists} />
-            </Stack>
+            </Stack> */}
           </Stack>
         </Container>
       </Stack>
