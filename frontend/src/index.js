@@ -16,8 +16,10 @@ import {
   Navigate,
 } from "react-router-dom";
 
+// import "./index.css";
+
 ReactDOM.render(
-  <div className="text-bg-dark">
+  <div className="text-bg-dark min-vh-100">
     <Router>
       <Routes>
         <Route path="/home" element={<Home />}></Route>
