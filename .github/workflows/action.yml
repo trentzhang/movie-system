@@ -17,6 +17,7 @@ jobs:
             git pull
 
             lsof -i :3000,3001 | grep LISTEN | awk '{print $2}'|xargs  -n 1 kill
+            echo "Killed process taking 3000,3001 port"
 
             # Change to the backend directory and start the server in a detached tmux session
             # note: backend running default on port 3000
