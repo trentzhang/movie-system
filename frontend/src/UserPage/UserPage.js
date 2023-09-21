@@ -40,7 +40,7 @@ export default function ProfilePage() {
       .then(async (res) => {
         const movies = await Promise.all(
           res.movies.map((movie) =>
-            fetch(`${backendUrl}/user/movies/${movie.id}`, {
+            fetch(`${backendUrl}/movies/${movie.id}`, {
               method: "GET",
               headers: {
                 "Content-type": "application/json",
@@ -54,7 +54,7 @@ export default function ProfilePage() {
         );
         const lists = await Promise.all(
           res.lists.map((list) =>
-            fetch(`${backendUrl}/user/lists/${list.id}`, {
+            fetch(`${backendUrl}/lists/${list.id}`, {
               method: "GET",
               headers: {
                 "Content-type": "application/json",
@@ -66,18 +66,17 @@ export default function ProfilePage() {
               .then((res) => res.data)
           )
         );
-        // console.log(res);
         setUserData({ ...res, movies: movies, lists: lists });
       })
       .catch((e) => {
         console.log(e);
         alert("Oops! We Couldn't Find This Guy, Please Try Again!");
-        navigate(-1);
+        // navigate(-1);
       });
   }, [cookies.accessToken, cookies.email, email, navigate]);
 
   return (
-    <section style={{ backgroundColor: "#eee" }}>
+    <section>
       <Header />
       <MDBContainer className="py-5">
         <MDBRow>

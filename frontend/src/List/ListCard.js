@@ -78,7 +78,7 @@ const ListCard = ({ movieList }) => {
         <hr />
         <div>Created by {movieList.level} member:</div>
         <Link to={"/users/".concat(movieList.creator)}>
-          <div>{movieList.owner.username}</div>
+          <div>{movieList.creator}</div>
         </Link>
       </Card.Body>
     </Card>

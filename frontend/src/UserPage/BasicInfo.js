@@ -9,7 +9,7 @@ import {
 } from "mdb-react-ui-kit";
 const BasicInfo = ({ userData }) => {
   return (
-    <MDBCard className="mb-4">
+    <MDBCard className="mb-4 text-dark">
       <MDBCardBody>
         <MDBRow>
           <MDBCol sm="3">

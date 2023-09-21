@@ -8,7 +8,7 @@ import ListCard from "../List/ListCard";
 
 const MovieListTabs = ({ userData }) => {
   return (
-    <MDBCard className="mb-4">
+    <MDBCard className="mb-4 text-dark">
       <Tabs
         defaultActiveKey="Liked Movies"
         id="uncontrolled-tab-example"
