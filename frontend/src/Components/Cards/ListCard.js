@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button, CardGroup } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { backendUrl } from "../../settings";

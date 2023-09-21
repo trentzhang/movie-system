@@ -27,6 +27,7 @@ const ListCard = ({ movieList }) => {
           user_id: auth.currentUser.email,
         }),
       };
+
       fetch(`${backendUrl}/add_fav_list`, request)
         .then((data) => {
           console.log("parsed json", data);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Stack, Container, Card, Nav, Navbar } from "react-bootstrap";
 
 import MovieCard from "./MovieCard";
+import { MovieCardGroup } from "../Home/body/MovieCardGroup";
 import { useParams } from "react-router";
 // import LikeButton from "../MovieDetailPage/LikeButton/LikeButton.js";
 import Header from "../Header/Header";
@@ -10,7 +11,7 @@ import { backendUrl } from "../settings";
 
 const ListPage = () => {
   const [show, setShow] = useState(false);
-  const [content, setContent] = useState([]);
+  const [content, setMovies] = useState([]);
   const [lname, setLname] = useState("");
   const [creator, setCreator] = useState(null);
   const [likedNum, setlikedNum] = useState(null);
@@ -19,8 +20,7 @@ const ListPage = () => {
   const [cookies] = useCookies();
 
   useEffect(() => {
-    console.log(cookies);
-    fetch(`${backendUrl}/user/lists/` + list_id, {
+    fetch(`${backendUrl}/lists/` + list_id, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -32,12 +32,11 @@ const ListPage = () => {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
         setLname(res.data.name);
         setCreator(res.data.creator);
         setLdesc(res.data.description);
         setlikedNum(res.data.liked);
-        setContent(res.data.movies);
+        setMovies(res.data.movies);
       })
       .catch((e) => {
         console.log(e);
@@ -87,10 +86,7 @@ const ListPage = () => {
           <Container>
             <Card>
               <Card.Body>
-                {content.map((item, index) => {
-                  //   console.log(item);
-                  return <MovieCard item={item} index={index} />;
-                })}
+                <MovieCardGroup movies={content}></MovieCardGroup>
               </Card.Body>
             </Card>
           </Container>

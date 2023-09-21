@@ -70,7 +70,7 @@ const MovieDetail = () => {
         // console.log(res);
         const lists = await Promise.all(
           res.related_lists.map((list) =>
-            fetch(`${backendUrl}/user/lists/${list.id}`, {
+            fetch(`${backendUrl}/lists/${list.id}`, {
               method: "GET",
               headers: {
                 "Content-type": "application/json",
