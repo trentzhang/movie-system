@@ -17,6 +17,7 @@ jobs:
             git config pull.rebase false
             git pull
 
+            # clear used ports
             lsof -i :3000,3001 | grep LISTEN | awk '{print $2}'|xargs  -n 1 kill
             echo "Killed process taking 3000,3001 port"
 
