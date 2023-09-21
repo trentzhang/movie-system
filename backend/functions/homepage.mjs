@@ -47,7 +47,7 @@ export async function homePageAPI(req, res) {
 //   };
 // }\
 
-async function getHomepage(limit = 5) {
+async function getHomepage(limit = 10) {
   const MoviesSortedByRating = await getMoviesSortedByRating(limit);
   const MoviesRandom = await getMoviesRandom(limit);
   const Lists = await getListSortedByRating(limit);

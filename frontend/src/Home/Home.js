@@ -18,17 +18,14 @@ import { MovieCardGroup } from "./body/MovieCardGroup";
 //   </Stack>
 // );
 
-const ListCardGroup = ({ lists }) => (
-  <Carousel>
-    {lists.map((l) => {
-      return (
-        <Carousel.Item>
-          <ListCard info={l} />
-        </Carousel.Item>
-      );
-    })}
-  </Carousel>
-);
+const ListCardGroup = ({ lists }) =>
+  lists.map((l) => {
+    return (
+      // <Carousel.Item>
+      <ListCard info={l} />
+      // </Carousel.Item>
+    );
+  });
 
 // const handleUnlogin = () => {
 //   e.preventDefault();
@@ -92,10 +89,10 @@ const Home = () => {
             <Stack direction="horizontal" gap={3}>
               <MovieCardGroup movies={moviesRandom} />
             </Stack>
-            {/* <h2>Lists</h2>
+            <h2>Lists</h2>
             <Stack direction="horizontal" gap={3}>
               <ListCardGroup lists={lists} />
-            </Stack> */}
+            </Stack>
           </Stack>
         </Container>
       </Stack>
