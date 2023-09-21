@@ -15,7 +15,7 @@ jobs:
         script: |
             cd /root/Github/movie-system
             git config pull.rebase false
-            git pull
+            git fetch
 
             # clear used ports
             lsof -i :3000,3001 | grep LISTEN | awk '{print $2}'|xargs  -n 1 kill
