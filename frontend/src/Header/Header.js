@@ -3,7 +3,8 @@ import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginIndicator from "../Authentication/LoginIndicator";
-const Header = () => {
+
+export default function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -17,6 +18,4 @@ const Header = () => {
       </Container>
     </Navbar>
   );
-};
-
-export default Header;
+}
