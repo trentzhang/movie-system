@@ -1,37 +1,10 @@
-import { checkToken } from "../SQLQueries/auth.mjs";
+import { getListsByUserEmail } from "../SQLQueries/list.mjs";
 import {
-  likeMovie,
-  deleteLikeMovie,
-  getMoviesById,
-  updateMovieLikedById,
-  updateMovieRatingById,
-  rateMoviesById,
-  createCommentForMovie,
-  getCommentsByMovieId,
   getMoviesByListId,
   getMoviesByUserLiked,
-  searchMovies,
-  getUserLikedMovieByEmailAndMovieId,
 } from "../SQLQueries/movie.mjs";
-import {
-  createList,
-  addMovieToList,
-  deleteMovieFromList,
-  getListsById,
-  createFavList,
-  deleteFavList,
-  getListsByUserEmail,
-  getListsByMovieId,
-  updateListLiked,
-  searchListsByNameKeyword,
-  getList2MovieByEmailAndMovieId,
-  getListByOwnerEmail,
-} from "../SQLQueries/list.mjs";
-import {
-  getUsersWhoLikedMovieByMovieId,
-  getUserByEmail,
-} from "../SQLQueries/user.mjs";
-import { parseCookies } from "../utils/cookiesUtil.mjs";
+import { getUserByEmail } from "../SQLQueries/user.mjs";
+import { executeSqlQuery } from "../SQLQueries/connect/sql.mjs";
 export async function getUserInfoByEmailAPI(req, res) {
   try {
     // const cookies = parseCookies(req.headers.cookies);
@@ -49,6 +22,36 @@ export async function getUserInfoByEmailAPI(req, res) {
     user.lists = lists;
     user.movies = likedMovies;
     res.status(200).send({ message: "OK", data: user });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: "ERROR: Encounter error during user signing up.",
+      data: err,
+    });
+  }
+}
+
+async function createUser(body) {
+  const email = body.email;
+  const name = body.name;
+  const gender = body.gender;
+  const birthday = body.birthday;
+  const statement =
+    "INSERT INTO user (username, email, gender, birthday) " +
+    "VALUES (?, ?, ?, ?);";
+  const result = await executeSqlQuery(statement, [
+    name,
+    email,
+    gender,
+    birthday,
+  ]);
+  return result;
+}
+
+export async function postNewlyRegisteredUserInfoAPI(req, res) {
+  try {
+    await createUser(req.body);
+    res.status(200).send({ message: "Success" });
   } catch (err) {
     console.log(err);
     res.status(500).send({

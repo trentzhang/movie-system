@@ -27,14 +27,12 @@ const SignUp = ({ setShowRegisterModal }) => {
 
         // pass information to MySQL data base
         const request = {
-          method: "POST",
-          mode: "cors",
+          method: "PUT",
           credentials: "omit",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify({
             name: username,
             email: email,
-            password: password,
             gender: gender,
             birthday: birthday,
           }),
