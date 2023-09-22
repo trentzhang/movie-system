@@ -1,28 +1,29 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
+import Header from "../Header/Header";
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Image,
-  OverlayTrigger,
-  Row,
   Stack,
+  Button,
+  Container,
+  Card,
+  Image,
+  Row,
+  Col,
+  Popover,
+  OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import Header from "../Header/Header";
-import { backendUrl } from "../settings";
-import { auth } from "../Authentication/Firebase";
+
 import { Link } from "react-router-dom";
-import { ListCardGroup } from "../Home/body/ListCardGroup";
 import RatingsComponent from "./LikeButton/LikeButton";
+import ListCard from "../List/ListCard";
 import "./MovieDetail.sass";
-// import { coverURL } from "../Misc/functions";
+import { coverURL } from "../Misc/functions";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useNavigate, useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
-// import { set } from "firebase/database";
+import { set } from "firebase/database";
 
 const MovieDetail = () => {
   const navigate = useNavigate();
@@ -51,46 +52,49 @@ const MovieDetail = () => {
   const [cookies] = useCookies();
 
   useEffect(() => {
-    // 1. get movie data
-    fetch(`${backendUrl}/movies/${movie_Id}`, {
+    fetch(`http://localhost:8000/user/movies/${movie_Id}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
+        // "Access-Control-Allow-Origin": "*",
+        // cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
       },
     })
       .then((res) => res.json())
       .then((res) => res.data)
       .catch((e) => {
         console.log(e);
-        alert("Oops! We Couldn't Find This Movie, Please Try Again!");
+        alert(
+          `Oops! We Couldn't Find This Movie at http://localhost:8000/user/movies/${movie_Id}, Please Try Again!`
+        );
       })
       .then(async (res) => {
-        // 2. get related list: the list that contain this movie
+        console.log(res);
         const lists = await Promise.all(
           res.related_lists.map((list) =>
-            fetch(`${backendUrl}/lists/${list.id}`, {
+            fetch(`http://localhost:8000/user/lists/${list.id}`, {
               method: "GET",
               headers: {
                 "Content-type": "application/json",
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
+                // cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
               },
             })
               .then((res) => res.json())
               .then((res) => res.data)
+              .catch((e) => {
+                console.log(e);
+                alert(
+                  `Oops! We Couldn't Find This Movie at http://localhost:8000/user/lists/${list.id}, Please Try Again!`
+                );
+              })
           )
         );
         setMovieData({ ...res, lists: lists });
-        // 3. check if current user liked this movie
-        if (auth.currentUser) {
-        }
-
-        // setLiked(res.isLikedByUser);
-        // 4. check if current user add this movie
-        // setInList(res.isAddedToList);
+        setLiked(res.isLikedByUser);
+        setInList(res.isAddedToList);
       });
-  }, [liked, inList, cookies.accessToken, cookies.email, movie_Id]);
+  }, [liked, inList]);
 
   //   useEffect(() => {
   //     console.log(1111);
@@ -101,7 +105,7 @@ const MovieDetail = () => {
   const handleAddToList = () => {
     const request = {
       method: "PUT",
-
+      mode: "cors",
       credentials: "omit",
       headers: {
         "Content-type": "application/json",
@@ -109,13 +113,13 @@ const MovieDetail = () => {
         cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
       },
     };
-    fetch(`${backendUrl}/user/lists/movies/${movie_Id}`, request);
+    fetch(`http://localhost:8000/user/lists/movies/${movie_Id}`, request);
     window.location.reload(false);
   };
   const handleDelFromList = () => {
     const request = {
       method: "DELETE",
-
+      mode: "cors",
       credentials: "omit",
       headers: {
         "Content-type": "application/json",
@@ -123,20 +127,18 @@ const MovieDetail = () => {
         cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
       },
     };
-    fetch(`${backendUrl}/user/lists/movies/${movie_Id}`, request);
+    fetch(`http://localhost:8000/user/lists/movies/${movie_Id}`, request);
     window.location.reload(false);
   };
 
   const changeLike = () => {
-    if (auth.currentUser) {
-      // if user if logged in
-      // check data base if this user liked this movie
-      // change the like status based on user liked movie database
+    if (JSON.parse(window.localStorage.getItem("login"))) {
       setLiked(!liked);
       if (!liked) {
+        // console.log("put api, add like to database ");
         const request = {
           method: "PUT",
-
+          mode: "cors",
           credentials: "omit",
           headers: {
             "Content-type": "application/json",
@@ -144,17 +146,18 @@ const MovieDetail = () => {
             cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
           },
         };
-        fetch(`${backendUrl}/user/liked/movies/${movie_Id}`, request).catch(
-          (e) => {
-            console.log(e);
-            alert("Oops! Like Operation API Wrong, Please Try Again!");
-          }
-        );
+        fetch(
+          `http://localhost:8000/user/liked/movies/${movie_Id}`,
+          request
+        ).catch((e) => {
+          console.log(e);
+          alert("Oops! Like Operation API Wrong, Please Try Again!");
+        });
       } else {
         // console.log("delete api, delete like to database ");
         const request = {
           method: "DELETE",
-
+          mode: "cors",
           credentials: "omit",
           headers: {
             "Content-type": "application/json",
@@ -162,7 +165,7 @@ const MovieDetail = () => {
             cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
           },
         };
-        fetch(`${backendUrl}/user/liked/movies/${movie_Id}`, request);
+        fetch(`http://localhost:8000/user/liked/movies/${movie_Id}`, request);
       }
     } else {
       alert("Please login first!");
@@ -173,14 +176,14 @@ const MovieDetail = () => {
   return (
     <Stack gap={3}>
       <Header />
-      <Container className="p-3">
-        <Stack className="text-bg-dark" gap={3}>
+      <Container className="mb-2">
+        <Card>
           <script src="holder.js"></script>
           <Card.Body>
             <Button
-              className="btn-secondary"
+              variant="secondary"
+              className="back-button"
               onClick={() => navigate(-1)}
-              key={"back-button"}
             >
               Back
             </Button>
@@ -200,10 +203,10 @@ const MovieDetail = () => {
                 <h2>{movieData.title}</h2>
                 <br />
                 {/* <div>
-                  <b>Director:</b> {movieData.director}
+                  <b>Director:</b> {director}
                 </div>
                 <div>
-                  <b>Writer:</b> {movieData.writer}
+                  <b>Writer:</b> {writer}
                 </div> */}
                 <div>
                   <b>Type:</b> {movieData.type}
@@ -233,21 +236,18 @@ const MovieDetail = () => {
                   <RatingsComponent liked={liked} clickFunc={changeLike} />
                 </div>
                 <div>
-                  Add/remove to list:
-                  {/* TODO change style of add remove to list button */}
                   <Button
                     variant="outline-primary"
-                    size="lg"
+                    width="80"
                     disabled={inList}
                     onClick={handleAddToList}
-                    key={"add-to-list-button"}
                   >
                     +
                   </Button>
                   {"          "}
                   <Button
                     variant="outline-primary"
-                    size="lg"
+                    width="100"
                     disabled={!inList}
                     onClick={handleDelFromList}
                   >
@@ -264,7 +264,7 @@ const MovieDetail = () => {
             <b>They also liked this movie:</b>
             <Card.Text>
               {movieData.liked_users
-                ? movieData.liked_users.map((value, index) => {
+                ? movieData.liked_users.map((value, _) => {
                     const renderTooltip = (props) => (
                       <Tooltip id="button-tooltip" {...props}>
                         {value.username} {value.email}
@@ -275,12 +275,11 @@ const MovieDetail = () => {
                         placement="right"
                         delay={{ show: 250, hide: 400 }}
                         overlay={renderTooltip}
-                        key={index}
                       >
                         <Link to={"/user/".concat(value.email)}>
                           <img
                             src={genderDefaultAvater(value.gender)}
-                            className="rounded-circle my-avater-img"
+                            class="rounded-circle my-avater-img"
                             alt="Avatar"
                           />
                         </Link>
@@ -292,14 +291,19 @@ const MovieDetail = () => {
           </Card.Body>
           <Card.Body>
             <b>Lists you may interested</b>
-            <ListCardGroup Lists={movieData.lists}></ListCardGroup>
-            <Stack direction="horizontal" gap={3}></Stack>
+            <Stack direction="horizontal" gap={3}>
+              {movieData.lists
+                ? movieData.lists.map((item, _) => {
+                    return <ListCard movieList={item} user_id="" />;
+                  })
+                : null}
+            </Stack>
           </Card.Body>
           <Card.Body>
             <b>User review</b>
             <CommentSection movieData={movieData} />
           </Card.Body>
-        </Stack>
+        </Card>
       </Container>
     </Stack>
   );

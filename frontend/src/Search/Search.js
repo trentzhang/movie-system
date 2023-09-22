@@ -30,7 +30,6 @@ export function ResultCardMovie(item) {
   const handleAddToList = (mv_id) => {
     const request = {
       method: "PUT",
-
       credentials: "same-origin",
       headers: {
         "Content-type": "application/json",
