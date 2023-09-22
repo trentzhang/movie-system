@@ -1,6 +1,6 @@
 # Movie System Project
 
-Welcome to the Movie System project! This project is the culmination of our efforts in the CS409 Art of Web Programming class, aimed at creating a comprehensive and efficient movie management system.
+Welcome to the Movie System project! This project is the culmination of our efforts in my Art of Web Programming class at University of Illinois at Urbana-Champaign, aimed at creating a comprehensive and efficient movie management system.
 
 ## Project Background
 
