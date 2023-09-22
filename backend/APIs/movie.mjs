@@ -1,37 +1,16 @@
-import { checkToken } from "../SQLQueries/auth.mjs";
 import {
-  likeMovie,
-  deleteLikeMovie,
-  getMoviesById,
-  updateMovieLikedById,
-  updateMovieRatingById,
-  rateMoviesById,
-  createCommentForMovie,
-  getCommentsByMovieId,
-  getMoviesByListId,
-  getMoviesByUserLiked,
-  searchMovies,
-  getUserLikedMovieByEmailAndMovieId,
-} from "../SQLQueries/movie.mjs";
-import {
-  createList,
-  addMovieToList,
-  deleteMovieFromList,
-  getListsById,
-  createFavList,
-  deleteFavList,
-  getListsByUserEmail,
   getListsByMovieId,
-  updateListLiked,
   searchListsByNameKeyword,
-  getList2MovieByEmailAndMovieId,
-  getListByOwnerEmail,
 } from "../SQLQueries/list.mjs";
 import {
-  getUsersWhoLikedMovieByMovieId,
+  getCommentsByMovieId,
+  getMoviesById,
+  searchMovies,
+} from "../SQLQueries/movie.mjs";
+import {
   getUserByEmail,
+  getUsersWhoLikedMovieByMovieId,
 } from "../SQLQueries/user.mjs";
-import { parseCookies } from "../utils/cookiesUtil.mjs";
 
 export async function getMovieByIdAPI(req, res) {
   try {

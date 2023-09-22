@@ -85,13 +85,17 @@
 
 - user_liked_list
 
-- user_liked_movie
+  | user_email     | list_id |
+  | -------------- | ------- |
+  | test@gmail.com | 1       |
+  | test@gmail.com | 2       |
 
-| id  | user_email     | movie_id  |
-| --- | -------------- | --------- |
-| 10  | test@gmail.com | tt0078113 |
-| 11  | test@gmail.com | tt0078113 |
-| 12  | test@gmail.com | tt0076043 |
+- user_liked_movie: the user_email and movie_id is designed to be unique
+
+| user_email     | movie_id  |
+| -------------- | --------- |
+| test@gmail.com | tt0078113 |
+| test@gmail.com | tt0076043 |
 
 # API Design
 
