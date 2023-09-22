@@ -1,4 +1,4 @@
-import { checkToken } from "../access/auth.mjs";
+import { checkToken } from "../SQLQueries/auth.mjs";
 import {
   likeMovie,
   deleteLikeMovie,
@@ -12,7 +12,7 @@ import {
   getMoviesByUserLiked,
   searchMovies,
   getUserLikedMovieByEmailAndMovieId,
-} from "../access/movie.mjs";
+} from "../SQLQueries/movie.mjs";
 import {
   createList,
   addMovieToList,
@@ -26,11 +26,11 @@ import {
   searchListsByNameKeyword,
   getList2MovieByEmailAndMovieId,
   getListByOwnerEmail,
-} from "../access/list.mjs";
+} from "../SQLQueries/list.mjs";
 import {
   getUsersWhoLikedMovieByMovieId,
   getUserByEmail,
-} from "../access/user.mjs";
+} from "../SQLQueries/user.mjs";
 import { parseCookies } from "../utils/cookiesUtil.mjs";
 export async function getUserInfoByEmailAPI(req, res) {
   try {

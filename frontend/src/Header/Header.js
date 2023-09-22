@@ -2,7 +2,7 @@ import { Container, Navbar } from "react-bootstrap";
 import React from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import LoginIndicator from "../LoginRegisterModal/LoginIndicator";
+import LoginIndicator from "../Authentication/LoginIndicator";
 const Header = () => {
   return (
     <Navbar bg="light" expand="lg">

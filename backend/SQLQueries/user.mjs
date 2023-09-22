@@ -1,4 +1,4 @@
-import { executeSqlQuery } from "./sql/sql.mjs";
+import { executeSqlQuery } from "./connect/sql.mjs";
 
 export async function createUser(body, token) {
   const email = body.email;

@@ -1,4 +1,4 @@
-import { executeSqlQuery } from "./sql/sql.mjs";
+import { executeSqlQuery } from "./connect/sql.mjs";
 
 export async function saveToken(email, token) {
   const statement = "UPDATE user SET token = ? WHERE email = ?;";

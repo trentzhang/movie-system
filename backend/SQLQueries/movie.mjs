@@ -1,5 +1,5 @@
 import moment from "moment";
-import { executeSqlQuery } from "./sql/sql.mjs";
+import { executeSqlQuery } from "./connect/sql.mjs";
 
 export async function createCommentForMovie(email, movieId, comment, username) {
   const date = moment().format("YYYY-MM-DD HH:mm:ss");

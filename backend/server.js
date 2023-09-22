@@ -1,10 +1,10 @@
 // app.js
 import express from "express";
-import { homePageAPI } from "./functions/homepage.mjs";
+import { homePageAPI } from "./APIs/homepage.mjs";
 import cors from "cors";
-import { getMovieByIdAPI, searchMoviesAPI } from "./functions/movie.mjs";
-import { getListByIdAPI } from "./functions/list.mjs";
-import { getUserInfoByEmailAPI } from "./functions/user.mjs";
+import { getMovieByIdAPI, searchMoviesAPI } from "./APIs/movie.mjs";
+import { getListByIdAPI } from "./APIs/list.mjs";
+import { getUserInfoByEmailAPI } from "./APIs/user.mjs";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -28,6 +28,9 @@ app.post("/lists");
 app.post("/movies/:movie_id/rating");
 app.post("/movies/:movie_id/comments");
 app.post("/search_movie", searchMoviesAPI);
+app.post("/user/signup");
+app.post("/user/login");
+app.post("/user/logout");
 
 // Start the server
 app.listen(port, () => {

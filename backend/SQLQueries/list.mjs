@@ -1,4 +1,4 @@
-import { executeSqlQuery } from "./sql/sql.mjs";
+import { executeSqlQuery } from "./connect/sql.mjs";
 
 export async function addMovieToList(listId, movieId) {
   const statement = "INSERT INTO list2movie (movie_id, list_id) VALUES (?, ?);";

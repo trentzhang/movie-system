@@ -7,6 +7,8 @@ import "holderjs";
 import { useCookies } from "react-cookie";
 import Header from "../Header/Header";
 
+import { auth } from "../Authentication/Firebase";
+import Login from "../Authentication/Login";
 import { MovieCardGroup } from "./body/MovieCardGroup";
 import { ListCardGroup } from "./body/ListCardGroup";
 
@@ -50,12 +52,18 @@ const Home = () => {
     // the console.
   });
 
+  const user = auth.currentUser;
+
   if (!login) {
     return (
       <Stack gap={3}>
         <Header />
         <Container>
           <Stack gap={3}>
+            <div>
+              <h1>Your App</h1>
+              {user ? user : <Login />}
+            </div>
             <h2>Top Rated Movies</h2>
 
             <MovieCardGroup movies={moviesSortedByRating} />

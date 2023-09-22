@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import "holderjs";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { auth } from "../LoginRegisterModal/Firebase";
+import { auth } from "../Authentication/Firebase";
 import { useCookies } from "react-cookie";
 
 const ListCard = (movieList) => {

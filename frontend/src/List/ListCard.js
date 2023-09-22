@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { coverURL } from "../Misc/functions";
-import { auth } from "../LoginRegisterModal/Firebase";
+import { auth } from "../Authentication/Firebase";
 import { useCookies } from "react-cookie";
 import { backendUrl } from "../settings";
 const ListCard = ({ movieList }) => {

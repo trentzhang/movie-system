@@ -5,14 +5,14 @@ import {
   getMoviesByUserLiked,
   getMoviesSortedByRating,
   getMoviesRandom,
-} from "../access/movie.mjs";
+} from "../SQLQueries/movie.mjs";
 import {
   getRecommendedListSortedByRating,
   getListsByUserEmail,
   addMovieToList,
   getListSortedByRating,
-} from "../access/list.mjs";
-import { getUserByEmail } from "../access/user.mjs";
+} from "../SQLQueries/list.mjs";
+import { getUserByEmail } from "../SQLQueries/user.mjs";
 import { parseCookies } from "../utils/cookiesUtil.mjs";
 
 export async function homePageAPI(req, res) {

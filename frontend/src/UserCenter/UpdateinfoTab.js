@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 // import { useParams } from "react-router-dom";
-import { auth, db } from "../LoginRegisterModal/Firebase";
+import { auth } from "../Authentication/Firebase";
 import { ref, set, get, child } from "firebase/database";
 import { updatePassword } from "firebase/auth";
 
@@ -28,19 +28,19 @@ class Updateinfo extends React.Component {
     auth.onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.
-        get(child(ref(db), `users/${user.uid}`)).then((snapshot) => {
-          if (snapshot.exists()) {
-            //   console.log(auth.currentUser);
-            //   console.log(snapshot.val().birthday);
-            this.setState({
-              new_birthday: snapshot.val().birthday,
-              new_gender: snapshot.val().gender,
-              new_username: snapshot.val().username,
-            });
-          } else {
-            console.log("No data available");
-          }
-        });
+        // get(child(ref(db), `users/${user.uid}`)).then((snapshot) => {
+        //   if (snapshot.exists()) {
+        //     //   console.log(auth.currentUser);
+        //     //   console.log(snapshot.val().birthday);
+        //     this.setState({
+        //       new_birthday: snapshot.val().birthday,
+        //       new_gender: snapshot.val().gender,
+        //       new_username: snapshot.val().username,
+        //     });
+        //   } else {
+        //     console.log("No data available");
+        //   }
+        // });
       } else {
         // No user is signed in.
       }
@@ -67,11 +67,11 @@ class Updateinfo extends React.Component {
     });
   }
   handleSubmit(e) {
-    set(ref(db, "users/" + auth.currentUser.uid), {
-      gender: this.state.new_gender,
-      username: this.state.new_username,
-      birthday: this.state.new_birthday,
-    }).catch((e) => alert("fail to reset gender/username/birthday"));
+    // set(ref(db, "users/" + auth.currentUser.uid), {
+    //   gender: this.state.new_gender,
+    //   username: this.state.new_username,
+    //   birthday: this.state.new_birthday,
+    // }).catch((e) => alert("fail to reset gender/username/birthday"));
     updatePassword(auth.currentUser, this.state.new_password)
       .then()
       .catch((e) => alert("fail to reset password"));
