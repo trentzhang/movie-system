@@ -37,7 +37,7 @@ const SignUp = ({ setShowRegisterModal }) => {
             birthday: birthday,
           }),
         };
-        fetch("${backendUrl}/user/signup", request);
+        fetch(`${backendUrl}/user/signup`, request);
       })
       .catch((error) => {
         const errorCode = error.code;

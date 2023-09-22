@@ -20,9 +20,6 @@ const Login = ({ setLogin }) => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        alert("login success!");
-        console.log("user :>> ", user);
-        // setLogin(true);
         // ...
       })
       .catch((error) => {
@@ -30,45 +27,6 @@ const Login = ({ setLogin }) => {
         const errorMessage = error.message;
         alert(`Login Failed \n ${errorMessage}`);
       });
-
-    // const request = {
-    //   method: "POST",
-
-    //   //   credentials: "omit",
-    //   headers: { "Content-type": "application/json" },
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: password,
-    //   }),
-    // };
-    // fetch(`${backendUrl}/auth/user/login`, request)
-    //   .catch((e) => {
-    //     console.log(e);
-    //     alert("Oops! Something Went Wrong, Please Try Again!");
-    //   })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     if (res.message === "ERROR: Encounter error during user login.") {
-    //       alert("Wrong username or password");
-    //     } else {
-    //       // save email and accessToken to cookies after logged in
-    //       let expires = new Date();
-    //       expires.setTime(expires.getTime() + 1000 * 1000);
-
-    //       setCookie("accessToken", res.data, {
-    //         path: "/",
-    //         expires,
-    //       });
-    //       setCookie("email", email, {
-    //         path: "/",
-    //         expires,
-    //       });
-    //       //   change login state
-    //       setLogin(true);
-    //       // alert("Login Success!");
-    //       window.location.reload(false);
-    //     }
-    //   });
   };
   const [show, setShow] = useState(false);
 

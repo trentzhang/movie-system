@@ -13,7 +13,7 @@ const LoginModal = ({}) => {
       <Button className="btn-secondary" onClick={() => setShow(true)}>
         Login
       </Button>
-
+      {/* login modal */}
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Log In</Modal.Title>
