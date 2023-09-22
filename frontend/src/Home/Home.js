@@ -7,10 +7,8 @@ import "holderjs";
 import { useCookies } from "react-cookie";
 import Header from "../Header/Header";
 
-import { auth } from "../Authentication/Firebase";
-import Login from "../Authentication/Login";
-import { MovieCardGroup } from "./body/MovieCardGroup";
 import { ListCardGroup } from "./body/ListCardGroup";
+import { MovieCardGroup } from "./body/MovieCardGroup";
 
 const Home = () => {
   const [moviesSortedByRating, setMoviesSortedByRating] = useState([]);
@@ -18,7 +16,7 @@ const Home = () => {
   const [lists, setLists] = useState([]);
   const cookies = useCookies();
   const login = JSON.parse(window.localStorage.getItem("login"));
-  const [user, setUser] = useState(auth.currentUser);
+  //   const [user, setUser] = useState(auth.currentUser);
 
   // const [cookies] = useCookies();
 

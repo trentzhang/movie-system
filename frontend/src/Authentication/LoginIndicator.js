@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Button, Stack, Navbar } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Navbar, Stack } from "react-bootstrap";
 import { auth } from "./Firebase";
 import LoginModal from "./LoginModal.js";
-import { useCookies } from "react-cookie";
-import { backendUrl } from "../settings";
 
 export default function LoginIndicator() {
   const onLogOut = () => {
@@ -32,8 +30,6 @@ export default function LoginIndicator() {
     return (
       <Stack direction="horizontal">
         <Navbar.Text className="me-2">
-          Welcome Back:
-          <br />
           <b>{user.email}</b>
         </Navbar.Text>
         <Button className="me-2" href={"/advanced_search"}>

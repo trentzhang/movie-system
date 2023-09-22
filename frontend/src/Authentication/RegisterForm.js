@@ -6,9 +6,9 @@ import { backendUrl } from "../settings";
 
 // import { useHistory } from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
-const SignUp = ({ setShowRegisterModal }) => {
+const SignUp = () => {
   const [gender, setGender] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -16,14 +16,14 @@ const SignUp = ({ setShowRegisterModal }) => {
   const [birthday, setBirthday] = useState("");
 
   //   const [showSuccess, setShowSuccess] = useState(false);
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        console.log("userCredential :>> ", userCredential);
+        // const user = userCredential.user;
+        // console.log("userCredential :>> ", userCredential);
 
         // pass information to MySQL data base
         const request = {

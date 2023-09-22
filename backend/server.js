@@ -6,7 +6,7 @@ import { getMovieByIdAPI, searchMoviesAPI } from "./APIs/movie.mjs";
 import { getListByIdAPI } from "./APIs/list.mjs";
 import {
   getUserInfoByEmailAPI,
-  postNewlyRegisteredUserInfoAPI,
+  putNewlyRegisteredUserInfoAPI,
 } from "./APIs/user.mjs";
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,7 +31,7 @@ app.post("/lists");
 app.post("/movies/:movie_id/rating");
 app.post("/movies/:movie_id/comments");
 app.post("/search_movie", searchMoviesAPI);
-app.put("/user/signup", postNewlyRegisteredUserInfoAPI);
+app.put("/user/signup", putNewlyRegisteredUserInfoAPI);
 app.post("/user/login");
 app.post("/user/logout");
 

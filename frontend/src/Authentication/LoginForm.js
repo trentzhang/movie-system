@@ -1,29 +1,27 @@
-import { Form, Row, Col, Button, Modal } from "react-bootstrap";
-import React, { useState } from "react";
-import { auth } from "./Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { auth } from "./Firebase";
 import RegisterForm from "./RegisterForm.js";
 
-import { backendUrl } from "../settings";
-
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 var x = 0;
 
 const Login = ({ setLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [setCookie] = useCookies(["accessToken", "email"]);
+  //   const [setCookie] = useCookies(["accessToken", "email"]);
 
   const onClickSignIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        // const user = userCredential.user;
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
         alert(`Login Failed \n ${errorMessage}`);
       });

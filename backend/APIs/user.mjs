@@ -77,7 +77,7 @@ async function createUser(body) {
   return result;
 }
 
-export async function postNewlyRegisteredUserInfoAPI(req, res) {
+export async function putNewlyRegisteredUserInfoAPI(req, res) {
   try {
     await createUser(req.body);
     res.status(200).send({ message: "Success" });

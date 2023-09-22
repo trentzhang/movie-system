@@ -1,9 +1,8 @@
 import React from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 // import { useParams } from "react-router-dom";
-import { auth } from "../Authentication/Firebase";
-import { ref, set, get, child } from "firebase/database";
 import { updatePassword } from "firebase/auth";
+import { auth } from "../Authentication/Firebase";
 
 class Updateinfo extends React.Component {
   constructor(props) {
