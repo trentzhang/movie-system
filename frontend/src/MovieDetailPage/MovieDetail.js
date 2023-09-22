@@ -67,6 +67,7 @@ const MovieDetail = () => {
         alert("Oops! We Couldn't Find This Movie, Please Try Again!");
       })
       .then(async (res) => {
+        console.log("res :>> ", res);
         // 2. get related list: the list that contain this movie
         const lists = await Promise.all(
           res.related_lists.map((list) =>

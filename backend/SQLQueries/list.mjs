@@ -26,7 +26,7 @@ export async function deleteMovieFromList(listId, movieId) {
 }
 
 export async function getRecommendedListSortedByRating(limit, email) {
-  const query = `SELECT * FROM list WHERE id not in (select list_id from fav_list where user = '${email}') ORDER BY liked LIMIT ${limit};`;
+  const query = `SELECT * FROM list WHERE id not in (select list_id from fav_list where user = '${email}') ORDER BY liked_num LIMIT ${limit};`;
   return await executeSqlQuery(query);
 }
 
@@ -57,7 +57,7 @@ export async function getListsLikesById(list_id) {
 }
 
 export async function getListsByMovieId(movieId) {
-  const query = `SELECT * FROM list WHERE id IN (SELECT list_id FROM list2movie WHERE movie_id = '${movieId}') ORDER BY liked LIMIT 10;`;
+  const query = `SELECT * FROM list WHERE id IN (SELECT list_id FROM list2movie WHERE movie_id = '${movieId}') ORDER BY liked_num LIMIT 10;`;
   return await executeSqlQuery(query);
 }
 
