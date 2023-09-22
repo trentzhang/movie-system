@@ -16,7 +16,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import Header from "./Header/Header.js";
-// import "./index.css";
+import "./index.css";
 
 ReactDOM.render(
   <div className="text-bg-dark min-vh-100">

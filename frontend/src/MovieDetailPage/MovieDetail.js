@@ -165,12 +165,12 @@ const MovieDetail = () => {
   return (
     <Stack gap={3}>
       <Header />
-      <Container className="mb-2 ">
-        <Card className="text-bg-dark">
+      <Container className="p-3">
+        <Stack className="text-bg-dark" gap={3}>
           <script src="holder.js"></script>
           <Card.Body>
             <Button
-              className="back-button btn-secondary"
+              className="btn-secondary"
               onClick={() => navigate(-1)}
               key={"back-button"}
             >
@@ -291,7 +291,7 @@ const MovieDetail = () => {
             <b>User review</b>
             <CommentSection movieData={movieData} />
           </Card.Body>
-        </Card>
+        </Stack>
       </Container>
     </Stack>
   );

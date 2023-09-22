@@ -1,4 +1,14 @@
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.card {
+  overflow: hidden;
+  position: relative;
+}
+
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(
+    1.02
+  ); /* You can adjust the scale factor for the desired zoom effect */
 }

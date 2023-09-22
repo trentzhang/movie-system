@@ -47,45 +47,44 @@ export function ResultCardMovie(item) {
       "//st.depositphotos.com/1987177/3470/v/450/depositphotos_34700099-stock-illustration-no-photo-available-or-missing.jpg";
   }
   return (
-    <Card className="mb-2 text-bg-dark">
+    <Container className="mb-2 text-bg-dark">
       <script src="holder.js"></script>
-      <Card.Body>
-        <Row>
-          <Col xs="2">
-            <Link className="movie_link" to={"/movie/" + item.valueProps.id}>
-              <Image
-                src={item.valueProps.cover}
-                height="150"
-                width="100"
-                className="mx-auto"
-              />
-            </Link>
-          </Col>
-          <Col xs="9">
-            <Link
-              className="movie_link"
-              to={login ? "/movie/" + item.valueProps.id : "/advanced_search/"}
-            >
-              <h3>{item.valueProps.title}</h3>
-            </Link>
-            <div>Runtime: {item.valueProps.runtime} min</div>
-            <div>Type: {item.valueProps.type}</div>
-          </Col>
-          <Col className="m-auto">
-            <Button
-              variant="outline-primary"
-              className="float_right"
-              onClick={() => {
-                handleNotLogin();
-                handleAddToList(item.valueProps.id);
-              }}
-            >
-              +
-            </Button>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+
+      <Row>
+        <Col xs="2">
+          <Link className="movie_link" to={"/movie/" + item.valueProps.id}>
+            <Image
+              src={item.valueProps.cover}
+              height="150"
+              width="100"
+              className="mx-auto"
+            />
+          </Link>
+        </Col>
+        <Col xs="9">
+          <Link
+            className="movie_link"
+            to={login ? "/movie/" + item.valueProps.id : "/advanced_search/"}
+          >
+            <h3>{item.valueProps.title}</h3>
+          </Link>
+          <div>Runtime: {item.valueProps.runtime} min</div>
+          <div>Type: {item.valueProps.type}</div>
+        </Col>
+        <Col className="m-auto">
+          <Button
+            variant="outline-primary"
+            className="float_right"
+            onClick={() => {
+              handleNotLogin();
+              handleAddToList(item.valueProps.id);
+            }}
+          >
+            +
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
@@ -184,7 +183,7 @@ const Search = () => {
     <Stack gap={3}>
       <Header />
       <Container>
-        <Card className="mb-2 text-bg-dark">
+        <Stack className="text-bg-dark" gap={3}>
           <Card.Body>
             <Form className="d-flex mb-2">
               <input
@@ -237,9 +236,9 @@ const Search = () => {
               })}
             </Container>
           </Card.Body>
-        </Card>
+        </Stack>
         {/* Results Card */}
-        <Card className="mb-2 text-bg-dark">
+        <Stack className="text-bg-dark" gap={3}>
           <Card.Body>
             <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
               {searchResults.map((item, index) => {
@@ -251,7 +250,7 @@ const Search = () => {
               })}
             </Row>
           </Card.Body>
-        </Card>
+        </Stack>
       </Container>
     </Stack>
   );

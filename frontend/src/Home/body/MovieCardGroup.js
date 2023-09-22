@@ -6,7 +6,7 @@ import { coverURL } from "../../Misc/functions";
 
 export function MovieCard({ movieInformation }) {
   return (
-    <Card className="text-center mx-2 text-bg-dark border-light">
+    <Card className="text-center mx-2 text-bg-dark border-light my-hover-card-zoom">
       <Card.Body>
         <Link
           to={`/movie/${movieInformation.id}`}
@@ -38,7 +38,7 @@ export function MovieCardGroup({ movies }) {
       <Splide options={options} className="pb-5">
         {movies.map((m) => {
           return (
-            <SplideSlide key={m.id}>
+            <SplideSlide key={m.id} className="py-2">
               <MovieCard movieInformation={m}></MovieCard>
             </SplideSlide>
           );
