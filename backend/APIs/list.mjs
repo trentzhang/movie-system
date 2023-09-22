@@ -10,7 +10,6 @@ export async function getListByIdAPI(req, res) {
     list.movies = movies;
     return res.status(200).send({ message: "OK", data: list });
   } catch (err) {
-    console.log(err);
     res.status(500).send({
       message: "ERROR: Encounter error getting List by id.",
       data: err,

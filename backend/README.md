@@ -12,10 +12,10 @@
 
 - List
 
-  | id  | name           | description      | creator         | liked |
-  | --- | -------------- | ---------------- | --------------- | ----- |
-  | 7   | test List      | description      | test2@gmail.com | 0     |
-  | 9   | test List Name | List Description | test@gmail.com  | 1     |
+  | id  | name           | description      | creator         | liked_num |
+  | --- | -------------- | ---------------- | --------------- | --------- |
+  | 7   | test List      | description      | test2@gmail.com | 0         |
+  | 9   | test List Name | List Description | test@gmail.com  | 1         |
 
 - list2movie
 

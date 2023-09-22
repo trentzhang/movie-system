@@ -84,6 +84,13 @@ export async function getMoviesById(id) {
   `;
   return await executeSqlQuery(query);
 }
+export async function getMoviesLikesById(movie_id) {
+  const query = `
+    SELECT COUNT(*) FROM user_liked_movie
+    WHERE movie_id = '${movie_id}';
+  `;
+  return await executeSqlQuery(query);
+}
 
 export async function getRecommendedMoviesSortedByRating(limit, email) {
   const query = `
@@ -109,8 +116,14 @@ export async function getUserLikedMovieByEmailAndMovieId(email, id) {
 
 export async function likeMovie(email, movie_id) {
   const query = `
-    INSERT INTO user_liked_movie (movie_id, user_email)
+    INSERT IGNORE INTO user_liked_movie (movie_id, user_email)
     VALUES ('${movie_id}', '${email}');
+  `;
+  await executeSqlQuery(query);
+}
+export async function unlikeMovie(email, movie_id) {
+  const query = `
+    DELETE FROM user_liked_movie WHERE movie_id='${movie_id}' AND  user_email='${email}'
   `;
   await executeSqlQuery(query);
 }

@@ -50,13 +50,19 @@ export async function getListsById(listId) {
   return await executeSqlQuery(query);
 }
 
+export async function getListsLikesById(list_id) {
+  const query = `SELECT COUNT(*) FROM user_liked_list
+    WHERE list_id = '${list_id}';`;
+  return await executeSqlQuery(query);
+}
+
 export async function getListsByMovieId(movieId) {
-  const query = `SELECT * FROM List WHERE id IN (SELECT list_id FROM list2movie WHERE movie_id = ${movieId}) ORDER BY liked LIMIT 10;`;
+  const query = `SELECT * FROM List WHERE id IN (SELECT list_id FROM list2movie WHERE movie_id = '${movieId}') ORDER BY liked LIMIT 10;`;
   return await executeSqlQuery(query);
 }
 
 export async function getList2MovieByEmailAndMovieId(email, movieId) {
-  const query = `SELECT * FROM List WHERE creator = '${email}' and id in (SELECT list_id from list2movie where movie_id = ${movieId});`;
+  const query = `SELECT * FROM List WHERE creator = '${email}' and id in (SELECT list_id from list2movie where movie_id = '${movieId}');`;
   return await executeSqlQuery(query);
 }
 
@@ -83,8 +89,14 @@ export async function updateListLikedById(id, likedNum) {
 }
 export async function likeList(email, list_id) {
   const statement = `
-    INSERT INTO user_liked_list (list_id, user_email)
+    INSERT IGNORE INTO user_liked_list (list_id, user_email)
     VALUES ('${list_id}', '${email}');
+  `;
+  await executeSqlQuery(statement);
+}
+export async function unlikeList(email, list_id) {
+  const statement = `
+    DELETE FROM user_liked_list WHERE list_id='${list_id}' AND  user_email='${email}'
   `;
   await executeSqlQuery(statement);
 }
