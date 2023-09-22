@@ -1,23 +1,24 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
-  Stack,
+  Button,
+  Card,
+  Col,
+  Container,
   Form,
   FormControl,
-  Button,
-  Container,
-  Card,
   Image,
   Row,
-  Col,
+  Stack,
 } from "react-bootstrap";
 import { backendUrl } from "../settings";
 
-import "./Search.css";
-import Header from "../Header/Header";
-import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
+import Header from "../Header/Header";
+import { MovieCard } from "../Home/body/MovieCardGroup";
+import "./Search.css";
 // import { checkbox } from "./body/checkboxes";
-function ResultCardMovie(item) {
+export function ResultCardMovie(item) {
   const login = JSON.parse(window.localStorage.getItem("login"));
   const [cookies] = useCookies();
 
@@ -90,7 +91,7 @@ function ResultCardMovie(item) {
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
-  const [banners, setBanners] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [language, setLanguage] = useState("");
   const [type, setType] = useState("");
   const lan_list = [
@@ -112,21 +113,11 @@ const Search = () => {
     "Sci_Fi",
   ];
 
-  //   const mapToObj = (m) => {
-  //     return Array.from(m).reduce((obj, [key, value]) => {
-  //       obj[key] = value;
-  //       return obj;
-  //     }, {});
-  //   };
-
-  // console.log("start0");
-
   const [searchJSON, setSearchJSON] = useState("");
 
   const handleSearch = useCallback(() => {
     const request = {
       method: "POST",
-
       credentials: "same-origin",
       headers: {
         "Content-type": "application/json",
@@ -143,9 +134,9 @@ const Search = () => {
         (response) => {
           if (!response.data) {
             console.log("no results");
-            setBanners(["No results!"]);
+            setSearchResults(["No results!"]);
           } else {
-            setBanners(response.data);
+            setSearchResults(response.data);
           }
         },
         (ex) => {}
@@ -250,17 +241,15 @@ const Search = () => {
         {/* Results Card */}
         <Card className="mb-2 text-bg-dark">
           <Card.Body>
-            {banners.map((item, index) => {
-              return (
-                <ResultCardMovie
-                  //   key={index}
-                  valueProps={item}
-                  user_id={
-                    JSON.parse(window.localStorage.getItem("login")).email
-                  }
-                />
-              );
-            })}
+            <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
+              {searchResults.map((item, index) => {
+                return (
+                  <Col>
+                    <MovieCard movieInformation={item}></MovieCard>
+                  </Col>
+                );
+              })}
+            </Row>
           </Card.Body>
         </Card>
       </Container>

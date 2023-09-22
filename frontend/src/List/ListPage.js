@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Stack, Container, Card, Nav, Navbar } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Modal, Nav, Navbar, Stack } from "react-bootstrap";
 
-import { MovieCardGroup } from "../Home/body/MovieCardGroup";
 import { useParams } from "react-router";
+import { MovieCardGroup } from "../Home/body/MovieCardGroup";
 // import LikeButton from "../MovieDetailPage/LikeButton/LikeButton.js";
-import Header from "../Header/Header";
 import { useCookies } from "react-cookie";
+import Header from "../Header/Header";
 import { backendUrl } from "../settings";
 
 const ListPage = () => {
@@ -83,11 +83,7 @@ const ListPage = () => {
       <Container className="mb-2">
         <Stack>
           <Container>
-            <Card>
-              <Card.Body>
-                <MovieCardGroup movies={content}></MovieCardGroup>
-              </Card.Body>
-            </Card>
+            <MovieCardGroup movies={content}></MovieCardGroup>
           </Container>
         </Stack>
       </Container>

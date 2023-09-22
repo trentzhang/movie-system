@@ -6,27 +6,26 @@ import { coverURL } from "../../Misc/functions";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 
 export function ListCardGroup({ Lists }) {
-  if (Lists) {
+  const options = {
+    type: "loop",
+    perPage: 4,
+    autoplay: true,
+    // autoHeight: true,
+    focus: "center",
+    padding: "5rem",
+    breakpoints: {
+      640: { perPage: 2 },
+      480: { perPage: 1 },
+    },
+  };
+  if (Lists && Lists[0]) {
     return (
       <Container>
-        <Splide
-          options={{
-            type: "loop",
-            perPage: 4,
-            autoplay: true,
-            // autoHeight: true,
-            focus: "center",
-            padding: "5rem",
-            breakpoints: {
-              640: { perPage: 2 },
-              480: { perPage: 1 },
-            },
-          }}
-        >
+        <Splide options={options} className="pb-4">
           {Lists.map((m) => {
             return (
               <SplideSlide key={m.id}>
-                <Card className="text-center mx-2 text-bg-dark transition-fade hover">
+                <Card className="text-center mx-2 text-bg-dark">
                   <Card.Body>
                     <Link
                       to={`/list/${m.id}`}

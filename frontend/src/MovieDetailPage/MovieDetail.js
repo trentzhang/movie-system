@@ -1,28 +1,26 @@
-import { backendUrl } from "../settings";
-import React, { useEffect, useState } from "react";
-import Header from "../Header/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
 import {
-  Stack,
   Button,
-  Container,
   Card,
-  Image,
-  Row,
   Col,
+  Container,
+  Image,
   OverlayTrigger,
+  Row,
+  Stack,
   Tooltip,
 } from "react-bootstrap";
+import Header from "../Header/Header";
+import { backendUrl } from "../settings";
 
 import { Link } from "react-router-dom";
-import RatingsComponent from "./LikeButton/LikeButton";
-import ListCard from "../List/ListCard";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
+import RatingsComponent from "./LikeButton/LikeButton";
 import "./MovieDetail.sass";
 // import { coverURL } from "../Misc/functions";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useNavigate, useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 // import { set } from "firebase/database";
 

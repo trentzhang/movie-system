@@ -48,26 +48,23 @@ const Home = () => {
   window.addEventListener("storage", () => {
     // When local storage changes, dump the list to
     // the console.
-    // console.log(JSON.parse(window.localStorage.getItem("login")));
   });
 
   if (!login) {
-    console.log("lists :>> ", lists);
     return (
       <Stack gap={3}>
         <Header />
         <Container>
           <Stack gap={3}>
             <h2>Top Rated Movies</h2>
-            <Stack direction="horizontal" gap={3}>
-              <MovieCardGroup movies={moviesSortedByRating} />
-            </Stack>
-            <h2>Random Movies</h2>
-            <Stack direction="horizontal" gap={3}>
-              <MovieCardGroup movies={moviesRandom} />
-            </Stack>
-            <h2>Lists</h2>
 
+            <MovieCardGroup movies={moviesSortedByRating} />
+
+            <h2>Random Movies</h2>
+
+            <MovieCardGroup movies={moviesRandom} />
+
+            <h2>Lists</h2>
             <ListCardGroup Lists={lists} />
           </Stack>
         </Container>
