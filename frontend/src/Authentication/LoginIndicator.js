@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Navbar, Stack } from "react-bootstrap";
+import { Button, Navbar, Stack, Modal } from "react-bootstrap";
 import { auth } from "./Firebase";
-import LoginModal from "./LoginModal.js";
-
+// import LoginModal from "./LoginModal.js";
+import LoginForm from "./LoginForm";
 export default function LoginIndicator() {
   const onLogOut = () => {
     auth.signOut();
@@ -26,27 +26,51 @@ export default function LoginIndicator() {
     };
   }, []);
 
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
   if (user) {
     return (
-      <Stack direction="horizontal">
-        <Navbar.Text className="me-2">
+      <Stack direction="horizontal" gap={2}>
+        <Navbar.Text>
           <b>{user.email}</b>
         </Navbar.Text>
-        <Button className="me-2" href={"/advanced_search"}>
+        <Button className="btn-light" href={"/advanced_search"}>
           Search
         </Button>
-        <Button className="d-flex me-2" onClick={onLogOut}>
+        <Button className="btn-light" onClick={onLogOut}>
           Log out
         </Button>
-        <Button className="me-2" href={`/user/${user.email}`}>
+        <Button className="btn-light" href={`/user/${user.email}`}>
           My Home
         </Button>
-        <Button variant="outline-secondary" href="/userhome">
+        <Button className="btn-secondary" href="/userhome">
           Settings
         </Button>
       </Stack>
     );
   } else {
-    return <LoginModal />;
+    return (
+      <Stack direction="horizontal" gap={3}>
+        <Button className="btn-light" href={"/advanced_search"}>
+          Search
+        </Button>
+        <Button
+          className="btn-secondary"
+          onClick={() => setShowLoginModal(true)}
+        >
+          Login
+        </Button>
+        {/* login modal */}
+        <Modal show={showLoginModal} onHide={() => setShowLoginModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Log In</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <LoginForm />
+          </Modal.Body>
+        </Modal>
+      </Stack>
+    );
   }
 }

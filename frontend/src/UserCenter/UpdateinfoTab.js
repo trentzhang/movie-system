@@ -146,7 +146,9 @@ class Updateinfo extends React.Component {
             </Col>
           </Form.Group>
           <div className="mb-2">
-            <Button type="submit">Save Changes</Button>
+            <Button variant="light" type="submit">
+              Save Changes
+            </Button>
           </div>
         </form>
         <div>

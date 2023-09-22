@@ -19,16 +19,14 @@ class UserHome extends React.Component {
             Back to homepage
           </Button> */}
 
-          <Tab.Container
-            id="left-tabs"
-            variant="success"
-            defaultActiveKey="info"
-          >
+          <Tab.Container id="left-tabs" defaultActiveKey="info">
             <Row>
-              <Col sm={3}>
-                <Nav justify variant="pills" className="flex-column">
+              <Col>
+                <Nav justify>
                   <Nav.Item>
-                    <Nav.Link eventKey="info">Update Your Information</Nav.Link>
+                    <Nav.Link eventKey="info" className="text-light">
+                      Update Your Information
+                    </Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Col>
@@ -37,15 +35,6 @@ class UserHome extends React.Component {
                   <Tab.Pane eventKey="info">
                     <Updateinfo />
                   </Tab.Pane>
-                  {/* <Tab.Pane eventKey="mylist">
-                    <MyOwnListsTab />
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="favlist">
-                    <br />
-                    <h2>My Favorite Lists</h2>
-                    <br />
-                    <Mydisplay isOwnedList={false} />
-                  </Tab.Pane> */}
                 </Tab.Content>
               </Col>
             </Row>
