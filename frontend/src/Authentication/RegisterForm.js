@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "./Firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 // import { ref, set } from "firebase/database";
 import { backendUrl } from "../settings";
 
@@ -20,7 +20,7 @@ const SignUp = ({ setShowRegisterModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log("userCredential :>> ", userCredential);
@@ -37,12 +37,18 @@ const SignUp = ({ setShowRegisterModal }) => {
             birthday: birthday,
           }),
         };
-        fetch(`${backendUrl}/user/signup`, request);
+        const response = await fetch(`${backendUrl}/user/signup`, request);
+        if (!response.ok) {
+          deleteUser(auth.currentUser);
+          throw new Error(
+            `HTTP error when saving info to database! Status: ${response.status}`
+          );
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert("Register Failed!\n" + errorCode);
+        alert("Register Failed!\n" + errorCode + errorMessage);
       });
   };
 
@@ -50,13 +56,14 @@ const SignUp = ({ setShowRegisterModal }) => {
     <form onSubmit={handleSubmit}>
       <div>
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column>Username</Form.Label>
+          <Form.Label column>Username*</Form.Label>
           <Col>
             <Form.Control
               type="text"
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </Col>
         </Form.Group>

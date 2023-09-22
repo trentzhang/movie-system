@@ -36,15 +36,44 @@ async function createUser(body) {
   const name = body.name;
   const gender = body.gender;
   const birthday = body.birthday;
-  const statement =
-    "INSERT INTO user (username, email, gender, birthday) " +
-    "VALUES (?, ?, ?, ?);";
-  const result = await executeSqlQuery(statement, [
-    name,
-    email,
-    gender,
-    birthday,
-  ]);
+
+  // Initialize an array to store the columns and values
+  const columns = [];
+  const values = [];
+
+  // Check if each field is defined and add it to the respective arrays
+  if (name) {
+    columns.push("username");
+    values.push(`'${name}'`);
+  }
+
+  if (email) {
+    columns.push("email");
+    values.push(`'${email}'`);
+  }
+
+  if (gender) {
+    columns.push("gender");
+    values.push(`'${gender}'`);
+  }
+
+  if (birthday) {
+    columns.push("birthday");
+    values.push(`'${birthday}'`);
+  }
+
+  // Check if there are values to insert
+  if (columns.length === 0) {
+    // No values to insert, return early or handle it as needed
+    return null;
+  }
+
+  // Create the SQL statement using the columns and values
+  const statement = `INSERT INTO user (${columns.join(
+    ", "
+  )}) VALUES (${values.join(", ")});`;
+
+  const result = await executeSqlQuery(statement);
   return result;
 }
 
