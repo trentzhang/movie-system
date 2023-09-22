@@ -1,9 +1,9 @@
 import { Form, Row, Col, Button, Modal } from "react-bootstrap";
 import React, { useState } from "react";
-
+import { auth } from "./Firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import RegisterForm from "./RegisterForm.js";
-// import { auth } from "./Firebase";
-// import { signInWithEmailAndPassword } from "firebase/auth";
+
 import { backendUrl } from "../settings";
 
 import { useCookies } from "react-cookie";
@@ -16,48 +16,59 @@ const Login = ({ setLogin }) => {
 
   const onClickSignIn = (e) => {
     e.preventDefault();
-    console.log({
-      email: email,
-      password: password,
-    });
-    const request = {
-      method: "POST",
-
-      //   credentials: "omit",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    };
-    fetch(`${backendUrl}/auth/user/login`, request)
-      .catch((e) => {
-        console.log(e);
-        alert("Oops! Something Went Wrong, Please Try Again!");
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        alert("login success!");
+        console.log("user :>> ", user);
+        // setLogin(true);
+        // ...
       })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.message === "ERROR: Encounter error during user login.") {
-          alert("Wrong username or password");
-        } else {
-          // save email and accessToken to cookies after logged in
-          let expires = new Date();
-          expires.setTime(expires.getTime() + 1000 * 1000);
-
-          setCookie("accessToken", res.data, {
-            path: "/",
-            expires,
-          });
-          setCookie("email", email, {
-            path: "/",
-            expires,
-          });
-          //   change login state
-          setLogin(true);
-          // alert("Login Success!");
-          window.location.reload(false);
-        }
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(`Login Failed \n ${errorMessage}`);
       });
+
+    // const request = {
+    //   method: "POST",
+
+    //   //   credentials: "omit",
+    //   headers: { "Content-type": "application/json" },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: password,
+    //   }),
+    // };
+    // fetch(`${backendUrl}/auth/user/login`, request)
+    //   .catch((e) => {
+    //     console.log(e);
+    //     alert("Oops! Something Went Wrong, Please Try Again!");
+    //   })
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     if (res.message === "ERROR: Encounter error during user login.") {
+    //       alert("Wrong username or password");
+    //     } else {
+    //       // save email and accessToken to cookies after logged in
+    //       let expires = new Date();
+    //       expires.setTime(expires.getTime() + 1000 * 1000);
+
+    //       setCookie("accessToken", res.data, {
+    //         path: "/",
+    //         expires,
+    //       });
+    //       setCookie("email", email, {
+    //         path: "/",
+    //         expires,
+    //       });
+    //       //   change login state
+    //       setLogin(true);
+    //       // alert("Login Success!");
+    //       window.location.reload(false);
+    //     }
+    //   });
   };
   const [show, setShow] = useState(false);
 

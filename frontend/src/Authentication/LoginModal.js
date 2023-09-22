@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import LoginForm from "./LoginForm";
 
-const LoginModal = ({ setLogin }) => {
+const LoginModal = ({}) => {
   const [show, setShow] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ const LoginModal = ({ setLogin }) => {
         </Modal.Header>
 
         <Modal.Body>
-          <LoginForm setLogin={setLogin} />
+          <LoginForm />
         </Modal.Body>
       </Modal>
     </>

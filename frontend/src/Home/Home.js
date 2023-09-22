@@ -18,6 +18,8 @@ const Home = () => {
   const [lists, setLists] = useState([]);
   const cookies = useCookies();
   const login = JSON.parse(window.localStorage.getItem("login"));
+  const [user, setUser] = useState(auth.currentUser);
+
   // const [cookies] = useCookies();
 
   useEffect(() => {
@@ -36,13 +38,13 @@ const Home = () => {
       .then((response) => response.json())
       .then((response) => {
         if (!login) {
-          setMoviesRandom(response.data.moviesRandom);
-          setMoviesSortedByRating(response.data.moviesSortedByRating);
-          setLists(response.data.lists);
         } else {
           //   setMovies(response.data.recommendedMovies);
           //   setLists(response.data.recommendedLists);
         }
+        setMoviesRandom(response.data.moviesRandom);
+        setMoviesSortedByRating(response.data.moviesSortedByRating);
+        setLists(response.data.lists);
       })
       .catch((err) => console.log(err));
   }, [login, cookies.email, cookies.accessToken]);
@@ -52,18 +54,16 @@ const Home = () => {
     // the console.
   });
 
-  const user = auth.currentUser;
-
   if (!login) {
     return (
       <Stack gap={3}>
         <Header />
         <Container>
           <Stack gap={3}>
-            <div>
+            {/* <div>
               <h1>Your App</h1>
-              {user ? user : <Login />}
-            </div>
+              {user && user.email ? user.email : <Login />}
+            </div> */}
             <h2>Top Rated Movies</h2>
 
             <MovieCardGroup movies={moviesSortedByRating} />
