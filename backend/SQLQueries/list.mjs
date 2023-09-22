@@ -26,27 +26,27 @@ export async function deleteMovieFromList(listId, movieId) {
 }
 
 export async function getRecommendedListSortedByRating(limit, email) {
-  const query = `SELECT * FROM List WHERE id not in (select list_id from fav_list where user = '${email}') ORDER BY liked LIMIT ${limit};`;
+  const query = `SELECT * FROM list WHERE id not in (select list_id from fav_list where user = '${email}') ORDER BY liked LIMIT ${limit};`;
   return await executeSqlQuery(query);
 }
 
 export async function getListSortedByRating(limit) {
-  const query = `SELECT * FROM List ORDER BY liked LIMIT ${limit};`;
+  const query = `SELECT * FROM list ORDER BY liked_num LIMIT ${limit};`;
   return await executeSqlQuery(query);
 }
 
 export async function getListsByUserEmail(email) {
-  const query = `SELECT * FROM List WHERE id in (select list_id from fav_list where user = '${email}');`;
+  const query = `SELECT * FROM list WHERE id in (select list_id from fav_list where user = '${email}');`;
   return await executeSqlQuery(query);
 }
 
 export async function getListByOwnerEmail(email) {
-  const query = `SELECT * FROM List WHERE id in (select list_id from fav_list where user = '${email}' and is_owner = 1);`;
+  const query = `SELECT * FROM list WHERE id in (select list_id from fav_list where user = '${email}' and is_owner = 1);`;
   return await executeSqlQuery(query);
 }
 
 export async function getListsById(listId) {
-  const query = `SELECT * FROM List WHERE id = ${listId};`;
+  const query = `SELECT * FROM list WHERE id = ${listId};`;
   return await executeSqlQuery(query);
 }
 
@@ -57,12 +57,12 @@ export async function getListsLikesById(list_id) {
 }
 
 export async function getListsByMovieId(movieId) {
-  const query = `SELECT * FROM List WHERE id IN (SELECT list_id FROM list2movie WHERE movie_id = '${movieId}') ORDER BY liked LIMIT 10;`;
+  const query = `SELECT * FROM list WHERE id IN (SELECT list_id FROM list2movie WHERE movie_id = '${movieId}') ORDER BY liked LIMIT 10;`;
   return await executeSqlQuery(query);
 }
 
 export async function getList2MovieByEmailAndMovieId(email, movieId) {
-  const query = `SELECT * FROM List WHERE creator = '${email}' and id in (SELECT list_id from list2movie where movie_id = '${movieId}');`;
+  const query = `SELECT * FROM list WHERE creator = '${email}' and id in (SELECT list_id from list2movie where movie_id = '${movieId}');`;
   return await executeSqlQuery(query);
 }
 
@@ -75,7 +75,7 @@ export async function getUserLikedListByEmailAndListId(email, id) {
 }
 
 export async function searchListsByNameKeyword(keyword) {
-  const query = `SELECT * FROM List WHERE name LIKE '%${keyword}%' LIMIT 10;`;
+  const query = `SELECT * FROM list WHERE name LIKE '%${keyword}%' LIMIT 10;`;
   return await executeSqlQuery(query);
 }
 
