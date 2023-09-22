@@ -61,11 +61,14 @@ const Home = () => {
             <MovieCardGroup movies={moviesSortedByRating} />
 
             <h2>Random Movies</h2>
-
             <MovieCardGroup movies={moviesRandom} />
 
             <h2>Lists</h2>
             <ListCardGroup Lists={lists} />
+
+            <h2>Recently Joined Users</h2>
+            {/* TODO implement backend */}
+            {/* <ListCardGroup Lists={lists} /> */}
           </Stack>
         </Container>
       </Stack>
