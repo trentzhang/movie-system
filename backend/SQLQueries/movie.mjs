@@ -34,6 +34,14 @@ export async function getMoviesSortedByRating(limit) {
   `;
   return await executeSqlQuery(query);
 }
+export async function getMoviesSortedByLikedNum(limit) {
+  const query = `
+    SELECT * FROM movie
+    ORDER BY liked_num DESC
+    LIMIT ${limit};
+  `;
+  return await executeSqlQuery(query);
+}
 
 export async function getMoviesRandom(limit) {
   const query = `

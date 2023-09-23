@@ -4,6 +4,7 @@ import {
   getMoviesByListId,
   getMoviesByUserLiked,
   getMoviesSortedByRating,
+  getMoviesSortedByLikedNum,
   getMoviesRandom,
 } from "../SQLQueries/movie.mjs";
 import {
@@ -48,7 +49,7 @@ export async function homePageAPI(req, res) {
 // }\
 
 async function getHomepage(limit = 10) {
-  const MoviesSortedByRating = await getMoviesSortedByRating(limit);
+  const MoviesSortedByRating = await getMoviesSortedByLikedNum(limit);
   const MoviesRandom = await getMoviesRandom(limit);
   const Lists = await getListSortedByRating(limit);
   return {

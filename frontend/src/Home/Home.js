@@ -58,7 +58,7 @@ const Home = () => {
 
       <Stack gap={3}>
         <div className="text-center">
-          <h2>Top Rated Movies</h2>
+          <h2>Top Liked Movies</h2>
           <MovieCardGroup movies={moviesSortedByRating} />
           <h2>Random Movies</h2>
           <MovieCardGroup movies={moviesRandom} />
