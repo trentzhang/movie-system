@@ -11,22 +11,43 @@ import {
   Stack,
   Tooltip,
 } from "react-bootstrap";
-import Header from "../Header/Header";
-import { backendUrl } from "../settings";
-import { auth } from "../Authentication/Firebase";
 import { Link } from "react-router-dom";
+import { auth } from "../Authentication/Firebase";
+import Header from "../Header/Header";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
+import { backendUrl } from "../settings";
 import RatingsComponent from "./LikeButton/LikeButton";
 import "./MovieDetail.sass";
-// import { coverURL } from "../Misc/functions";
-import { useCookies } from "react-cookie";
+
 import { useNavigate, useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
-// import { set } from "firebase/database";
 
-const MovieDetail = () => {
+async function currentUserLikeThisMovie(email, movie_Id) {
+  try {
+    const response = await fetch(
+      `${backendUrl}/liked/movies/${email}/${movie_Id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    const data = await response.json();
+
+    if (data.data) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error fetching like status:", error);
+  }
+}
+function MovieDetail() {
   const navigate = useNavigate();
-  let { movie_Id } = useParams();
+  const { movie_Id } = useParams();
   const [movieData, setMovieData] = useState({
     id: movie_Id,
     title: null,
@@ -46,134 +67,91 @@ const MovieDetail = () => {
   });
 
   const [liked, setLiked] = useState(false);
-  const [inList, setInList] = useState(false);
 
-  const [cookies] = useCookies();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // 1. get movie data
-    fetch(`${backendUrl}/movies/${movie_Id}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => res.data)
-      .catch((e) => {
-        console.log(e);
-        alert("Oops! We Couldn't Find This Movie, Please Try Again!");
-      })
-      .then(async (res) => {
-        console.log("res :>> ", res);
-        // 2. get related list: the list that contain this movie
-        const lists = await Promise.all(
-          res.related_lists.map((list) =>
-            fetch(`${backendUrl}/lists/${list.id}`, {
-              method: "GET",
-              headers: {
-                "Content-type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-              },
-            })
-              .then((res) => res.json())
-              .then((res) => res.data)
-          )
-        );
-        setMovieData({ ...res, lists: lists });
-        // 3. check if current user liked this movie
-        if (auth.currentUser) {
-        }
-
-        // setLiked(res.isLikedByUser);
-        // 4. check if current user add this movie
-        // setInList(res.isAddedToList);
-      });
-  }, [liked, inList, cookies.accessToken, cookies.email, movie_Id]);
-
-  //   useEffect(() => {
-  //     console.log(1111);
-  //     if (cookie.email && liked_users && liked_users.includes(cookie.email)) {
-  //       setLiked(true);
-  //     }
-  //   }, [liked_users]);
-  const handleAddToList = () => {
-    const request = {
-      method: "PUT",
-
-      credentials: "omit",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-      },
-    };
-    fetch(`${backendUrl}/user/lists/movies/${movie_Id}`, request);
-    window.location.reload(false);
-  };
-  const handleDelFromList = () => {
-    const request = {
-      method: "DELETE",
-
-      credentials: "omit",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-      },
-    };
-    fetch(`${backendUrl}/user/lists/movies/${movie_Id}`, request);
-    window.location.reload(false);
-  };
-
-  const changeLike = () => {
-    if (auth.currentUser) {
-      // if user if logged in
-      // check data base if this user liked this movie
-      // change the like status based on user liked movie database
-      setLiked(!liked);
-      if (!liked) {
-        const request = {
-          method: "PUT",
-
-          credentials: "omit",
-          headers: {
-            "Content-type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-          },
-        };
-        fetch(`${backendUrl}/user/liked/movies/${movie_Id}`, request).catch(
-          (e) => {
-            console.log(e);
-            alert("Oops! Like Operation API Wrong, Please Try Again!");
-          }
-        );
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser);
       } else {
-        // console.log("delete api, delete like to database ");
-        const request = {
-          method: "DELETE",
-
-          credentials: "omit",
-          headers: {
-            "Content-type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-          },
-        };
-        fetch(`${backendUrl}/user/liked/movies/${movie_Id}`, request);
+        setUser(null);
       }
-    } else {
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch movie data
+        const movieResponse = await fetch(`${backendUrl}/movies/${movie_Id}`);
+        const movieData = await (await movieResponse.json()).data;
+
+        // Fetch related lists
+        const lists = await Promise.all(
+          movieData.related_lists.map(async (list) => {
+            const listResponse = await fetch(`${backendUrl}/lists/${list.id}`);
+            const listData = await listResponse.json();
+            return listData.data;
+          })
+        );
+
+        // Update movie data with related lists
+        setMovieData({ ...movieData, lists });
+
+        // Check if the current user liked this movie
+        if (user) {
+          const userLikedMovie = await currentUserLikeThisMovie(
+            user.email,
+            movie_Id
+          );
+          setLiked(userLikedMovie);
+        }
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+        alert("Oops! We Couldn't Find This Movie, Please Try Again!");
+      }
+    }
+
+    fetchData();
+  }, [movie_Id, user, liked]);
+
+  async function changeLike() {
+    if (!user) {
       alert("Please login first!");
       return false;
     }
-  };
+
+    const email = user.email;
+    const requestMethod = liked ? "DELETE" : "PUT";
+
+    try {
+      const request = {
+        method: requestMethod,
+        credentials: "omit",
+        headers: {
+          "Content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      };
+
+      await fetch(`${backendUrl}/liked/movies/${email}/${movie_Id}`, request);
+
+      setLiked(!liked);
+    } catch (error) {
+      console.log(error);
+      alert("Oops! Like Operation API Wrong, Please Try Again!");
+    }
+  }
 
   return (
     <Stack gap={3}>
       <Header />
+
       <Container className="p-3">
         <Stack className="text-bg-dark" gap={3}>
           <script src="holder.js"></script>
@@ -233,9 +211,9 @@ const MovieDetail = () => {
                 <div>
                   <RatingsComponent liked={liked} clickFunc={changeLike} />
                 </div>
-                <div>
+                {/* TODO change style of add remove to list button */}
+                {/* <div>
                   Add/remove to list:
-                  {/* TODO change style of add remove to list button */}
                   <Button
                     variant="outline-primary"
                     size="lg"
@@ -254,7 +232,7 @@ const MovieDetail = () => {
                   >
                     -
                   </Button>
-                </div>
+                </div> */}
               </Col>
             </Row>
           </Card.Body>
@@ -304,7 +282,7 @@ const MovieDetail = () => {
       </Container>
     </Stack>
   );
-};
+}
 
 export default MovieDetail;
 

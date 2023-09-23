@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import cn from "classnames";
+import React, { useState, useEffect } from "react";
 import { ReactComponent as Hand } from "./hand.svg";
 import "./styles.scss";
 
@@ -25,6 +25,7 @@ const LikeButton = ({ liked, clickFunc }) => {
           {particleList.map((_, index) => (
             <div
               className="particle-rotate"
+              key={index}
               style={{
                 transform: `rotate(${
                   (360 / particleList.length) * index + 1

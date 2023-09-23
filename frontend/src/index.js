@@ -15,7 +15,6 @@ import {
   //   Link,
   Navigate,
 } from "react-router-dom";
-import Header from "./Header/Header.js";
 import "./index.css";
 
 ReactDOM.render(
