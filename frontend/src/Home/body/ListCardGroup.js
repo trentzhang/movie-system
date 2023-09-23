@@ -14,8 +14,8 @@ export function ListCardGroup({ Lists }) {
     focus: "center",
     padding: "5rem",
     breakpoints: {
-      640: { perPage: 2 },
-      480: { perPage: 1 },
+      640: { perPage: 3 },
+      480: { perPage: 2 },
     },
   };
   if (Lists && Lists[0]) {

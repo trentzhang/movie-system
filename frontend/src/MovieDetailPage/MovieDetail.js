@@ -155,29 +155,18 @@ function MovieDetail() {
       <Container className="p-3">
         <Stack className="text-bg-dark" gap={3}>
           <script src="holder.js"></script>
+          {/* <Button
+            className="btn-secondary"
+            onClick={() => navigate(-1)}
+            key="back-button"
+          >
+            Back
+          </Button> */}
+          <Row className="vh-30">
+            <Stack gap={3} className="flex-md-row">
+              <Image src={movieData.cover} className="h-100 object-cover" />
 
-          <Card.Body>
-            <Button
-              className="btn-secondary"
-              onClick={() => navigate(-1)}
-              key="back-button"
-            >
-              Back
-            </Button>
-
-            <Row>
-              <Col
-                xs="6"
-                className="d-flex flex-column justify-content-center align-items-center"
-              >
-                <Image
-                  src={movieData.cover}
-                  className="mx-auto"
-                  width="200"
-                  height="300"
-                />
-              </Col>
-              <Col>
+              <Col className="d-flex flex-column">
                 <h2>{movieData.title}</h2>
                 <br />
                 <div>
@@ -204,51 +193,40 @@ function MovieDetail() {
                 <div>
                   <b>Rating:</b> {movieData.rating}
                 </div>
-                <div>
+                <div className="mt-auto">
                   <RatingsComponent liked={liked} clickFunc={changeLike} />
                 </div>
               </Col>
-            </Row>
-          </Card.Body>
-
-          <Card.Body>
-            <b>Description:</b> {movieData.description}
-          </Card.Body>
-
-          <Card.Body>
-            <b>They also liked this movie:</b>
-            <Card.Text>
-              {movieData.liked_users
-                ? movieData.liked_users.map((value, index) => (
-                    <OverlayTrigger
-                      placement="right"
-                      delay={{ show: 250, hide: 400 }}
-                      overlay={renderTooltip(value)}
-                      key={index}
-                    >
-                      <Link to={`/user/${value.email}`}>
-                        <img
-                          src={genderDefaultAvater(value.gender)}
-                          className="rounded-circle my-avater-img"
-                          alt="Avatar"
-                        />
-                      </Link>
-                    </OverlayTrigger>
-                  ))
-                : null}
-            </Card.Text>
-          </Card.Body>
-
-          <Card.Body>
-            <b>Lists you may be interested in:</b>
-            <ListCardGroup Lists={movieData.lists} />
-            <Stack direction="horizontal" gap={3}></Stack>
-          </Card.Body>
-
-          <Card.Body>
-            <b>User review</b>
-            <CommentSection movieData={movieData} />
-          </Card.Body>
+            </Stack>
+          </Row>
+          <b>Description:</b>
+          <p className="text-break">{movieData.description}</p>
+          <b>They also liked this movie:</b>
+          <Card.Text>
+            {movieData.liked_users
+              ? movieData.liked_users.map((value, index) => (
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip(value)}
+                    key={index}
+                  >
+                    <Link to={`/user/${value.email}`}>
+                      <img
+                        src={genderDefaultAvater(value.gender)}
+                        className="rounded-circle my-avater-img"
+                        alt="Avatar"
+                      />
+                    </Link>
+                  </OverlayTrigger>
+                ))
+              : null}
+          </Card.Text>
+          <b>Lists you may be interested in:</b>
+          <ListCardGroup Lists={movieData.lists} />
+          <Stack direction="horizontal" gap={3}></Stack>
+          <b>User review</b>
+          <CommentSection movieData={movieData} />
         </Stack>
       </Container>
     </Stack>

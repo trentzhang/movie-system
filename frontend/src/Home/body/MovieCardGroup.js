@@ -24,18 +24,18 @@ export function MovieCard({ movieInformation }) {
 export function MovieCardGroup({ movies }) {
   const options = {
     type: "loop",
-    perPage: 4,
+    perPage: 5,
     autoplay: true,
     // autoHeight: true,
     focus: "center",
     breakpoints: {
-      640: { perPage: 3 },
-      480: { perPage: 2 },
+      640: { perPage: 4 },
+      480: { perPage: 3 },
     },
   };
   return (
-    <Container>
-      <Splide options={options} className="pb-5">
+    <div>
+      <Splide options={options} className="pb-3">
         {movies.map((m) => {
           return (
             <SplideSlide key={m.id} className="py-2">
@@ -44,6 +44,6 @@ export function MovieCardGroup({ movies }) {
           );
         })}
       </Splide>
-    </Container>
+    </div>
   );
 }

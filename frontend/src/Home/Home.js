@@ -52,59 +52,24 @@ const Home = () => {
     // the console.
   });
 
-  if (!login) {
-    return (
+  return (
+    <Stack gap={3}>
+      <Header />
+
       <Stack gap={3}>
-        <Header />
-        <Container>
-          <Stack gap={3}>
-            {/* <div>
-              <h1>Your App</h1>
-              {user && user.email ? user.email : <Login />}
-            </div> */}
-            <h2>Top Rated Movies</h2>
-
-            <MovieCardGroup movies={moviesSortedByRating} />
-
-            <h2>Random Movies</h2>
-            <MovieCardGroup movies={moviesRandom} />
-
-            <h2>Lists</h2>
-            <ListCardGroup Lists={lists} />
-
-            <h2>Recently Joined Users</h2>
-            {/* TODO implement backend */}
-            {/* <ListCardGroup Lists={lists} /> */}
-          </Stack>
-        </Container>
+        <div className="text-center">
+          <h2>Top Rated Movies</h2>
+          <MovieCardGroup movies={moviesSortedByRating} />
+          <h2>Random Movies</h2>
+          <MovieCardGroup movies={moviesRandom} />
+          <h2>Lists</h2>
+          <ListCardGroup Lists={lists} />
+          <h2>Recently Joined Users</h2>
+          {/* TODO implement backend */}
+          {/* <ListCardGroup Lists={lists} /> */}
+        </div>
       </Stack>
-    );
-  } else {
-    // return (
-    //   <Stack gap={3}>
-    //     <Header />
-    //     <Container>
-    //       <Stack gap={3}>
-    //         <h2>Your Movies</h2>
-    //         <Stack direction="horizontal" gap={3}>
-    //           {/* <MovieCardGroup movies={movies} /> */}
-    //         </Stack>
-    //         <h2>Recommended Movies</h2>
-    //         <Stack direction="horizontal" gap={3}>
-    //           {/* <MovieCardGroup movies={movies} /> */}
-    //         </Stack>
-    //         <h2>Your Lists</h2>
-    //         <Stack direction="horizontal" gap={3}>
-    //           {/* <ListCardGroup lists={lists} /> */}
-    //         </Stack>
-    //         <h2>Recommended Lists</h2>
-    //         <Stack direction="horizontal" gap={3}>
-    //           {/* <ListCardGroup lists={lists} /> */}
-    //         </Stack>
-    //       </Stack>
-    //     </Container>
-    //   </Stack>
-    // );
-  }
+    </Stack>
+  );
 };
 export default Home;
