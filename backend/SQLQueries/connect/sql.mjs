@@ -2,7 +2,8 @@ import { createPool } from "mysql";
 
 const pool = createPool({
   connectionLimit: 10,
-  host: "localhost",
+  host: "149.248.8.180",
+  //   host: "localhost",
   user: "root",
   password: "Zzd12676890?",
   database: "cs409",
