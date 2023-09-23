@@ -34,7 +34,6 @@ export function ResultCardMovie(item) {
       headers: {
         "Content-type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
       },
     };
 
@@ -182,63 +181,65 @@ const Search = () => {
     <Stack gap={3}>
       <Header />
       <Container>
-        <Stack className="text-bg-dark" gap={3}>
-          <Card.Body>
-            <Form className="d-flex mb-2">
-              <input
-                type="text"
-                className="form-control"
-                style={{ display: "none" }}
-              ></input>
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                onChange={(e) => {
-                  e.preventDefault();
-                  console.log(e.target.value);
-                  setKeyword(e.target.value);
-                }}
-                value={keyword}
-              />
-              <Button variant="light" onClick={handleSearch}>
-                Search
-              </Button>
-            </Form>
-            Language:
-            {/* TODO allow multiple genre or language selection */}
-            <Container>
-              {Array.from(lan_list).map((l) => {
-                return (
-                  <Form.Check
-                    label={l}
-                    inline
-                    type="checkbox"
-                    checked={language === l}
-                    onChange={() => handleChangeLanguage(l)}
-                  />
-                );
-              })}
-            </Container>
-            Genre:
-            <Container>
-              {Array.from(type_list).map((t) => {
-                return (
-                  <Form.Check
-                    label={t}
-                    inline
-                    type="checkbox"
-                    checked={type === t}
-                    onChange={() => handleChangeType(t)}
-                  />
-                );
-              })}
-            </Container>
-          </Card.Body>
-        </Stack>
-        {/* Results Card */}
-        <Stack className="text-bg-dark" gap={3}>
-          <Card.Body>
+        <Stack className="text-bg-dark" gap={2}>
+          <Form className="d-flex mb-2">
+            <input
+              type="text"
+              className="form-control"
+              style={{ display: "none" }}
+            ></input>
+            <FormControl
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              onChange={(e) => {
+                e.preventDefault();
+                console.log(e.target.value);
+                setKeyword(e.target.value);
+              }}
+              value={keyword}
+            />
+            <Button variant="light" onClick={handleSearch}>
+              Search
+            </Button>
+          </Form>
+          <Stack key="search-box-stack" className="mb-3">
+            <div>
+              Language:
+              {/* TODO allow multiple genre or language selection */}
+              <Container>
+                {Array.from(lan_list).map((l) => {
+                  return (
+                    <Form.Check
+                      label={l}
+                      inline
+                      type="checkbox"
+                      checked={language === l}
+                      onChange={() => handleChangeLanguage(l)}
+                    />
+                  );
+                })}
+              </Container>
+            </div>
+            <div>
+              Genre:
+              <Container>
+                {Array.from(type_list).map((t) => {
+                  return (
+                    <Form.Check
+                      label={t}
+                      inline
+                      type="checkbox"
+                      checked={type === t}
+                      onChange={() => handleChangeType(t)}
+                    />
+                  );
+                })}
+              </Container>
+            </div>
+          </Stack>
+          {/* Results Card */}
+          <Stack className="text-bg-dark" gap={3}>
             <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
               {searchResults.map((item, index) => {
                 return (
@@ -248,7 +249,7 @@ const Search = () => {
                 );
               })}
             </Row>
-          </Card.Body>
+          </Stack>
         </Stack>
       </Container>
     </Stack>

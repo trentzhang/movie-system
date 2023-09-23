@@ -11,8 +11,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  // hashHistory,
-  //   Link,
+  HashRouter,
   Navigate,
 } from "react-router-dom";
 import "./index.css";
