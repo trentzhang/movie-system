@@ -19,28 +19,26 @@ const ListPage = () => {
   const [cookies] = useCookies();
 
   useEffect(() => {
-    fetch(`${backendUrl}/lists/` + list_id, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setLname(res.data.name);
-        setCreator(res.data.creator);
-        setLdesc(res.data.description);
-        setlikedNum(res.data.liked);
-        setMovies(res.data.movies);
-      })
-      .catch((e) => {
-        console.log(e);
+    async function fetchData() {
+      try {
+        const response = await fetch(`${backendUrl}/lists/${list_id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        setLname(data.data.name);
+        setCreator(data.data.creator);
+        setLdesc(data.data.description);
+        setlikedNum(data.data.liked);
+        setMovies(data.data.movies);
+      } catch (error) {
+        console.error("Error fetching list data:", error);
         alert("Oops! Something Went Wrong, Please Try Again!");
-      });
+      }
+    }
+
+    fetchData();
   }, [cookies, list_id]);
 
   return (
