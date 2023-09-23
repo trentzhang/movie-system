@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Navbar, Stack, Modal } from "react-bootstrap";
-import { auth } from "./Firebase";
+import { auth } from "../Authentication/Firebase";
 // import LoginModal from "./LoginModal.js";
-import LoginForm from "./LoginForm";
-export default function LoginIndicator() {
+import LoginForm from "../Authentication/LoginForm";
+export default function IndexBar() {
   const onLogOut = () => {
     auth.signOut();
   };

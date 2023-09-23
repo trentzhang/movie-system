@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { auth } from "./Firebase";
-import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  deleteUser,
+  sendEmailVerification,
+} from "firebase/auth";
 // import { ref, set } from "firebase/database";
 import { backendUrl } from "../settings";
 
@@ -27,6 +31,12 @@ const SignUp = () => {
         email,
         password
       );
+
+      // Send email verification
+      await sendEmailVerification(userCredential.user);
+
+      // Wait for the user to click the verification link in their email
+      alert("Please check your email to verify your account.");
 
       // pass information to MySQL database
       const request = {

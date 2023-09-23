@@ -60,9 +60,10 @@ function MovieDetail() {
     }
   }
 
+  // Initialize like status
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
-      console.log("authUser :>> ", authUser);
+      //   console.log("authUser :>> ", authUser);
       if (authUser) {
         setUser(authUser);
         const userLikedMovie = await currentUserLikeThisMovie(
@@ -78,8 +79,9 @@ function MovieDetail() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [movie_Id]);
 
+  // Update movie detail when movie ID change
   useEffect(() => {
     async function fetchData() {
       try {
@@ -105,8 +107,15 @@ function MovieDetail() {
     }
 
     fetchData();
-  }, [movie_Id, user, liked]);
+  }, [movie_Id, liked]);
 
+  // TODO: Change movie liked number and they also liked this movie section when like state changed
+  //   useEffect(() => {
+  //       console.log("movieData :>> ", movieData);
+
+  //   }, [liked]);
+
+  // Send API to update database when like button is clicked
   async function changeLike() {
     if (!user) {
       alert("Please login first!");
@@ -155,13 +164,6 @@ function MovieDetail() {
       <Container className="p-3">
         <Stack className="text-bg-dark" gap={3}>
           <script src="holder.js"></script>
-          {/* <Button
-            className="btn-secondary"
-            onClick={() => navigate(-1)}
-            key="back-button"
-          >
-            Back
-          </Button> */}
           <Row className="vh-30">
             <Stack gap={3} className="flex-md-row">
               <Image src={movieData.cover} className="h-100 object-cover" />

@@ -7,10 +7,19 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       // User is logged in
-      alert(`Logged in`);
-      console.log("auth.currentUser :>> ", auth.currentUser);
+      console.log("userCredential.user :>> ", userCredential.user);
+      if (userCredential.user.emailVerified) {
+        alert(`Logged in`);
+        // console.log("auth.currentUser :>> ", auth.currentUser);
+      } else {
+        auth.signOut();
+      }
     } catch (error) {
       // Handle login error
       console.error("Login error:", error);

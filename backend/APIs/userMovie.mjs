@@ -12,9 +12,8 @@ export async function putUserLikeMovieAPI(req, res) {
   try {
     const email = req.params.email;
     const movie_id = req.params.movie_id;
-    //   insert ignore into user_liked_movie (user_email,movie_id) values ('test@gmail.com','tt0078113');
+
     await likeMovie(email, movie_id);
-    // update liked_num column in movie table
     let liked_num = await getMoviesLikesById(movie_id);
     liked_num = liked_num[0]["COUNT(*)"];
     await updateMovieLikedById(movie_id, liked_num);
