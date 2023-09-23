@@ -17,40 +17,44 @@ const SignUp = () => {
 
   //   const [showSuccess, setShowSuccess] = useState(false);
   //   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        // Signed in
-        // const user = userCredential.user;
-        // console.log("userCredential :>> ", userCredential);
 
-        // pass information to MySQL data base
-        const request = {
-          method: "PUT",
-          credentials: "omit",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify({
-            name: username,
-            email: email,
-            gender: gender,
-            birthday: birthday,
-          }),
-        };
-        const response = await fetch(`${backendUrl}/user/signup`, request);
-        if (!response.ok) {
-          deleteUser(auth.currentUser);
-          throw new Error(
-            `HTTP error when saving info to database! Status: ${response.status}`
-          );
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert("Register Failed!\n" + errorCode + errorMessage);
-      });
-  };
+    try {
+      // Create a user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      // pass information to MySQL database
+      const request = {
+        method: "PUT",
+        credentials: "omit",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          name: username,
+          email: email,
+          gender: gender,
+          birthday: birthday,
+        }),
+      };
+
+      const response = await fetch(`${backendUrl}/user/signup`, request);
+
+      if (!response.ok) {
+        await deleteUser(auth.currentUser);
+        throw new Error(
+          `HTTP error when saving info to database! Status: ${response.status}`
+        );
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert("Register Failed!\n" + errorCode + errorMessage);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>

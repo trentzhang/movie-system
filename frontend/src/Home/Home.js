@@ -14,43 +14,17 @@ const Home = () => {
   const [moviesSortedByRating, setMoviesSortedByRating] = useState([]);
   const [moviesRandom, setMoviesRandom] = useState([]);
   const [lists, setLists] = useState([]);
-  const cookies = useCookies();
-  const login = JSON.parse(window.localStorage.getItem("login"));
-  //   const [user, setUser] = useState(auth.currentUser);
-
-  // const [cookies] = useCookies();
 
   useEffect(() => {
-    const request = {
-      method: "GET",
-
-      credentials: "same-origin",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-      },
-    };
-
-    fetch(`${backendUrl}/homepage/`, request)
+    fetch(`${backendUrl}/homepage/`)
       .then((response) => response.json())
       .then((response) => {
-        if (!login) {
-        } else {
-          //   setMovies(response.data.recommendedMovies);
-          //   setLists(response.data.recommendedLists);
-        }
         setMoviesRandom(response.data.moviesRandom);
         setMoviesSortedByRating(response.data.moviesSortedByRating);
         setLists(response.data.lists);
       })
       .catch((err) => console.log(err));
-  }, [login, cookies.email, cookies.accessToken]);
-
-  window.addEventListener("storage", () => {
-    // When local storage changes, dump the list to
-    // the console.
-  });
+  }, []);
 
   return (
     <Stack gap={3}>
