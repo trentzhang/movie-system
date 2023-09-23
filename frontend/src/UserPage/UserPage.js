@@ -1,13 +1,13 @@
-import { backendUrl } from "../settings";
 import React, { useEffect, useState } from "react";
-import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
+import { backendUrl } from "../settings";
 
-import Header from "../Header/Header";
-import { useParams, useNavigate } from "react-router";
-import BasicInfo from "./BasicInfo";
-import Avater from "./Avater";
 import { useCookies } from "react-cookie";
+import { useNavigate, useParams } from "react-router";
+import Header from "../Header/Header";
+import Avater from "./Avater";
+import BasicInfo from "./BasicInfo";
 
+import { Col, Container, Row } from "react-bootstrap";
 import MovieListTabs from "./MovieListTabs";
 // import CreateNewList from "./CreateNewList";
 
@@ -78,19 +78,18 @@ export default function ProfilePage() {
   return (
     <section>
       <Header />
-      <MDBContainer className="py-5">
-        <MDBRow>
-          <MDBCol lg="4">
+      <Container className="py-5">
+        <Row>
+          <Col lg="4">
             <Avater userData={userData} />
             {/* <CreateNewList /> */}
-          </MDBCol>
-          <MDBCol lg="8">
             <BasicInfo userData={userData} />
-
+          </Col>
+          <Col lg="8">
             <MovieListTabs userData={userData} />
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 }

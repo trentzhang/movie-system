@@ -1,13 +1,13 @@
-.card {
+.zoom-card {
   overflow: hidden;
   position: relative;
 }
 
-.card {
+.zoom-card {
   transition: transform 0.3s ease;
 }
 
-.card:hover {
+.zoom-card:hover {
   transform: scale(
     1.02
   ); /* You can adjust the scale factor for the desired zoom effect */

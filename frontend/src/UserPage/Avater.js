@@ -20,7 +20,8 @@ const Avater = ({ userData }) => {
         <p className="text-muted mb-1">Hey there!</p>
 
         <div className="d-flex justify-content-center mb-2">
-          <MDBBtn>Like, TBD</MDBBtn>
+          {/* TODO: Like User Page */}
+          {/* <MDBBtn>Like, TODO</MDBBtn> */}
         </div>
       </MDBCardBody>
     </MDBCard>

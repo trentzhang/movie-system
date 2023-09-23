@@ -6,7 +6,7 @@ import { coverURL } from "../../Misc/functions";
 
 export function MovieCard({ movieInformation }) {
   return (
-    <Card className="text-center mx-2 text-bg-dark border-light my-hover-card-zoom">
+    <Card className="text-center mx-2 text-bg-dark border-light zoom-card">
       <Card.Body>
         <Link
           to={`/movie/${movieInformation.id}`}

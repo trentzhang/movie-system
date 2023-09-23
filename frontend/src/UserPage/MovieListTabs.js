@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-dom";
 import { backendUrl } from "../settings";
 import ListCard from "../List/ListCard";
+import { MovieCardGroup } from "../Home/body/MovieCardGroup";
 
 const MovieListTabs = ({ userData }) => {
   return (
@@ -15,13 +16,9 @@ const MovieListTabs = ({ userData }) => {
         className="mb-3"
       >
         <Tab eventKey="Liked Movies" title="Liked Movies">
-          {userData.movies
-            ? userData.movies.map((movie, index) => (
-                <MDBCol>
-                  <MovieCard item={movie} index={index} />
-                </MDBCol>
-              ))
-            : null}
+          {userData.movies ? (
+            <MovieCardGroup movies={userData.movies}></MovieCardGroup>
+          ) : null}
         </Tab>
         <Tab eventKey="Liked Lists" title="Liked Lists" className="mx-3">
           {" "}
