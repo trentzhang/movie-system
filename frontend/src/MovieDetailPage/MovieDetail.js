@@ -71,9 +71,15 @@ function MovieDetail() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
+      console.log("authUser :>> ", authUser);
       if (authUser) {
         setUser(authUser);
+        const userLikedMovie = await currentUserLikeThisMovie(
+          authUser.email,
+          movie_Id
+        );
+        setLiked(userLikedMovie);
       } else {
         setUser(null);
       }
@@ -102,15 +108,6 @@ function MovieDetail() {
 
         // Update movie data with related lists
         setMovieData({ ...movieData, lists });
-
-        // Check if the current user liked this movie
-        if (user) {
-          const userLikedMovie = await currentUserLikeThisMovie(
-            user.email,
-            movie_Id
-          );
-          setLiked(userLikedMovie);
-        }
       } catch (error) {
         console.error("Error fetching movie data:", error);
         alert("Oops! We Couldn't Find This Movie, Please Try Again!");
@@ -148,6 +145,19 @@ function MovieDetail() {
     }
   }
 
+  // set liked to false when user logged out
+  useEffect(() => {
+    if (!user) {
+      setLiked(false);
+    }
+  }, [user]);
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {props.username} {props.email}
+    </Tooltip>
+  );
+
   return (
     <Stack gap={3}>
       <Header />
@@ -155,14 +165,16 @@ function MovieDetail() {
       <Container className="p-3">
         <Stack className="text-bg-dark" gap={3}>
           <script src="holder.js"></script>
+
           <Card.Body>
             <Button
               className="btn-secondary"
               onClick={() => navigate(-1)}
-              key={"back-button"}
+              key="back-button"
             >
               Back
             </Button>
+
             <Row>
               <Col
                 xs="6"
@@ -172,18 +184,12 @@ function MovieDetail() {
                   src={movieData.cover}
                   className="mx-auto"
                   width="200"
-                  heigh="300"
+                  height="300"
                 />
               </Col>
               <Col>
                 <h2>{movieData.title}</h2>
                 <br />
-                {/* <div>
-                  <b>Director:</b> {movieData.director}
-                </div>
-                <div>
-                  <b>Writer:</b> {movieData.writer}
-                </div> */}
                 <div>
                   <b>Type:</b> {movieData.type}
                 </div>
@@ -211,69 +217,44 @@ function MovieDetail() {
                 <div>
                   <RatingsComponent liked={liked} clickFunc={changeLike} />
                 </div>
-                {/* TODO change style of add remove to list button */}
-                {/* <div>
-                  Add/remove to list:
-                  <Button
-                    variant="outline-primary"
-                    size="lg"
-                    disabled={inList}
-                    onClick={handleAddToList}
-                    key={"add-to-list-button"}
-                  >
-                    +
-                  </Button>
-                  {"          "}
-                  <Button
-                    variant="outline-primary"
-                    size="lg"
-                    disabled={!inList}
-                    onClick={handleDelFromList}
-                  >
-                    -
-                  </Button>
-                </div> */}
               </Col>
             </Row>
           </Card.Body>
+
           <Card.Body>
             <b>Description:</b> {movieData.description}
           </Card.Body>
+
           <Card.Body>
             <b>They also liked this movie:</b>
             <Card.Text>
               {movieData.liked_users
-                ? movieData.liked_users.map((value, index) => {
-                    const renderTooltip = (props) => (
-                      <Tooltip id="button-tooltip" {...props}>
-                        {value.username} {value.email}
-                      </Tooltip>
-                    );
-                    return (
-                      <OverlayTrigger
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                        key={index}
-                      >
-                        <Link to={"/user/".concat(value.email)}>
-                          <img
-                            src={genderDefaultAvater(value.gender)}
-                            className="rounded-circle my-avater-img"
-                            alt="Avatar"
-                          />
-                        </Link>
-                      </OverlayTrigger>
-                    );
-                  })
+                ? movieData.liked_users.map((value, index) => (
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip(value)}
+                      key={index}
+                    >
+                      <Link to={`/user/${value.email}`}>
+                        <img
+                          src={genderDefaultAvater(value.gender)}
+                          className="rounded-circle my-avater-img"
+                          alt="Avatar"
+                        />
+                      </Link>
+                    </OverlayTrigger>
+                  ))
                 : null}
             </Card.Text>
           </Card.Body>
+
           <Card.Body>
-            <b>Lists you may interested</b>
-            <ListCardGroup Lists={movieData.lists}></ListCardGroup>
+            <b>Lists you may be interested in:</b>
+            <ListCardGroup Lists={movieData.lists} />
             <Stack direction="horizontal" gap={3}></Stack>
           </Card.Body>
+
           <Card.Body>
             <b>User review</b>
             <CommentSection movieData={movieData} />
