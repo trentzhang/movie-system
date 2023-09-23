@@ -22,29 +22,6 @@ import "./MovieDetail.sass";
 import { useNavigate, useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 
-async function currentUserLikeThisMovie(email, movie_Id) {
-  try {
-    const response = await fetch(
-      `${backendUrl}/liked/movies/${email}/${movie_Id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
-    const data = await response.json();
-
-    if (data.data) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.error("Error fetching like status:", error);
-  }
-}
 function MovieDetail() {
   const navigate = useNavigate();
   const { movie_Id } = useParams();
@@ -69,6 +46,19 @@ function MovieDetail() {
   const [liked, setLiked] = useState(false);
 
   const [user, setUser] = useState(null);
+
+  async function currentUserLikeThisMovie(email, movie_Id) {
+    try {
+      const response = await fetch(
+        `${backendUrl}/liked/movies/${email}/${movie_Id}`
+      );
+      const data = (await response.json()).data;
+
+      return data ? true : false;
+    } catch (error) {
+      console.error("Error fetching like status:", error);
+    }
+  }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
