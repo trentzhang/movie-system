@@ -1,7 +1,6 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://trentzhang.github.io/movie-system",
   "private": true,
   "dependencies": {
     "@splidejs/react-splide": "^0.7.12",
