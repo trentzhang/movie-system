@@ -4,37 +4,49 @@ import { MDBCard } from "mdb-react-ui-kit";
 import { backendUrl } from "../settings";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router";
+import { auth } from "../Authentication/Firebase";
 
 export default function CreateNewList() {
-  const [listName, setName] = useState("");
-  const [description, setDesc] = useState("");
+  const [listName, setListName] = useState("");
+  const [description, setDescription] = useState("");
   const [newListID, setNewListID] = useState(null);
 
   const navigate = useNavigate();
 
-  const createList = (e) => {
+  const createList = async (e) => {
+    if (!auth.currentUser) {
+      alert("Please log in first!");
+      return null;
+    }
+
     e.preventDefault();
-    const request = {
-      method: "POST",
-      credentials: "omit",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        name: listName,
-        description: description,
-      }),
-    };
-    fetch(`${backendUrl}/user/lists`, request)
-      .then((res) => res.json())
-      .then((res) => setNewListID(res.data.id))
-      .then(() => navigate("/list/" + newListID))
-      .catch((e) => {
-        console.log(e);
-        alert("Oops! Something Went Wrong, Please Try Again!");
-      });
+    try {
+      const request = {
+        method: "POST",
+        credentials: "omit",
+        headers: {
+          "Content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          listName: listName,
+          description: description,
+          creator: auth.currentUser.email,
+        }),
+      };
+
+      const response = await fetch(`${backendUrl}/lists`, request);
+      const data = await response.json();
+      const newListId = data.data.id;
+
+      setNewListID(newListId);
+      navigate("/list/" + newListId);
+    } catch (error) {
+      console.log(error);
+      alert("Oops! Something Went Wrong, Please Try Again!");
+    }
   };
+
   return (
     <MDBCard className="p-4">
       <Form.Label>Create List</Form.Label>
@@ -49,7 +61,7 @@ export default function CreateNewList() {
             type="text"
             placeholder="ListName"
             value={listName}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setListName(e.target.value)}
           />
         </Col>
       </Form.Group>
@@ -62,7 +74,7 @@ export default function CreateNewList() {
             type="text"
             placeholder="Description"
             value={description}
-            onChange={(e) => setDesc(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </Col>
       </Form.Group>
