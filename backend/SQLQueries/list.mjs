@@ -36,12 +36,24 @@ export async function getListSortedByRating(limit) {
 }
 
 export async function getListsByUserEmail(email) {
-  const query = `SELECT * FROM list WHERE id in (select list_id from fav_list where user = '${email}');`;
+  const query = `SELECT * FROM list WHERE creator = '${email}';`;
   return await executeSqlQuery(query);
 }
 
 export async function getListByOwnerEmail(email) {
   const query = `SELECT * FROM list WHERE id in (select list_id from fav_list where user = '${email}' and is_owner = 1);`;
+  return await executeSqlQuery(query);
+}
+
+export async function getListsByUserLiked(email) {
+  const query = `
+    SELECT * FROM list
+    WHERE id IN (
+      SELECT list_id
+      FROM user_liked_list
+      WHERE user_email = '${email}'
+    );
+  `;
   return await executeSqlQuery(query);
 }
 

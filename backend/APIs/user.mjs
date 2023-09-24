@@ -1,4 +1,7 @@
-import { getListsByUserEmail } from "../SQLQueries/list.mjs";
+import {
+  getListsByUserEmail,
+  getListsByUserLiked,
+} from "../SQLQueries/list.mjs";
 import {
   getMoviesByListId,
   getMoviesByUserLiked,
@@ -7,20 +10,19 @@ import { getUserByEmail } from "../SQLQueries/user.mjs";
 import { executeSqlQuery } from "../SQLQueries/connect/sql.mjs";
 export async function getUserInfoByEmailAPI(req, res) {
   try {
-    // const cookies = parseCookies(req.headers.cookies);
-    // const email = cookies.email;
     const email = req.params.email;
-    const users = await getUserByEmail(email);
-    const user = users[0];
-    delete user.token;
-    const likedMovies = await getMoviesByUserLiked(email);
-    const lists = await getListsByUserEmail(email);
+    const user = (await getUserByEmail(email))[0];
+
+    user.likedMovies = await getMoviesByUserLiked(email);
+    user.likedLists = await getListsByUserLiked(email);
+
+    let lists = await getListsByUserEmail(email);
     for (var i = 0; i < lists.length; i++) {
       const movies = await getMoviesByListId(lists[i].id);
       lists[i].movies = movies;
     }
     user.lists = lists;
-    user.movies = likedMovies;
+
     res.status(200).send({ message: "OK", data: user });
   } catch (err) {
     console.log(err);
