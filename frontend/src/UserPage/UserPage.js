@@ -13,7 +13,6 @@ import { MyListsCard } from "./Components/MyLists";
 // import CreateNewList from "./CreateNewList";
 
 export default function ProfilePage() {
-  const navigate = useNavigate();
   const { email } = useParams();
   const [userData, setUserData] = useState({
     username: null,
@@ -28,10 +27,10 @@ export default function ProfilePage() {
   useEffect(() => {
     async function fetchUserData() {
       try {
-        const response = await fetch(`${backendUrl}/user/${email}`);
+        const response = await fetch(`${backendUrl}/user/full/${email}`);
         const data = await response.json();
         const userData = data.data;
-        console.log("userData :>> ", userData);
+
         setUserData(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -40,7 +39,7 @@ export default function ProfilePage() {
     }
 
     fetchUserData();
-  }, []);
+  }, [email]);
 
   return (
     <section>

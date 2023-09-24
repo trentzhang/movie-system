@@ -18,6 +18,8 @@ In our previous project attempts, we encountered numerous bugs and unfinished fe
 
 - **Restful API Design:** We have designed and implemented a RESTful API for smooth communication between the frontend and backend.
 
+- **Responsive UI Design:** Our website is designed to be responsive and accessible on various devices, including phones, tablets, and PCs, ensuring a consistent and user-friendly experience across different screen sizes.
+
 **Cloud Database:** In our infrastructure, we leverage the power of the cloud with MySQL as our database to efficiently store movie information.
 
 **User Authentication:** Firebase is used for user authentication, guaranteeing a secure system access and ensuring that your password remains confidential to all.

@@ -21,7 +21,6 @@ const Home = () => {
         setMoviesRandom(response.data.moviesRandom);
         setMoviesSortedByRating(response.data.moviesSortedByRating);
         setLists(response.data.lists);
-        console.log("response.data :>> ", response.data);
       })
       .catch((err) => console.log(err));
   }, []);

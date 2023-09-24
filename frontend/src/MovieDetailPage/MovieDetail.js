@@ -62,7 +62,6 @@ function MovieDetail() {
   // Initialize like status
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
-      //   console.log("authUser :>> ", authUser);
       if (authUser) {
         setUser(authUser);
         const userLikedMovie = await currentUserLikeThisMovie(
@@ -114,12 +113,11 @@ function MovieDetail() {
       const likeNumChange = liked ? 1 : -1;
       const currentUserInfo = (
         await (
-          await fetch(`${backendUrl}/user/${auth.currentUser.email}`)
+          await fetch(`${backendUrl}/user/basicInfo/${auth.currentUser.email}`)
         ).json()
       ).data;
 
       // Update movie data with related lists
-      console.log("movieData.liked_users :>> ", movieData.liked_users);
       setMovieData((prevData) => ({
         ...prevData,
         liked_num: movieData.liked_num + likeNumChange,
@@ -129,6 +127,19 @@ function MovieDetail() {
       }));
     }
   }, [liked]);
+
+  // set liked to false when user logged out
+  useEffect(() => {
+    if (!user) {
+      setLiked(false);
+    }
+  }, [user]);
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {props.username} {props.email}
+    </Tooltip>
+  );
 
   // Send API to update database when like button is clicked
   async function changeLike() {
@@ -157,19 +168,6 @@ function MovieDetail() {
       alert("Oops! Like Operation API Wrong, Please Try Again!");
     }
   }
-
-  // set liked to false when user logged out
-  useEffect(() => {
-    if (!user) {
-      setLiked(false);
-    }
-  }, [user]);
-
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      {props.username} {props.email}
-    </Tooltip>
-  );
 
   return (
     <Stack gap={3}>

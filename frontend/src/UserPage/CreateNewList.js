@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Form } from "react-bootstrap";
+import { Row, Col, Button, Form, Container } from "react-bootstrap";
 import { MDBCard } from "mdb-react-ui-kit";
 import { backendUrl } from "../settings";
 import { useCookies } from "react-cookie";
@@ -48,44 +48,45 @@ export default function CreateNewList() {
   };
 
   return (
-    <MDBCard className="p-4">
-      <Form.Label>Create List</Form.Label>
-      <hr />
-      <Form.Group as={Row} className="mb-3" controlId="listName">
-        <Form.Label column sm={4}>
-          ListName
-        </Form.Label>
-        <Col sm={8}>
-          <Form.Control
-            required
-            type="text"
-            placeholder="ListName"
-            value={listName}
-            onChange={(e) => setListName(e.target.value)}
-          />
-        </Col>
-      </Form.Group>
-      <Form.Group as={Row} className="mb-3" controlId="desc">
-        <Form.Label column sm={4}>
-          Description
-        </Form.Label>
-        <Col sm={8}>
-          <Form.Control
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </Col>
-      </Form.Group>
-      <Form.Group as={Row} className="mb-3" controlId="createbutton">
-        <Col sm={9}>
-          {/* <Button type="submit"> */}
-          <Button type="submit" onClick={createList}>
-            Create
-          </Button>
-        </Col>
-      </Form.Group>
-    </MDBCard>
+    <Container className="p-4">
+      <Form onSubmit={createList}>
+        <Form.Group as={Row} className="mb-3" controlId="listName">
+          <Form.Label column sm={4}>
+            ListName
+          </Form.Label>
+          <Col sm={8}>
+            <Form.Control
+              required
+              type="text"
+              placeholder="ListName"
+              value={listName}
+              onChange={(e) => setListName(e.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              ListName cannot be empty.
+            </Form.Control.Feedback>
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} className="mb-3" controlId="desc">
+          <Form.Label column sm={4}>
+            Description
+          </Form.Label>
+          <Col sm={8}>
+            <Form.Control
+              type="text"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Col>
+        </Form.Group>
+
+        <Button type="submit">Create</Button>
+      </Form>
+    </Container>
+
+    // <Container className="p-4">
+
+    // </Container>
   );
 }

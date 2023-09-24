@@ -3,6 +3,8 @@ import { Button, Navbar, Stack, Modal } from "react-bootstrap";
 import { auth } from "../Authentication/Firebase";
 // import LoginModal from "./LoginModal.js";
 import LoginForm from "../Authentication/LoginForm";
+import { Link } from "react-router-dom";
+
 export default function IndexBar() {
   const onLogOut = () => {
     auth.signOut();
@@ -34,18 +36,18 @@ export default function IndexBar() {
         <Navbar.Text>
           <b>{user.email}</b>
         </Navbar.Text>
-        <Button className="btn-light" href={"/advanced_search"}>
+        <Button className="btn-light" as={Link} to={"/advanced_search"}>
           Search
         </Button>
         <Button className="btn-light" onClick={onLogOut}>
           Log out
         </Button>
-        <Button className="btn-light" href={`/user/${user.email}`}>
+        <Button className="btn-light" as={Link} to={`/user/${user.email}`}>
           My Home
         </Button>
-        <Button className="btn-secondary" href="/userhome">
+        {/* <Button className="btn-secondary" href="/userhome">
           Settings
-        </Button>
+        </Button> */}
       </Stack>
     );
   } else {

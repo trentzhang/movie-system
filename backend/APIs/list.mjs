@@ -19,7 +19,6 @@ export async function getListByIdAPI(req, res) {
 
 export async function createListAPI(req, res) {
   try {
-    console.log("req :>> ", req.body);
     const listName = req.body.listName;
     const creator = req.body.creator;
     const description = req.body.description;
