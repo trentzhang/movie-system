@@ -26,16 +26,19 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    fetch(`${backendUrl}/user/${email}`)
-      .then((res) => res.json())
-      .then((res) => res.data)
-      .then(async (res) => {
-        setUserData(res);
-      })
-      .catch((e) => {
-        console.log(e);
+    async function fetchUserData() {
+      try {
+        const response = await fetch(`${backendUrl}/user/${email}`);
+        const data = await response.json();
+        const userData = data.data;
+        setUserData(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
         alert("Oops! We Couldn't Find This Guy, Please Try Again!");
-      });
+      }
+    }
+
+    fetchUserData();
   }, []);
 
   return (
