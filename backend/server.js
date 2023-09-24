@@ -24,6 +24,12 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  // Continue to the next middleware
+  next();
+});
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
