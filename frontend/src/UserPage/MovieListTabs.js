@@ -1,4 +1,4 @@
-import { Tab, Row, Col, Button, Tabs, Form } from "react-bootstrap";
+import { Tab, Row, Col, Button, Tabs, Form, Card } from "react-bootstrap";
 import { MDBCol, MDBCard } from "mdb-react-ui-kit";
 import MovieCard from "../List/MovieCard";
 import React, { useState } from "react";
@@ -9,19 +9,14 @@ import { MovieCardGroup } from "../Home/body/MovieCardGroup";
 
 const MovieListTabs = ({ userData }) => {
   return (
-    <MDBCard className="mb-4 text-dark">
-      <Tabs
-        defaultActiveKey="Liked Movies"
-        id="uncontrolled-tab-example"
-        className="mb-3"
-      >
+    <Card className="text-dark">
+      <Tabs defaultActiveKey="Liked Movies" className="mb-3">
         <Tab eventKey="Liked Movies" title="Liked Movies">
           {userData.movies ? (
             <MovieCardGroup movies={userData.movies}></MovieCardGroup>
           ) : null}
         </Tab>
         <Tab eventKey="Liked Lists" title="Liked Lists" className="mx-3">
-          {" "}
           {userData.lists.map((list) => (
             <MDBCol md="8">
               <ListCard movieList={list} />
@@ -29,7 +24,7 @@ const MovieListTabs = ({ userData }) => {
           ))}
         </Tab>
       </Tabs>
-    </MDBCard>
+    </Card>
   );
 };
 

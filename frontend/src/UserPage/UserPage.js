@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 import Avater from "./Avater";
 import BasicInfo from "./BasicInfo";
 
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Stack } from "react-bootstrap";
 import MovieListTabs from "./MovieListTabs";
 // import CreateNewList from "./CreateNewList";
 

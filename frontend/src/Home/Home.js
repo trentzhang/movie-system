@@ -22,6 +22,7 @@ const Home = () => {
         setMoviesRandom(response.data.moviesRandom);
         setMoviesSortedByRating(response.data.moviesSortedByRating);
         setLists(response.data.lists);
+        console.log("response.data :>> ", response.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -36,10 +37,11 @@ const Home = () => {
           <MovieCardGroup movies={moviesSortedByRating} />
           <h2>Random Movies</h2>
           <MovieCardGroup movies={moviesRandom} />
-          <h2>Lists</h2>
-          <ListCardGroup Lists={lists} />
-          <h2>Recently Joined Users</h2>
-          {/* TODO implement backend */}
+          {/* <h2>Lists</h2>
+          <ListCardGroup Lists={lists} />*/}
+          {/* TODO Recently Joined Users for homepage */}
+          {/* <h2>Recently Joined Users</h2> */}
+          {/* TODO implement List for homepage */}
           {/* <ListCardGroup Lists={lists} /> */}
         </div>
       </Stack>
