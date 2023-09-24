@@ -23,7 +23,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 
 function MovieDetail() {
-  const navigate = useNavigate();
   const { movie_Id } = useParams();
   const [movieData, setMovieData] = useState({
     id: movie_Id,
@@ -107,13 +106,29 @@ function MovieDetail() {
     }
 
     fetchData();
-  }, [movie_Id, liked]);
+  }, [movie_Id]);
 
-  // TODO: Change movie liked number and they also liked this movie section when like state changed
-  //   useEffect(() => {
-  //       console.log("movieData :>> ", movieData);
+  // Change movie liked number and they also liked this movie section when like state changed
+  useEffect(async () => {
+    if (auth.currentUser) {
+      const likeNumChange = liked ? 1 : -1;
+      const currentUserInfo = (
+        await (
+          await fetch(`${backendUrl}/user/${auth.currentUser.email}`)
+        ).json()
+      ).data;
 
-  //   }, [liked]);
+      // Update movie data with related lists
+      console.log("movieData.liked_users :>> ", movieData.liked_users);
+      setMovieData((prevData) => ({
+        ...prevData,
+        liked_num: movieData.liked_num + likeNumChange,
+        liked_users: liked
+          ? [...prevData.liked_users, currentUserInfo]
+          : prevData.liked_users.filter((user) => user === currentUserInfo),
+      }));
+    }
+  }, [liked]);
 
   // Send API to update database when like button is clicked
   async function changeLike() {
@@ -121,6 +136,7 @@ function MovieDetail() {
       alert("Please login first!");
       return false;
     }
+    setLiked(!liked);
 
     const email = user.email;
     const requestMethod = liked ? "DELETE" : "PUT";
@@ -136,8 +152,6 @@ function MovieDetail() {
       };
 
       await fetch(`${backendUrl}/liked/movies/${email}/${movie_Id}`, request);
-
-      setLiked(!liked);
     } catch (error) {
       console.log(error);
       alert("Oops! Like Operation API Wrong, Please Try Again!");
