@@ -5,28 +5,10 @@ import { backendUrl } from "../settings";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router";
 
-function CreateNewList(props) {
-  let { email } = useParams();
-  const [cookies] = useCookies();
-  console.log(email, cookies.email);
-  if (
-    JSON.parse(window.localStorage.getItem("login")) &&
-    email === cookies.email
-  ) {
-    // login email is path email
-    return <NewListForm />;
-  } else {
-    return <></>;
-  }
-}
-
-export default CreateNewList;
-
-const NewListForm = () => {
+export default function CreateNewList() {
   const [listName, setName] = useState("");
   const [description, setDesc] = useState("");
   const [newListID, setNewListID] = useState(null);
-  const [cookies] = useCookies();
 
   const navigate = useNavigate();
 
@@ -34,15 +16,11 @@ const NewListForm = () => {
     e.preventDefault();
     const request = {
       method: "POST",
-
       credentials: "omit",
-
       headers: {
         "Content-type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
       },
-
       body: JSON.stringify({
         name: listName,
         description: description,
@@ -98,4 +76,4 @@ const NewListForm = () => {
       </Form.Group>
     </MDBCard>
   );
-};
+}
