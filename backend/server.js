@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/homepage", homePageAPI);
 app.get("/movies/:movie_id", getMovieByIdAPI);
 app.get("/lists/:list_id", getListByIdAPI);
-app.get("/user/:email", getUserInfoByEmailAPI);
+app.get("/user/:fullInfo/:email", getUserInfoByEmailAPI);
 app.get("/liked/movies/:email/:movie_id", getUserLikeMovieAPI);
 app.get("/liked/lists/:email/:list_id", getUserLikeListAPI);
 

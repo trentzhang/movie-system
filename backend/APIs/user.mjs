@@ -11,12 +11,15 @@ import { executeSqlQuery } from "../SQLQueries/connect/sql.mjs";
 export async function getUserInfoByEmailAPI(req, res) {
   try {
     const email = req.params.email;
+    const fullInfo = req.params.fullInfo;
     const user = (await getUserByEmail(email))[0];
 
-    user.likedMovies = await getMoviesByUserLiked(email);
-    user.likedLists = await getListsByUserLiked(email);
+    if (fullInfo == "full") {
+      user.likedMovies = await getMoviesByUserLiked(email);
+      user.likedLists = await getListsByUserLiked(email);
 
-    user.lists = await getListsByUserEmail(email);
+      user.lists = await getListsByUserEmail(email);
+    }
 
     res.status(200).send({ message: "OK", data: user });
   } catch (err) {
