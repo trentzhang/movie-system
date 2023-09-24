@@ -13,10 +13,8 @@ const Login = () => {
         password
       );
       // User is logged in
-      console.log("userCredential.user :>> ", userCredential.user);
       if (userCredential.user.emailVerified) {
         alert(`Logged in`);
-        // console.log("auth.currentUser :>> ", auth.currentUser);
       } else {
         auth.signOut();
       }

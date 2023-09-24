@@ -7,21 +7,22 @@ import RegisterForm from "./RegisterForm.js";
 // import { useCookies } from "react-cookie";
 var x = 0;
 
-const Login = ({ setLogin }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //   const [setCookie] = useCookies(["accessToken", "email"]);
 
   const onClickSignIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        // const user = userCredential.user;
-        // ...
+        const user = userCredential.user;
+        if (!user.emailVerified) {
+          alert(`Please verify your email before signing in!`);
+          auth.signOut();
+        }
       })
       .catch((error) => {
-        // const errorCode = error.code;
         const errorMessage = error.message;
         alert(`Login Failed \n ${errorMessage}`);
       });
