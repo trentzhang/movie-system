@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBCard, MDBCardBody, MDBCardImage, MDBBtn } from "mdb-react-ui-kit";
-import { genderDefaultAvater } from "../MovieDetailPage/MovieDetail";
+import { genderDefaultAvater } from "../../MovieDetailPage/MovieDetail";
 
 const Avater = ({ userData }) => {
   return (

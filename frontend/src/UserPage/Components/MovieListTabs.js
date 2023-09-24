@@ -1,15 +1,16 @@
 import { Tab, Row, Col, Button, Tabs, Form, Card } from "react-bootstrap";
-import { MDBCol, MDBCard } from "mdb-react-ui-kit";
-import MovieCard from "../List/MovieCard";
+
+import MovieCard from "../../List/MovieCard";
 import React, { useState } from "react";
 import { useNavigate } from "react-dom";
-import { backendUrl } from "../settings";
-import ListCard from "../List/ListCard";
-import { MovieCardGroup } from "../Home/body/MovieCardGroup";
+import { backendUrl } from "../../settings";
+import ListCard from "../../List/ListCard";
+import { MovieCardGroup } from "../../Home/body/MovieCardGroup";
+import { ListCardGroup } from "../../Home/body/ListCardGroup";
 
 const MovieListTabs = ({ userData }) => {
   return (
-    <Card className="text-dark">
+    <Card className="text-dark mb-3">
       <Tabs defaultActiveKey="Liked Movies" className="mb-3">
         <Tab eventKey="Liked Movies" title="Liked Movies">
           {userData.movies ? (
@@ -17,11 +18,7 @@ const MovieListTabs = ({ userData }) => {
           ) : null}
         </Tab>
         <Tab eventKey="Liked Lists" title="Liked Lists" className="mx-3">
-          {userData.lists.map((list) => (
-            <MDBCol md="8">
-              <ListCard movieList={list} />
-            </MDBCol>
-          ))}
+          <ListCardGroup Lists={userData}></ListCardGroup>
         </Tab>
       </Tabs>
     </Card>

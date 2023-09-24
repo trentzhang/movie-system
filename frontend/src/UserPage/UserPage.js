@@ -4,17 +4,17 @@ import { backendUrl } from "../settings";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router";
 import Header from "../Header/Header";
-import Avater from "./Avater";
-import BasicInfo from "./BasicInfo";
+import Avater from "./Components/Avater";
+import BasicInfo from "./Components/BasicInfo";
 
-import { Col, Container, Row, Stack } from "react-bootstrap";
-import MovieListTabs from "./MovieListTabs";
+import { Col, Container, Row } from "react-bootstrap";
+import LikedMovieListTabs from "./Components/MovieListTabs";
+import { MyListsCard } from "./Components/MyLists";
 // import CreateNewList from "./CreateNewList";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
   const { email } = useParams();
-  const [cookies] = useCookies();
   const [userData, setUserData] = useState({
     username: null,
     email: null,
@@ -52,7 +52,8 @@ export default function ProfilePage() {
             <BasicInfo userData={userData} />
           </Col>
           <Col lg="8">
-            <MovieListTabs userData={userData} />
+            <LikedMovieListTabs userData={userData} />
+            <MyListsCard userData={userData}></MyListsCard>
           </Col>
         </Row>
       </Container>
