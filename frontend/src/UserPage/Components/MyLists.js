@@ -11,19 +11,8 @@ export function MyListsCard({ lists }) {
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        // User is logged in
-        setLoggedInUser(authUser);
-      } else {
-        // User is logged out
-        setLoggedInUser(null);
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
+    const unsubscribe = auth.onAuthStateChanged(setLoggedInUser);
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -32,12 +21,13 @@ export function MyListsCard({ lists }) {
         <CardHeader className="mb-3">Created Lists</CardHeader>
         <ListCardGroup Lists={lists}></ListCardGroup>
       </Card>
-      <Card className="text-dark">
-        <CardHeader className="mb-3">Create new list</CardHeader>
-        {loggedInUser && email === loggedInUser.email ? (
+
+      {loggedInUser && email === loggedInUser.email ? (
+        <Card className="text-dark">
+          <CardHeader className="mb-3">Create new list</CardHeader>
           <CreateNewList></CreateNewList>
-        ) : null}
-      </Card>
+        </Card>
+      ) : null}
     </div>
   );
 }

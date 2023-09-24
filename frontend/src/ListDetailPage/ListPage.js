@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import Header from "../Header/Header";
 import { backendUrl } from "../settings";
 import CardHeader from "react-bootstrap/esm/CardHeader";
+import { Link } from "react-router-dom";
 
 const ListPage = () => {
   const [listData, setListData] = useState({
@@ -50,7 +51,10 @@ const ListPage = () => {
           <CardHeader>
             <Stack direction="horizontal" gap={3}>
               <div>{listData.name}</div>
-              <div className="ms-auto">Created by {listData.creator}</div>
+              <div className="ms-auto">
+                Created by{" "}
+                <Link to={`/user/${listData.creator}`}>{listData.creator}</Link>
+              </div>
               <div>
                 Liked by {listData.likedNum ? listData.likedNum : 0} Users
               </div>
