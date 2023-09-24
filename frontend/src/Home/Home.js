@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Container, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import { backendUrl } from "../settings";
 // import "./Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "holderjs";
-import { useCookies } from "react-cookie";
 import Header from "../Header/Header";
 
-import { ListCardGroup } from "./body/ListCardGroup";
 import { MovieCardGroup } from "./body/MovieCardGroup";
+import { ListCardGroup } from "./body/ListCardGroup";
 
 const Home = () => {
   const [moviesSortedByRating, setMoviesSortedByRating] = useState([]);
@@ -37,8 +36,8 @@ const Home = () => {
           <MovieCardGroup movies={moviesSortedByRating} />
           <h2>Random Movies</h2>
           <MovieCardGroup movies={moviesRandom} />
-          {/* <h2>Lists</h2>
-          <ListCardGroup Lists={lists} />*/}
+          <h2>Lists</h2>
+          <ListCardGroup Lists={lists} />
           {/* TODO Recently Joined Users for homepage */}
           {/* <h2>Recently Joined Users</h2> */}
           {/* TODO implement List for homepage */}

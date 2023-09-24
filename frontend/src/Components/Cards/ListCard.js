@@ -36,7 +36,7 @@ export const ListCard = (movieList) => {
     }
   };
   return (
-    <Card className="text-center mx-2 text-bg-dark border-light">
+    <Card className="text-center text-bg-dark border-light">
       <CardHeader>
         <Button
           //   variant="outline-primary"

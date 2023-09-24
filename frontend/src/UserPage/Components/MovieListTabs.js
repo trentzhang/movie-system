@@ -8,24 +8,22 @@ import ListCard from "../../List/ListCard";
 import { MovieCardGroup } from "../../Home/body/MovieCardGroup";
 import { ListCardGroup } from "../../Home/body/ListCardGroup";
 
-const MovieListTabs = ({ userData }) => {
+const MyMovieListTabs = ({ movies, lists }) => {
   return (
     <Card className="text-dark mb-3">
       <Tabs defaultActiveKey="Liked Movies" className="mb-3">
         <Tab eventKey="Liked Movies" title="Liked Movies">
-          {userData.movies ? (
-            <MovieCardGroup movies={userData.movies}></MovieCardGroup>
-          ) : null}
+          {movies ? <MovieCardGroup movies={movies}></MovieCardGroup> : null}
         </Tab>
         <Tab eventKey="Liked Lists" title="Liked Lists" className="mx-3">
-          <ListCardGroup Lists={userData}></ListCardGroup>
+          {lists ? <ListCardGroup Lists={lists}></ListCardGroup> : null}
         </Tab>
       </Tabs>
     </Card>
   );
 };
 
-export default MovieListTabs;
+export default MyMovieListTabs;
 
 export const NewListForm = () => {
   const [listName, setName] = useState("");

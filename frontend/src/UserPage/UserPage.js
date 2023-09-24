@@ -31,6 +31,7 @@ export default function ProfilePage() {
         const response = await fetch(`${backendUrl}/user/${email}`);
         const data = await response.json();
         const userData = data.data;
+        console.log("userData :>> ", userData);
         setUserData(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -47,13 +48,21 @@ export default function ProfilePage() {
       <Container className="py-5">
         <Row>
           <Col lg="4">
-            <Avater userData={userData} />
+            <Avater userData={(userData.avatar, userData.gender)} />
             {/* <CreateNewList /> */}
-            <BasicInfo userData={userData} />
+            <BasicInfo
+              username={userData.username}
+              email={userData.email}
+              gender={userData.gender}
+              birthday={userData.birthday}
+            />
           </Col>
           <Col lg="8">
-            <LikedMovieListTabs userData={userData} />
-            <MyListsCard userData={userData}></MyListsCard>
+            <LikedMovieListTabs
+              movies={userData.likedMovies}
+              lists={userData.likedLists}
+            />
+            <MyListsCard lists={userData.lists}></MyListsCard>
           </Col>
         </Row>
       </Container>

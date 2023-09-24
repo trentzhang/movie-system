@@ -1,6 +1,6 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/dist/css/themes/splide-default.min.css";
-import { Card, Container } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { coverURL } from "../../Misc/functions";
 
@@ -33,7 +33,8 @@ export function MovieCardGroup({ movies }) {
       480: { perPage: 3 },
     },
   };
-  return (
+
+  const CardGroup = (
     <div>
       <Splide options={options} className="pb-3">
         {movies.map((m) => {
@@ -46,4 +47,6 @@ export function MovieCardGroup({ movies }) {
       </Splide>
     </div>
   );
+
+  return movies && movies[0] ? CardGroup : null;
 }

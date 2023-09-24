@@ -2,16 +2,12 @@ import React from "react";
 import { MDBCard, MDBCardBody, MDBCardImage, MDBBtn } from "mdb-react-ui-kit";
 import { genderDefaultAvater } from "../../MovieDetailPage/MovieDetail";
 
-const Avater = ({ userData }) => {
+const Avater = ({ avatar, gender }) => {
   return (
     <MDBCard className="mb-3 text-center">
       <MDBCardBody>
         <MDBCardImage
-          src={
-            userData.avatar
-              ? userData.avatar
-              : genderDefaultAvater(userData.gender)
-          }
+          src={avatar ? avatar : genderDefaultAvater(gender)}
           alt="avatar"
           className="rounded-circle w-50"
           fluid
