@@ -6,7 +6,7 @@ export async function addMovieToList(listId, movieId) {
 }
 
 export async function createList(email, name, description) {
-  const statement = `INSERT INTO List (name, description, creator) VALUES ('${name}', '${description}', '${email}');`;
+  const statement = `INSERT INTO list (name, description, creator) VALUES ('${name}', '${description}', '${email}');`;
   return await executeSqlQuery(statement);
 }
 

@@ -16,12 +16,7 @@ export async function getUserInfoByEmailAPI(req, res) {
     user.likedMovies = await getMoviesByUserLiked(email);
     user.likedLists = await getListsByUserLiked(email);
 
-    let lists = await getListsByUserEmail(email);
-    for (var i = 0; i < lists.length; i++) {
-      const movies = await getMoviesByListId(lists[i].id);
-      lists[i].movies = movies;
-    }
-    user.lists = lists;
+    user.lists = await getListsByUserEmail(email);
 
     res.status(200).send({ message: "OK", data: user });
   } catch (err) {
