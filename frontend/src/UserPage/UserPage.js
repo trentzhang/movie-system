@@ -26,54 +26,17 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    fetch(`${backendUrl}/user/${email}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-      },
-    })
+    fetch(`${backendUrl}/user/${email}`)
       .then((res) => res.json())
       .then((res) => res.data)
-
       .then(async (res) => {
-        const movies = await Promise.all(
-          res.movies.map((movie) =>
-            fetch(`${backendUrl}/movies/${movie.id}`, {
-              method: "GET",
-              headers: {
-                "Content-type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-              },
-            })
-              .then((res) => res.json())
-              .then((res) => res.data)
-          )
-        );
-        const lists = await Promise.all(
-          res.lists.map((list) =>
-            fetch(`${backendUrl}/lists/${list.id}`, {
-              method: "GET",
-              headers: {
-                "Content-type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
-              },
-            })
-              .then((res) => res.json())
-              .then((res) => res.data)
-          )
-        );
-        setUserData({ ...res, movies: movies, lists: lists });
+        setUserData(res);
       })
       .catch((e) => {
         console.log(e);
         alert("Oops! We Couldn't Find This Guy, Please Try Again!");
-        // navigate(-1);
       });
-  }, [cookies.accessToken, cookies.email, email, navigate]);
+  }, []);
 
   return (
     <section>

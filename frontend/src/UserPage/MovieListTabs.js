@@ -41,7 +41,6 @@ export const NewListForm = () => {
     e.preventDefault();
     const request = {
       method: "POST",
-
       credentials: "omit",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
