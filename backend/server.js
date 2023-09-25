@@ -3,7 +3,11 @@ import express from "express";
 import { homePageAPI } from "./APIs/homepage.mjs";
 import cors from "cors";
 import { getMovieByIdAPI, searchMoviesAPI } from "./APIs/movie.mjs";
-import { createListAPI, getListByIdAPI } from "./APIs/list.mjs";
+import {
+  createListAPI,
+  getListByEmailAPI,
+  getListByIdAPI,
+} from "./APIs/list.mjs";
 import {
   getUserLikeMovieAPI,
   putUserLikeMovieAPI,
@@ -18,6 +22,7 @@ import {
   getUserLikeListAPI,
   deleteUserLikeListAPI,
 } from "./APIs/userList.mjs";
+import { putMovieToListAPI } from "./APIs/listMovie.mjs";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -35,21 +40,22 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.get("/homepage", homePageAPI);
 app.get("/movies/:movie_id", getMovieByIdAPI);
-app.get("/lists/:list_id", getListByIdAPI);
+app.get("/lists/id/:list_id", getListByIdAPI);
+app.get("/lists/email/:email", getListByEmailAPI);
 app.get("/user/:fullInfo/:email", getUserInfoByEmailAPI);
 app.get("/liked/movies/:email/:movie_id", getUserLikeMovieAPI);
 app.get("/liked/lists/:email/:list_id", getUserLikeListAPI);
 
 app.put("/liked/movies/:email/:movie_id", putUserLikeMovieAPI);
 app.put("/liked/lists/:email/:list_id", putUserLikeListAPI);
-app.put("/lists/movies/:movie_id");
+app.put("/list/movie/:list_id/:movie_id", putMovieToListAPI);
 app.put("/user/signup", putNewlyRegisteredUserInfoAPI);
 
 app.delete("/liked/movies/:email/:movie_id", deleteUserLikeMovieAPI);
 app.delete("/liked/lists/:email/:list_id", deleteUserLikeListAPI);
 app.delete("/liked/movies/:movie_id");
 app.delete("/liked/lists/:list_id");
-app.delete("/lists/movies/:movie_id");
+app.delete("/list/movie/:list_id/:movie_id");
 
 app.post("/lists", createListAPI);
 app.post("/movies/:movie_id/rating");

@@ -1,7 +1,7 @@
 import { executeSqlQuery } from "./connect/sql.mjs";
 
 export async function addMovieToList(listId, movieId) {
-  const statement = `INSERT INTO list2movie (movie_id, list_id) VALUES (${movieId}, ${listId});`;
+  const statement = `INSERT INTO list2movie (movie_id, list_id) VALUES ('${movieId}', '${listId}');`;
   await executeSqlQuery(statement);
 }
 
@@ -10,15 +10,15 @@ export async function createList(email, name, description) {
   return await executeSqlQuery(statement);
 }
 
-export async function createFavList(listId, user, isOwner) {
-  const query = `INSERT INTO fav_list (list_id, user, is_owner) VALUES (${listId}, '${user}', ${isOwner});`;
-  return await executeSqlQuery(query);
-}
+// export async function createFavList(listId, user, isOwner) {
+//   const query = `INSERT INTO fav_list (list_id, user, is_owner) VALUES (${listId}, '${user}', ${isOwner});`;
+//   return await executeSqlQuery(query);
+// }
 
-export async function deleteFavList(listId, user) {
-  const query = `DELETE FROM fav_list WHERE list_id = ${listId} and user = '${user}';`;
-  return await executeSqlQuery(query);
-}
+// export async function deleteFavList(listId, user) {
+//   const query = `DELETE FROM fav_list WHERE list_id = ${listId} and user = '${user}';`;
+//   return await executeSqlQuery(query);
+// }
 
 export async function deleteMovieFromList(listId, movieId) {
   const statement = `DELETE FROM list2movie WHERE movie_id = ${movieId} and list_id = ${listId};`;

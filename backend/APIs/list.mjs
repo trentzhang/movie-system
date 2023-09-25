@@ -1,4 +1,8 @@
-import { getListsById, createList } from "../SQLQueries/list.mjs";
+import {
+  getListsById,
+  createList,
+  getListsByUserEmail,
+} from "../SQLQueries/list.mjs";
 import { getMoviesByListId } from "../SQLQueries/movie.mjs";
 
 export async function getListByIdAPI(req, res) {
@@ -9,6 +13,19 @@ export async function getListByIdAPI(req, res) {
     const list = lists[0];
     list.movies = movies;
     return res.status(200).send({ message: "OK", data: list });
+  } catch (err) {
+    res.status(500).send({
+      message: "ERROR: Encounter error getting List by id.",
+      data: err,
+    });
+  }
+}
+export async function getListByEmailAPI(req, res) {
+  try {
+    const email = req.params.email;
+    const lists = await getListsByUserEmail(email);
+
+    return res.status(200).send({ message: "OK", data: lists });
   } catch (err) {
     res.status(500).send({
       message: "ERROR: Encounter error getting List by id.",
