@@ -15,7 +15,7 @@ import { auth } from "../Authentication/Firebase";
 import Header from "../Header/Header";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
 import { backendUrl } from "../settings";
-import { LikeButton2 } from "./Components/LikeButton/LikeButton";
+import { LikeButton } from "./Components/LikeButton/LikeButton";
 import "./MovieDetail.sass";
 
 import { useParams } from "react-router-dom";
@@ -162,10 +162,6 @@ function MovieDetail() {
     }
   }, [showAddToListModal]);
 
-  useEffect(() => {
-    console.log("currentUserLists :>> ", currentUserLists);
-  }, [currentUserLists]);
-
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {props.username} {props.email}
@@ -210,15 +206,15 @@ function MovieDetail() {
                   <b>Rating:</b> {movieData.rating}
                 </div>
                 <div className="mt-auto">
-                  <LikeButton2
-                    defaultLiked={liked}
+                  <LikeButton
+                    liked={liked}
                     currentUser={user}
                     id={movie_Id}
                     likedType={"movies"}
                     onLikedChange={(newLikedStatus) => {
                       setLiked(newLikedStatus);
                     }}
-                  ></LikeButton2>
+                  ></LikeButton>
                   <AddToListButton
                     clickFunc={() => {
                       if (auth.currentUser) {

@@ -6,27 +6,21 @@ import { backendUrl } from "../../../settings";
 
 const particleList = Array.from(Array(10));
 
-export const LikeButton2 = ({
+export const LikeButton = ({
   currentUser,
   id,
   likedType,
-  defaultLiked,
+  liked,
   onLikedChange,
 }) => {
   const [clicked, setClicked] = useState(false);
-  const [liked, setLiked] = useState(defaultLiked);
-
-  useEffect(() => {
-    // Update the 'liked' state whenever 'defaultLiked' changes
-    setLiked(defaultLiked);
-  }, [defaultLiked]);
 
   async function changeLike() {
     if (!currentUser) {
       alert("Please login first!");
       return false;
     }
-    setLiked(!liked);
+
     onLikedChange(!liked);
 
     const email = currentUser.email;
