@@ -1,7 +1,7 @@
 import { Container, Navbar, Stack } from "react-bootstrap";
 import React from "react";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import IndexBar from "./IndexBar";
 
 function Header() {

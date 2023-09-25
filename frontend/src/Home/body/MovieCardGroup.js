@@ -1,5 +1,5 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/react-splide/dist/css/themes/splide-default.min.css";
+
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { coverURL } from "../../Misc/functions";

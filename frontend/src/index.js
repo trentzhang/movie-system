@@ -14,6 +14,8 @@ import Search from "./Search/Search.js";
 import UserHome from "./UserCenter/UserHome.js";
 import UserPage from "./UserPage/UserPage";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@splidejs/react-splide/dist/css/themes/splide-default.min.css";
 
 ReactDOM.render(
   <div className="text-bg-dark min-vh-100">

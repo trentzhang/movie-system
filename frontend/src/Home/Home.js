@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Stack } from "react-bootstrap";
 import { backendUrl } from "../settings";
-// import "./Home.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import "holderjs";
 import Header from "../Header/Header";
 

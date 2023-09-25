@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Stack, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import "./Home.css";
-import "holderjs";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "holderjs";
 import { auth } from "../Authentication/Firebase";
 import { useCookies } from "react-cookie";
 

@@ -14,7 +14,7 @@ import { backendUrl } from "../settings";
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import { MovieCard } from "../Home/body/MovieCardGroup";
-import "./Search.css";
+
 // import { checkbox } from "./body/checkboxes";
 export function ResultCardMovie(item) {
   const login = JSON.parse(window.localStorage.getItem("login"));
