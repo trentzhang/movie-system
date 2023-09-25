@@ -8,7 +8,8 @@ const particleList = Array.from(Array(10));
 
 export const LikeButton2 = ({
   currentUser,
-  movie_Id,
+  id,
+  likedType,
   defaultLiked,
   onLikedChange,
 }) => {
@@ -42,7 +43,7 @@ export const LikeButton2 = ({
         },
       };
 
-      await fetch(`${backendUrl}/liked/movies/${email}/${movie_Id}`, request);
+      await fetch(`${backendUrl}/liked/${likedType}/${email}/${id}`, request);
     } catch (error) {
       console.log(error);
       alert("Oops! Like Operation API Wrong, Please Try Again!");

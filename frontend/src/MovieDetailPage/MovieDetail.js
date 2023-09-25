@@ -213,7 +213,8 @@ function MovieDetail() {
                   <LikeButton2
                     defaultLiked={liked}
                     currentUser={user}
-                    movie_Id={movie_Id}
+                    id={movie_Id}
+                    likedType={"movies"}
                     onLikedChange={(newLikedStatus) => {
                       setLiked(newLikedStatus);
                     }}
