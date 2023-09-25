@@ -1,7 +1,7 @@
-$dark: #adb5bd;
-$darkLower: #22303f8c;
-$grey: #8395a7;
-$white: #fff;
+$darkLike: #adb5bd;
+$darkLikeLower: #22303f8c;
+$greyLike: #8395a7;
+$whiteLike: #fff;
 @import "bootstrap";
 
 .like-button-wrapper {
@@ -12,7 +12,7 @@ $white: #fff;
   cursor: pointer;
   margin: 20px 0;
   padding: 12px 18px;
-  color: $white;
+  color: $whiteLike;
   font-size: 12px;
   font-weight: 600;
   background-color: transparent;
@@ -27,8 +27,8 @@ $white: #fff;
     bottom: 0;
     will-change: background-color;
     transition: background-color 0.3s, transform 0.3s;
-    background-color: $dark;
-    box-shadow: 0 0 10px $darkLower;
+    background-color: $darkLike;
+    box-shadow: 0 0 10px $darkLikeLower;
     border-radius: 8px;
   }
 
