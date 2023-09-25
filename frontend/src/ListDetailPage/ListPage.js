@@ -21,7 +21,7 @@ const ListPage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`${backendUrl}/lists/${list_id}`);
+        const response = await fetch(`${backendUrl}/lists/id/${list_id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

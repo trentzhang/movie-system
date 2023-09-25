@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -19,14 +18,12 @@ import Header from "../Header/Header";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
 import { backendUrl } from "../settings";
 import RatingsComponent from "./Components/LikeButton/LikeButton";
-import "./MovieDetail.sass";
-
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 import AddToListButton from "./Components/AddToListButton/AddToListButton";
-import CardHeader from "react-bootstrap/esm/CardHeader";
+import { genderDefaultAvater } from "./MovieDetail";
 
-function MovieDetail() {
+export function MovieDetail() {
   const { movie_Id } = useParams();
   const [movieData, setMovieData] = useState({
     id: movie_Id,
@@ -178,29 +175,22 @@ function MovieDetail() {
 
   // if show Add To List Modal state is true, set Current User Lists
   useEffect(() => {
-    if (showAddToListModal && auth.currentUser) {
-      fetch(`${backendUrl}/lists/email/${auth.currentUser.email}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("userLists :>> ", data.data);
-          setCurrentUserLists(data.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching user lists:", error);
-        });
+    async function updateList() {
+      console.log("showAddToListModal :>> ", showAddToListModal);
+      if (showAddToListModal && auth.currentUser) {
+        const userLists = (
+          await (
+            await fetch(`${backendUrl}/lists/email/${auth.currentUser.email}`)
+          ).json()
+        ).data;
+        console.log("userLists :>> ", userLists);
+        setCurrentUserLists(userLists);
+      }
     }
+    updateList();
   }, [showAddToListModal]);
 
   function AddListModal() {
-    const [selectedItem, setSelectedItem] = useState(null);
-
-    const handleSelect = (item) => {
-      setSelectedItem(item);
-    };
-
-    const handleComfirm = () => {
-      //   send add movie to list api
-    };
     return (
       <Modal
         show={showAddToListModal}
@@ -211,19 +201,17 @@ function MovieDetail() {
         <Modal.Header closeButton>
           <Modal.Title>Add to my list</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
-          <Dropdown onSelect={handleSelect}>
+          <Dropdown>
             <Dropdown.Toggle variant="dark" id="dropdown-basic">
-              {selectedItem ? selectedItem : "Select an List"}
+              Select an List
             </Dropdown.Toggle>
+
             <Dropdown.Menu>
-              {currentUserLists.map((value, index) => {
-                return (
-                  <Dropdown.Item key={index} eventKey={value.name}>
-                    {value.name}
-                  </Dropdown.Item>
-                );
-              })}
+              <Dropdown.Item href="#option1">Option 1</Dropdown.Item>
+              <Dropdown.Item href="#option2">Option 2</Dropdown.Item>
+              <Dropdown.Item href="#option3">Option 3</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Modal.Body>
@@ -319,13 +307,3 @@ function MovieDetail() {
     </Stack>
   );
 }
-
-export default MovieDetail;
-
-export const genderDefaultAvater = (gender) => {
-  if (gender === "male") {
-    return "https://www.w3schools.com/howto/img_avatar.png";
-  } else {
-    return "https://www.w3schools.com/howto/img_avatar2.png";
-  }
-};
