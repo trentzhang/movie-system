@@ -266,7 +266,7 @@ function MovieDetail() {
           <ListCardGroup Lists={movieData.lists} />
           <Stack direction="horizontal" gap={3}></Stack>
           <b>User review</b>
-          <CommentSection movieData={movieData} />
+          {/* <CommentSection movieData={movieData} /> */}
         </Stack>
       </Container>
     </Stack>

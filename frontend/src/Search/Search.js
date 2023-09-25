@@ -173,6 +173,10 @@ const Search = () => {
     }
     updateSearchJSON();
   };
+  const [languages, setLanguages] = useState([]);
+  useEffect(() => {
+    console.log("languages :>> ", languages);
+  }, [languages]);
 
   return (
     <Stack gap={3}>
@@ -216,6 +220,33 @@ const Search = () => {
                     />
                   );
                 })}
+              </Container>
+              <Container>
+                <Form>
+                  {Array.from(lan_list).map((l) => {
+                    return (
+                      <Form.Check
+                        onInput={(item) => {
+                          console.log("item :>> ", item);
+                        }}
+                        label={l}
+                        inline
+                        type="checkbox"
+                        //   checked={language === l}
+                        onChange={() => {
+                          if (languages.includes(l)) {
+                            setLanguages(
+                              languages.filter((item) => item !== l)
+                            );
+                          } else {
+                            setLanguages([...languages, l]);
+                          }
+                          console.log("l :>> ", l);
+                        }}
+                      />
+                    );
+                  })}
+                </Form>
               </Container>
             </div>
             <div>

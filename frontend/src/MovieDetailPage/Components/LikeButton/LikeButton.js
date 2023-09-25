@@ -1,8 +1,8 @@
 import cn from "classnames";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { backendUrl } from "../../../settings";
 import { ReactComponent as Hand } from "./hand.svg";
 import "./styles.scss";
-import { backendUrl } from "../../../settings";
 
 const particleList = Array.from(Array(10));
 
