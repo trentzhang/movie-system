@@ -15,7 +15,6 @@ import Header from "../Header/Header";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
 import { backendUrl } from "../settings";
 import { LikeButton } from "./Components/LikeButton/LikeButton";
-import "./MovieDetail.sass";
 
 import { useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
@@ -255,6 +254,7 @@ function MovieDetail() {
                         src={genderDefaultAvater(value.gender)}
                         className="rounded-circle my-avater-img"
                         alt="Avatar"
+                        width={40}
                       />
                     </Link>
                   </OverlayTrigger>

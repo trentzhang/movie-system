@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Stack } from "react-bootstrap";
 import { backendUrl } from "../settings";
 
-import "holderjs";
+// import "holderjs";
 import Header from "../Header/Header";
 
 import { MovieCardGroup } from "./body/MovieCardGroup";

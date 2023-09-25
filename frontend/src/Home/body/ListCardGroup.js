@@ -9,10 +9,7 @@ function ListCard(m) {
   return (
     <Card className="small text-center mx-2 text-bg-dark zoom-card">
       <Card.Body>
-        <Link
-          to={`/list/${m.id}`}
-          className="text-bg-dark text-decoration-none"
-        >
+        <Link to={`/list/${m.id}`} className="text-light text-decoration-none">
           <p className="text-truncate">{m.name}</p>
           <Card.Img src={coverURL(m.cover)} />
         </Link>
