@@ -1,6 +1,5 @@
 import { Tab, Row, Col, Button, Tabs, Form, Card } from "react-bootstrap";
 
-import MovieCard from "../../List/MovieCard";
 import React, { useState } from "react";
 import { useNavigate } from "react-dom";
 import { backendUrl } from "../../settings";

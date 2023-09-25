@@ -15,14 +15,13 @@ import { auth } from "../Authentication/Firebase";
 import Header from "../Header/Header";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
 import { backendUrl } from "../settings";
-import RatingsComponent, {
-  LikeButton2,
-} from "./Components/LikeButton/LikeButton";
+import { LikeButton2 } from "./Components/LikeButton/LikeButton";
 import "./MovieDetail.sass";
 
 import { useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 import AddToListButton from "./Components/AddToListButton/AddToListButton";
+import { AddMovieToListModal } from "./Components/AddMovieToListModal";
 
 function MovieDetail() {
   const { movie_Id } = useParams();
@@ -47,6 +46,9 @@ function MovieDetail() {
   const [liked, setLiked] = useState(false);
 
   const [user, setUser] = useState(null);
+  const [showAddToListModal, setShowAddToListModal] = useState(false);
+  const [currentUserLists, setCurrentUserLists] = useState(null);
+  const [successAddedMovie, setSuccessAddedMovie] = useState(false);
 
   // Initialize like status
   useEffect(() => {
@@ -109,14 +111,12 @@ function MovieDetail() {
     }
 
     fetchData();
-  }, [movie_Id]);
+  }, [movie_Id, successAddedMovie]);
 
   // Change movie liked number and they also liked this movie section when like state changed
   useEffect(() => {
-    let isMounted = true;
-
     async function updateAfterLikedClicked() {
-      if (auth.currentUser && isMounted) {
+      if (auth.currentUser) {
         const likeNumChange = liked ? 1 : -1;
         try {
           const response = await fetch(
@@ -124,18 +124,14 @@ function MovieDetail() {
           );
           const data = await response.json();
 
-          if (isMounted) {
-            const currentUserInfo = data.data;
-            setMovieData((prevData) => ({
-              ...prevData,
-              liked_num: prevData.liked_num + likeNumChange,
-              liked_users: liked
-                ? [...prevData.liked_users, currentUserInfo]
-                : prevData.liked_users.filter(
-                    (user) => user === currentUserInfo
-                  ),
-            }));
-          }
+          const currentUserInfo = data.data;
+          setMovieData((prevData) => ({
+            ...prevData,
+            liked_num: prevData.liked_num + likeNumChange,
+            liked_users: liked
+              ? [...prevData.liked_users, currentUserInfo]
+              : prevData.liked_users.filter((user) => user === currentUserInfo),
+          }));
         } catch (error) {
           console.error("Error updating data after liked clicked:", error);
         }
@@ -143,10 +139,6 @@ function MovieDetail() {
     }
 
     updateAfterLikedClicked();
-
-    return () => {
-      isMounted = false; // Cleanup to prevent state updates on unmounted component
-    };
   }, [liked]);
 
   // set liked to false when user logged out
@@ -156,22 +148,12 @@ function MovieDetail() {
     }
   }, [user]);
 
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      {props.username} {props.email}
-    </Tooltip>
-  );
-
-  const [showAddToListModal, setShowAddToListModal] = useState(false);
-  const [currentUserLists, setCurrentUserLists] = useState(null);
-
   // if show Add To List Modal state is true, set Current User Lists
   useEffect(() => {
     if (showAddToListModal && auth.currentUser) {
       fetch(`${backendUrl}/lists/email/${auth.currentUser.email}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log("userLists :>> ", data.data);
           setCurrentUserLists(data.data);
         })
         .catch((error) => {
@@ -180,6 +162,15 @@ function MovieDetail() {
     }
   }, [showAddToListModal]);
 
+  useEffect(() => {
+    console.log("currentUserLists :>> ", currentUserLists);
+  }, [currentUserLists]);
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {props.username} {props.email}
+    </Tooltip>
+  );
   return (
     <Stack gap={3}>
       <Header />
@@ -219,7 +210,14 @@ function MovieDetail() {
                   <b>Rating:</b> {movieData.rating}
                 </div>
                 <div className="mt-auto">
-                  {/* <RatingsComponent liked={liked} clickFunc={changeLike} /> */}
+                  <LikeButton2
+                    defaultLiked={liked}
+                    currentUser={user}
+                    movie_Id={movie_Id}
+                    onLikedChange={(newLikedStatus) => {
+                      setLiked(newLikedStatus);
+                    }}
+                  ></LikeButton2>
                   <AddToListButton
                     clickFunc={() => {
                       if (auth.currentUser) {
@@ -229,21 +227,17 @@ function MovieDetail() {
                       }
                     }}
                   ></AddToListButton>
-                  <LikeButton2
-                    defaultLiked={liked}
-                    currentUser={user}
-                    movie_Id={movie_Id}
-                    onLikedChange={(newLikedStatus) => {
-                      setLiked(newLikedStatus);
+                  <AddMovieToListModal
+                    show={showAddToListModal}
+                    onHide={() => {
+                      setShowAddToListModal(false);
                     }}
-                  ></LikeButton2>
-                  {/* <AddMovieToListModal
-                      show={showAddToListModal}
-                      setShow={setShowAddToListModal}
-                      movie={movie_Id}
-                      lists={currentUserLists}
-                    ></AddMovieToListModal> */}
-                  {currentUserLists ? 1 : null}
+                    movie={movie_Id}
+                    lists={currentUserLists}
+                    onSuccessAdded={() => {
+                      setSuccessAddedMovie(true);
+                    }}
+                  ></AddMovieToListModal>
                 </div>
               </Col>
             </Stack>
