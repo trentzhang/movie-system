@@ -33,7 +33,7 @@ export async function deleteUserLikeMovieAPI(req, res) {
   try {
     const email = req.params.email;
     const movie_id = req.params.movie_id;
-    //   delete ignore into user_liked_movie (user_email,movie_id) values ('test@gmail.com','tt0078113');
+
     await unlikeMovie(email, movie_id);
     // update liked_num column in movie table
     let liked_num = await getMoviesLikesById(movie_id);

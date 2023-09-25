@@ -33,7 +33,7 @@ export async function deleteUserLikeListAPI(req, res) {
   try {
     const email = req.params.email;
     const list_id = req.params.list_id;
-    //   delete ignore into user_liked_list (user_email,list_id) values ('test@gmail.com','tt0078113');
+
     await unlikeList(email, list_id);
     // update liked_num column in list table
     let liked_num = await getListsLikesById(list_id);
