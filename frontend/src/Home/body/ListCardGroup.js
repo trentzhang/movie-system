@@ -1,9 +1,9 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/dist/css/themes/splide-default.min.css";
-import { Card, Container } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import CardHeader from "react-bootstrap/esm/CardHeader";
 import { Link } from "react-router-dom";
 import { coverURL } from "../../Misc/functions";
-import CardHeader from "react-bootstrap/esm/CardHeader";
 function ListCard(m) {
   m = m.m;
   return (

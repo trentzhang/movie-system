@@ -1,13 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   Card,
   Col,
   Container,
-  Dropdown,
   Image,
-  Modal,
   OverlayTrigger,
   Row,
   Stack,
@@ -18,13 +15,14 @@ import { auth } from "../Authentication/Firebase";
 import Header from "../Header/Header";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
 import { backendUrl } from "../settings";
-import RatingsComponent from "./Components/LikeButton/LikeButton";
+import RatingsComponent, {
+  LikeButton2,
+} from "./Components/LikeButton/LikeButton";
 import "./MovieDetail.sass";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CommentSection from "./CommentSection";
 import AddToListButton from "./Components/AddToListButton/AddToListButton";
-import CardHeader from "react-bootstrap/esm/CardHeader";
 
 function MovieDetail() {
   const { movie_Id } = useParams();
@@ -50,21 +48,21 @@ function MovieDetail() {
 
   const [user, setUser] = useState(null);
 
-  async function currentUserLikeThisMovie(email, movie_Id) {
-    try {
-      const response = await fetch(
-        `${backendUrl}/liked/movies/${email}/${movie_Id}`
-      );
-      const data = (await response.json()).data;
-
-      return data ? true : false;
-    } catch (error) {
-      console.error("Error fetching like status:", error);
-    }
-  }
-
   // Initialize like status
   useEffect(() => {
+    async function currentUserLikeThisMovie(email, movie_Id) {
+      try {
+        const response = await fetch(
+          `${backendUrl}/liked/movies/${email}/${movie_Id}`
+        );
+        const data = (await response.json()).data;
+
+        return data ? true : false;
+      } catch (error) {
+        console.error("Error fetching like status:", error);
+      }
+    }
+
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         setUser(authUser);
@@ -94,7 +92,9 @@ function MovieDetail() {
         // Fetch related lists
         const lists = await Promise.all(
           movieData.related_lists.map(async (list) => {
-            const listResponse = await fetch(`${backendUrl}/lists/${list.id}`);
+            const listResponse = await fetch(
+              `${backendUrl}/lists/id/${list.id}`
+            );
             const listData = await listResponse.json();
             return listData.data;
           })
@@ -112,24 +112,41 @@ function MovieDetail() {
   }, [movie_Id]);
 
   // Change movie liked number and they also liked this movie section when like state changed
-  useEffect(async () => {
-    if (auth.currentUser) {
-      const likeNumChange = liked ? 1 : -1;
-      const currentUserInfo = (
-        await (
-          await fetch(`${backendUrl}/user/basicInfo/${auth.currentUser.email}`)
-        ).json()
-      ).data;
+  useEffect(() => {
+    let isMounted = true;
 
-      // Update movie data with related lists
-      setMovieData((prevData) => ({
-        ...prevData,
-        liked_num: movieData.liked_num + likeNumChange,
-        liked_users: liked
-          ? [...prevData.liked_users, currentUserInfo]
-          : prevData.liked_users.filter((user) => user === currentUserInfo),
-      }));
+    async function updateAfterLikedClicked() {
+      if (auth.currentUser && isMounted) {
+        const likeNumChange = liked ? 1 : -1;
+        try {
+          const response = await fetch(
+            `${backendUrl}/user/basicInfo/${auth.currentUser.email}`
+          );
+          const data = await response.json();
+
+          if (isMounted) {
+            const currentUserInfo = data.data;
+            setMovieData((prevData) => ({
+              ...prevData,
+              liked_num: prevData.liked_num + likeNumChange,
+              liked_users: liked
+                ? [...prevData.liked_users, currentUserInfo]
+                : prevData.liked_users.filter(
+                    (user) => user === currentUserInfo
+                  ),
+            }));
+          }
+        } catch (error) {
+          console.error("Error updating data after liked clicked:", error);
+        }
+      }
     }
+
+    updateAfterLikedClicked();
+
+    return () => {
+      isMounted = false; // Cleanup to prevent state updates on unmounted component
+    };
   }, [liked]);
 
   // set liked to false when user logged out
@@ -145,36 +162,8 @@ function MovieDetail() {
     </Tooltip>
   );
 
-  // Send API to update database when like button is clicked
-  async function changeLike() {
-    if (!user) {
-      alert("Please login first!");
-      return false;
-    }
-    setLiked(!liked);
-
-    const email = user.email;
-    const requestMethod = liked ? "DELETE" : "PUT";
-
-    try {
-      const request = {
-        method: requestMethod,
-        credentials: "omit",
-        headers: {
-          "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      };
-
-      await fetch(`${backendUrl}/liked/movies/${email}/${movie_Id}`, request);
-    } catch (error) {
-      console.log(error);
-      alert("Oops! Like Operation API Wrong, Please Try Again!");
-    }
-  }
-
   const [showAddToListModal, setShowAddToListModal] = useState(false);
-  const [currentUserLists, setCurrentUserLists] = useState([]);
+  const [currentUserLists, setCurrentUserLists] = useState(null);
 
   // if show Add To List Modal state is true, set Current User Lists
   useEffect(() => {
@@ -190,47 +179,6 @@ function MovieDetail() {
         });
     }
   }, [showAddToListModal]);
-
-  function AddListModal() {
-    const [selectedItem, setSelectedItem] = useState(null);
-
-    const handleSelect = (item) => {
-      setSelectedItem(item);
-    };
-
-    const handleComfirm = () => {
-      //   send add movie to list api
-    };
-    return (
-      <Modal
-        show={showAddToListModal}
-        onHide={() => {
-          setShowAddToListModal(false);
-        }}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Add to my list</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Dropdown onSelect={handleSelect}>
-            <Dropdown.Toggle variant="dark" id="dropdown-basic">
-              {selectedItem ? selectedItem : "Select an List"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {currentUserLists.map((value, index) => {
-                return (
-                  <Dropdown.Item key={index} eventKey={value.name}>
-                    {value.name}
-                  </Dropdown.Item>
-                );
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Modal.Body>
-        <Button>Confirm</Button>
-      </Modal>
-    );
-  }
 
   return (
     <Stack gap={3}>
@@ -271,7 +219,7 @@ function MovieDetail() {
                   <b>Rating:</b> {movieData.rating}
                 </div>
                 <div className="mt-auto">
-                  <RatingsComponent liked={liked} clickFunc={changeLike} />
+                  {/* <RatingsComponent liked={liked} clickFunc={changeLike} /> */}
                   <AddToListButton
                     clickFunc={() => {
                       if (auth.currentUser) {
@@ -281,7 +229,21 @@ function MovieDetail() {
                       }
                     }}
                   ></AddToListButton>
-                  <AddListModal></AddListModal>
+                  <LikeButton2
+                    defaultLiked={liked}
+                    currentUser={user}
+                    movie_Id={movie_Id}
+                    onLikedChange={(newLikedStatus) => {
+                      setLiked(newLikedStatus);
+                    }}
+                  ></LikeButton2>
+                  {/* <AddMovieToListModal
+                      show={showAddToListModal}
+                      setShow={setShowAddToListModal}
+                      movie={movie_Id}
+                      lists={currentUserLists}
+                    ></AddMovieToListModal> */}
+                  {currentUserLists ? 1 : null}
                 </div>
               </Col>
             </Stack>

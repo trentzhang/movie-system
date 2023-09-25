@@ -22,7 +22,10 @@ import {
   getUserLikeListAPI,
   deleteUserLikeListAPI,
 } from "./APIs/userList.mjs";
-import { putMovieToListAPI } from "./APIs/listMovie.mjs";
+import {
+  deleteMovieFromListAPI,
+  putMovieToListAPI,
+} from "./APIs/listMovie.mjs";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -55,7 +58,7 @@ app.delete("/liked/movies/:email/:movie_id", deleteUserLikeMovieAPI);
 app.delete("/liked/lists/:email/:list_id", deleteUserLikeListAPI);
 app.delete("/liked/movies/:movie_id");
 app.delete("/liked/lists/:list_id");
-app.delete("/list/movie/:list_id/:movie_id");
+app.delete("/list/movie/:list_id/:movie_id", deleteMovieFromListAPI);
 
 app.post("/lists", createListAPI);
 app.post("/movies/:movie_id/rating");

@@ -1,21 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import MovieDetail from "./MovieDetailPage/MovieDetail.js";
-import Home from "./Home/Home.js";
-import Search from "./Search/Search.js";
-import UserHome from "./UserCenter/UserHome.js";
-import ListPage from "./ListDetailPage/ListPage.js";
-import UserPage from "./UserPage/UserPage";
 import {
+  Navigate,
+  Route,
   BrowserRouter as Router,
   Routes,
-  Route,
-  HashRouter,
-  Navigate,
 } from "react-router-dom";
+import Home from "./Home/Home.js";
+import ListPage from "./ListDetailPage/ListPage.js";
+import MovieDetail from "./MovieDetailPage/MovieDetail.js";
+import Search from "./Search/Search.js";
+import UserHome from "./UserCenter/UserHome.js";
+import UserPage from "./UserPage/UserPage";
 import "./index.css";
-import Header from "./Header/Header.js";
 
 ReactDOM.render(
   <div className="text-bg-dark min-vh-100">

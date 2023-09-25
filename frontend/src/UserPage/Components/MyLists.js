@@ -1,10 +1,10 @@
-import { Card, Container } from "react-bootstrap";
-import { ListCardGroup } from "../../Home/body/ListCardGroup";
+import { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
-import CreateNewList from "../CreateNewList";
 import { useParams } from "react-router";
 import { auth } from "../../Authentication/Firebase";
-import { useEffect, useState } from "react";
+import { ListCardGroup } from "../../Home/body/ListCardGroup";
+import CreateNewList from "../CreateNewList";
 
 export function MyListsCard({ lists }) {
   const { email } = useParams();

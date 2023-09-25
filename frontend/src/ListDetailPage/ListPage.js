@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Modal, Nav, Navbar, Stack } from "react-bootstrap";
-import { useParams } from "react-router";
-import { MovieCardGroup } from "../Home/body/MovieCardGroup";
-import { useCookies } from "react-cookie";
-import Header from "../Header/Header";
-import { backendUrl } from "../settings";
+import { Card, Container, Stack } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
+import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import Header from "../Header/Header";
+import { MovieCardGroup } from "../Home/body/MovieCardGroup";
+import { backendUrl } from "../settings";
 
 const ListPage = () => {
   const [listData, setListData] = useState({

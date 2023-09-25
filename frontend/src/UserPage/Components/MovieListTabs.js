@@ -4,7 +4,7 @@ import MovieCard from "../../List/MovieCard";
 import React, { useState } from "react";
 import { useNavigate } from "react-dom";
 import { backendUrl } from "../../settings";
-import ListCard from "../../List/ListCard";
+
 import { MovieCardGroup } from "../../Home/body/MovieCardGroup";
 import { ListCardGroup } from "../../Home/body/ListCardGroup";
 

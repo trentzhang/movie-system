@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { backendUrl } from "../settings";
 
-import { useCookies } from "react-cookie";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import Header from "../Header/Header";
 import Avater from "./Components/Avater";
 import BasicInfo from "./Components/BasicInfo";

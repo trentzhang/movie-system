@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Form, Container } from "react-bootstrap";
-import { MDBCard } from "mdb-react-ui-kit";
-import { backendUrl } from "../settings";
-import { useCookies } from "react-cookie";
-import { useNavigate, useParams } from "react-router";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import { auth } from "../Authentication/Firebase";
+import { backendUrl } from "../settings";
 
 export default function CreateNewList() {
   const [listName, setListName] = useState("");
   const [description, setDescription] = useState("");
-  const [newListID, setNewListID] = useState(null);
+  //   const [newListID, setNewListID] = useState(null);
 
   const navigate = useNavigate();
 
@@ -39,7 +37,7 @@ export default function CreateNewList() {
       const data = await response.json();
       const newListId = data.data.id;
 
-      setNewListID(newListId);
+      //   setNewListID(newListId);
       navigate("/list/" + newListId);
     } catch (error) {
       console.log(error);

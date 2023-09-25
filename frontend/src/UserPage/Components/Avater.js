@@ -1,5 +1,5 @@
+import { MDBCard, MDBCardBody, MDBCardImage } from "mdb-react-ui-kit";
 import React from "react";
-import { MDBCard, MDBCardBody, MDBCardImage, MDBBtn } from "mdb-react-ui-kit";
 import { genderDefaultAvater } from "../../MovieDetailPage/MovieDetail";
 
 const Avater = ({ avatar, gender }) => {
