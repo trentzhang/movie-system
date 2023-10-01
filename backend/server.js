@@ -12,6 +12,7 @@ import {
   getUserLikeMovieAPI,
   putUserLikeMovieAPI,
   deleteUserLikeMovieAPI,
+  postComment2MovieAPI,
 } from "./APIs/userMovie.mjs";
 import {
   getUserInfoByEmailAPI,
@@ -56,16 +57,17 @@ app.put("/user/signup", putNewlyRegisteredUserInfoAPI);
 
 app.delete("/liked/movies/:email/:movie_id", deleteUserLikeMovieAPI);
 app.delete("/liked/lists/:email/:list_id", deleteUserLikeListAPI);
-app.delete("/liked/movies/:movie_id");
-app.delete("/liked/lists/:list_id");
+// app.delete("/liked/movies/:movie_id");
+// app.delete("/liked/lists/:list_id");
 app.delete("/list/movie/:list_id/:movie_id", deleteMovieFromListAPI);
+app.delete("/movies/comments/:movie_id/:email");
 
 app.post("/lists", createListAPI);
 app.post("/movies/:movie_id/rating");
-app.post("/movies/:movie_id/comments");
+app.post("/movie/comment/:movie_id", postComment2MovieAPI);
 app.post("/search_movie", searchMoviesAPI);
-app.post("/user/login");
-app.post("/user/logout");
+// app.post("/user/login");
+// app.post("/user/logout");
 
 // Start the server
 app.listen(port, () => {

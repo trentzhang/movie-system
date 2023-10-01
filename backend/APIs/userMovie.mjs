@@ -5,6 +5,7 @@ import {
   unlikeMovie,
   updateMovieLikedById,
   getMoviesLikesById,
+  createCommentForMovie,
 } from "../SQLQueries/movie.mjs";
 import { getMovieByIdAPI } from "./movie.mjs";
 
@@ -68,6 +69,22 @@ export async function getUserLikeMovieAPI(req, res) {
     res.status(500).send({
       message: "ERROR: Encounter error during get user like movie.",
       data: { err },
+    });
+  }
+}
+
+export async function postComment2MovieAPI(req, res) {
+  try {
+    const movie_id = req.params.movie_id;
+    const email = req.body.email;
+    const username = req.body.username;
+    const comment = req.body.comment;
+    await createCommentForMovie(email, movie_id, comment, username);
+    return res.status(200).send({ message: "OK", data: "Added comment!" });
+  } catch (error) {
+    res.status(500).send({
+      message: "ERROR: Encounter error during post comment to movie.",
+      data: { error },
     });
   }
 }

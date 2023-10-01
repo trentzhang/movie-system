@@ -43,22 +43,6 @@ export async function getMovieByIdAPI(req, res) {
         relatedLists[i].owner_info = user;
       }
       movie.related_lists = relatedLists;
-      //   movie.isLikedByUser = false;
-      //   movie.isAddedToList = false;
-      //   const userLikedMovie = await getUserLikedMovieByEmailAndMovieId(
-      //     email,
-      //     movieId
-      //   );
-      //   const userLikedList = await getList2MovieByEmailAndMovieId(
-      //     email,
-      //     movieId
-      //   );
-      //   if (userLikedMovie.length > 0) {
-      //     movie.isLikedByUser = true;
-      //   }
-      //   if (userLikedList.length > 0) {
-      //     movie.isAddedToList = true;
-      //   }
 
       return res.status(200).send({ message: "OK", data: movie });
     }
