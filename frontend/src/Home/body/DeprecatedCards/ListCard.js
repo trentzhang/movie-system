@@ -18,8 +18,6 @@ export const ListCard = (movieList) => {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          cookies: `email=${cookies.email};accessToken=${cookies.accessToken}`,
         },
       };
       fetch(

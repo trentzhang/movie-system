@@ -33,7 +33,6 @@ export const LikeButton = ({
         credentials: "omit",
         headers: {
           "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
         },
       };
 

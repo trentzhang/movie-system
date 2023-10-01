@@ -12,31 +12,31 @@ import { backendUrl } from "../settings";
 import Header from "../Header/Header";
 import { MovieCard } from "../Home/body/MovieCardGroup";
 
+const lan_list = [
+  "English",
+  "Spanish",
+  "French",
+  "Chinese",
+  "Japanese",
+  "Korean",
+];
+const type_list = [
+  "Documentary",
+  "Comedy",
+  "Drama",
+  "Fantasy",
+  "Thriller",
+  "Action",
+  "Romance",
+  "Sci_Fi",
+];
+
 const Search = () => {
   const [keyword, setKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [language, setLanguage] = useState("");
   const [type, setType] = useState("");
   const [page, setPage] = useState(0);
-
-  const lan_list = [
-    "English",
-    "Spanish",
-    "French",
-    "Chinese",
-    "Japanese",
-    "Korean",
-  ];
-  const type_list = [
-    "Documentary",
-    "Comedy",
-    "Drama",
-    "Fantasy",
-    "Thriller",
-    "Action",
-    "Romance",
-    "Sci_Fi",
-  ];
 
   const handleSearch = useCallback(async () => {
     try {
@@ -53,7 +53,6 @@ const Search = () => {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(searchCriteria),
       };
@@ -101,7 +100,6 @@ const Search = () => {
             method: "POST",
             headers: {
               "Content-type": "application/json",
-              "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify(searchCriteria),
           };
