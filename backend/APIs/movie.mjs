@@ -70,8 +70,9 @@ export async function searchMoviesAPI(req, res) {
   const type = req.body.type;
   const language = req.body.language;
   const searchType = req.body.searchType;
+  const page = req.body.page;
   if (searchType === "Movie") {
-    const movies = await searchMovies(keyword, type, language);
+    const movies = await searchMovies(keyword, type, language, page);
     return res.status(200).send({ message: "OK", data: movies });
   } else {
     const lists = await searchLists(keyword);

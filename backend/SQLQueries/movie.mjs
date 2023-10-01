@@ -148,7 +148,7 @@ export async function rateMoviesById(email, movieId, rating) {
   await executeSqlQuery(statement);
 }
 
-export async function searchMovies(keyword, type, language) {
+export async function searchMovies(keyword, type, language, page = 0) {
   let query = "SELECT * FROM movie WHERE 1=1";
 
   if (keyword) {
@@ -162,8 +162,11 @@ export async function searchMovies(keyword, type, language) {
   if (language) {
     query += ` AND language LIKE '%${language}%'`;
   }
-
-  query += " LIMIT 20;";
+  if (page) {
+    query += ` LIMIT ${page * 20}, 20;`;
+  } else {
+    query += ` LIMIT 20;`;
+  }
 
   return await executeSqlQuery(query);
 }
