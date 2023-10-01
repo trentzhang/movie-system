@@ -6,10 +6,7 @@ export async function createCommentForMovie(email, movieId, comment, username) {
 
   const statement = `
       INSERT INTO movie_comments (user_email, movie_id, comment, created_time, username)
-      VALUES ('${email}', '${movieId}', '${comment.replace(
-    /'/g,
-    "\\'"
-  )}', '${date}', '${username}');
+      VALUES ('${email}', '${movieId}', '${comment}', '${date}', '${username}');
     `;
   await executeSqlQuery(statement);
 }

@@ -79,7 +79,12 @@ export async function postComment2MovieAPI(req, res) {
     const email = req.body.email;
     const username = req.body.username;
     const comment = req.body.comment;
-    await createCommentForMovie(email, movie_id, comment, username);
+    await createCommentForMovie(
+      email,
+      movie_id,
+      comment.toString().replace(/'/g, "\\'"),
+      username
+    );
     return res.status(200).send({ message: "OK", data: "Added comment!" });
   } catch (error) {
     res.status(500).send({

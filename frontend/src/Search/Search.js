@@ -121,7 +121,7 @@ const Search = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [page]);
+  }, [page, keyword, language, type]);
 
   return (
     <Stack gap={3}>
