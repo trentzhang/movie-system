@@ -3,10 +3,14 @@ import { executeSqlQuery } from "./connect/sql.mjs";
 
 export async function createCommentForMovie(email, movieId, comment, username) {
   const date = moment().format("YYYY-MM-DD HH:mm:ss");
+
   const statement = `
-    INSERT INTO movie_comments (user_email, movie_id, comment, created_time, username)
-    VALUES ('${email}', '${movieId}', '${comment}', '${date}', '${username}');
-  `;
+      INSERT INTO movie_comments (user_email, movie_id, comment, created_time, username)
+      VALUES ('${email}', '${movieId}', '${comment.replace(
+    /'/g,
+    "\\'"
+  )}', '${date}', '${username}');
+    `;
   await executeSqlQuery(statement);
 }
 
