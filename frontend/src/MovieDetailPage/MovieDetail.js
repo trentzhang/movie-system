@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  Col,
-  Container,
-  Image,
-  OverlayTrigger,
-  Row,
-  Stack,
-  Tooltip,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Col, Container, Image, Row, Stack } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { auth } from "../Authentication/Firebase";
 import Header from "../Header/Header";
 import { ListCardGroup } from "../Home/body/ListCardGroup";
 import { backendUrl } from "../settings";
-import { LikeButton } from "./Components/LikeButton/LikeButton";
-
-import { useParams } from "react-router-dom";
-import CommentSection from "./CommentSection";
-import AddToListButton from "./Components/AddToListButton/AddToListButton";
 import { AddMovieToListModal } from "./Components/AddMovieToListModal";
-
+import AddToListButton from "./Components/AddToListButton/AddToListButton";
+import CommentSection from "./Components/CommentSection";
+import { LikeButton } from "./Components/LikeButton/LikeButton";
+import { TheyAlsoLikedTab } from "./Components/TheyAlsoLikedThisMovieTab";
 function MovieDetail() {
   const { movie_Id } = useParams();
   const [movieData, setMovieData] = useState({
@@ -160,11 +149,6 @@ function MovieDetail() {
     }
   }, [showAddToListModal]);
 
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      {props.username} {props.email}
-    </Tooltip>
-  );
   return (
     <Stack gap={3}>
       <Header />
@@ -240,32 +224,14 @@ function MovieDetail() {
           <b>Description:</b>
           <p className="text-break">{movieData.description}</p>
           <b>They also liked this movie:</b>
-          <Card.Text>
-            {movieData.liked_users
-              ? movieData.liked_users.map((value, index) => (
-                  <OverlayTrigger
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={renderTooltip(value)}
-                    key={index}
-                  >
-                    <Link to={`/user/${value.email}`}>
-                      <img
-                        src={genderDefaultAvater(value.gender)}
-                        className="rounded-circle my-avater-img"
-                        alt="Avatar"
-                        width={40}
-                      />
-                    </Link>
-                  </OverlayTrigger>
-                ))
-              : null}
-          </Card.Text>
+          <TheyAlsoLikedTab
+            liked_users={movieData.liked_users}
+          ></TheyAlsoLikedTab>
           <b>Lists you may be interested in:</b>
           <ListCardGroup Lists={movieData.lists} />
           <Stack direction="horizontal" gap={3}></Stack>
           <b>User review</b>
-          {/* <CommentSection movieData={movieData} /> */}
+          <CommentSection movieData={movieData} />
         </Stack>
       </Container>
     </Stack>
@@ -273,11 +239,3 @@ function MovieDetail() {
 }
 
 export default MovieDetail;
-
-export const genderDefaultAvater = (gender) => {
-  if (gender === "male") {
-    return "https://www.w3schools.com/howto/img_avatar.png";
-  } else {
-    return "https://www.w3schools.com/howto/img_avatar2.png";
-  }
-};
