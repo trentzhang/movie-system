@@ -68,43 +68,40 @@ const CommentSection = ({ movieData }) => {
   const [review, setReview] = useState(false);
 
   return (
-    <Stack>
+    <Stack gap={3}>
       {/* create Comment card  */}
+
+      <Card className="p-2 text-center text-dark" onClick={() => setShow(true)}>
+        Add Your Review
+      </Card>
+      <Modal
+        show={show}
+        onHide={() => {
+          setShow(false);
+          console.log("yeeess :>> ", show);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Create Review</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div class="form-group my-3">
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              value={review}
+              onChange={(e) => setReview(e.target.value)}
+              required
+            ></textarea>
+          </div>
+          <Button type="submit" onClick={(e) => AddReview(e)}>
+            Submit
+          </Button>
+        </Modal.Body>
+      </Modal>
+
       <Row xs={1} sm={2} md={3} lg={4} xl={4}>
-        <Col>
-          <Card
-            className="p-2 text-center text-dark"
-            onClick={() => setShow(true)}
-          >
-            Add Your Review
-          </Card>
-          <Modal
-            show={show}
-            onHide={() => {
-              setShow(false);
-              console.log("yeeess :>> ", show);
-            }}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Create Review</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div class="form-group my-3">
-                <textarea
-                  class="form-control"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  value={review}
-                  onChange={(e) => setReview(e.target.value)}
-                  required
-                ></textarea>
-              </div>
-              <Button type="submit" onClick={(e) => AddReview(e)}>
-                Submit
-              </Button>
-            </Modal.Body>
-          </Modal>
-        </Col>
         {/* Comments card*/}
         {movieData.comments
           ? movieData.comments.map((value, index) => (
