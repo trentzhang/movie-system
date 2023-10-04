@@ -1,6 +1,6 @@
 # Movie System Project
 
-Welcome to the Movie System project! This project is the culmination of our efforts in my Art of Web Programming class at University of Illinois at Urbana-Champaign, aimed at creating a comprehensive and efficient movie management system.
+Welcome to the Movie System project! You can access the live deployment of our project [here](http://149.248.8.180:3001/home/). This project is the culmination of our efforts in my Art of Web Programming class at University of Illinois at Urbana-Champaign, aimed at creating a comprehensive and efficient movie management system.
 
 ## Project Background
 
@@ -9,8 +9,6 @@ In our previous project attempts, we encountered numerous bugs and unfinished fe
 ## Key Features
 
 - **CI/CD Development:** We follow Continuous Integration and Continuous Deployment (CI/CD) practices to ensure code quality and deploy updates seamlessly using GitHub Actions.
-
-- **Live Deployment:** You can access the live deployment of our project [here](http://149.248.8.180:3001/home/).
 
 - **Modern JavaScript (ES6):** We adhere to best practices for ES6 JavaScript, ensuring clean and maintainable code.
 
