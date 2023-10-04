@@ -1,11 +1,11 @@
 import { createPool } from "mysql";
-
+import "dotenv/config";
 const pool = createPool({
   connectionLimit: 10,
-  host: "149.248.8.180",
-  user: "root",
-  password: "Zzd12676890?",
-  database: "cs409",
+  host: process.env.MY_SQL_HOST,
+  user: process.env.MY_SQL_USER,
+  password: process.env.MY_SQL_PASSWORD,
+  database: process.env.MY_SQL_DATABASE,
 });
 
 export async function executeSqlQuery(statement, args) {
