@@ -21,7 +21,7 @@ export async function createList(email, name, description) {
 // }
 
 export async function deleteMovieFromList(listId, movieId) {
-  const statement = `DELETE FROM list2movie WHERE movie_id = ${movieId} and list_id = ${listId};`;
+  const statement = `DELETE FROM list2movie WHERE movie_id = '${movieId}' and list_id = ${listId};`;
   await executeSqlQuery(statement);
 }
 

@@ -11,4 +11,5 @@ frontend/output.log
 frontend/src/settings.js
 frontend/build/*
 frontend/src/settings.js
-backend/.env
+*/.env
+
